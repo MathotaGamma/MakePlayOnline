@@ -25,6 +25,6 @@ def gltf():
   return url_for('static',filename="LIFESHAVE/humancubist.gltf")
 
 def thread_func():
-  socketio.run(app,host="0.0.0.0", port="8088")
+  socketio.run(app,host="0.0.0.0", port="8088",allow_unsafe_werkzeug=True)
 thread = threading.Thread(target=thread_func)
 thread.start()
