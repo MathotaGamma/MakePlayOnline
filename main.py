@@ -24,6 +24,20 @@ def Lifeshave_play():
 def gltf():
   return url_for('static',filename="LIFESHAVE/humancubist.gltf")
 
+
+#クライアントとのコネクション確立
+@socketio.on('connect')
+def handle_connect():
+    emit('client_echo',{'msg': 'server connected!'})
+
+
+#クライアントからのメッセージを出力する関数
+@socketio.on('server_echo')
+def handle_server_echo(msg):
+    print('echo: ' + str(msg))
+
+
+
 def thread_func():
   socketio.run(app,host="0.0.0.0", port="8088",allow_unsafe_werkzeug=True)
 thread = threading.Thread(target=thread_func)
