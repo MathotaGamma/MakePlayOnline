@@ -62,6 +62,9 @@
       }
     </script>-->
     <script>
+      document.addEventListener("gesturestart", (e) => {
+        e.preventDefault();
+      });
       var socket = io();
       function getUrlQueries() {
         var queryStr = window.location.search.slice(1);  // 文頭?を除外
