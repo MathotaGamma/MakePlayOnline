@@ -24,6 +24,10 @@ def Lifeshave_play():
 def gltf():
   return url_for('static',filename="LIFESHAVE/humancubist.gltf")
 
+@app.route('/Fighters/play')
+def Fighters_play():
+  return render_template('/Fighters/play.html')
+
 
 #クライアントとのコネクション確立
 @socketio.on('connect')
@@ -35,6 +39,10 @@ def handle_connect():
 @socketio.on('server_echo')
 def handle_server_echo(msg):
     print('echo: ' + str(msg))
+
+@socketio.on('first_fighters')
+def first_fighters(msg):
+  emit('to_first_fighters',msg)
 
 
 
