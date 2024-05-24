@@ -48,6 +48,10 @@ def first_fighters(msg):
 def fighters_state(msg):
   emit('to_fighters_state',msg)
 
+@socketio.on('finish_fighters')
+def finish_fighters(msg):
+  emit('to_finish_fighters',msg)
+
 
 
 def thread_func():
