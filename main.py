@@ -47,6 +47,7 @@ def first_fighters(msg):
 @socketio.on('fighters_state')
 def fighters_state(msg):
   emit('to_fighters_state',msg)
+  print(msg)
 
 @socketio.on('finish_fighters')
 def finish_fighters(msg):
