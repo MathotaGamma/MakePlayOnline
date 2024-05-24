@@ -44,6 +44,10 @@ def handle_server_echo(msg):
 def first_fighters(msg):
   emit('to_first_fighters',msg)
 
+@socketio.on('fighters_state')
+def fighters_state(msg):
+  emit('to_fighters_state',msg)
+
 
 
 def thread_func():
