@@ -51,6 +51,7 @@ def fighters_state(msg):
 @socketio.on('finish_fighters')
 def finish_fighters(msg):
   emit('to_finish_fighters',msg)
+  print(msg)
 
 
 
