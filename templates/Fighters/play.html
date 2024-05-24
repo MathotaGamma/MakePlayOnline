@@ -79,13 +79,13 @@
       let me = '1';
       var rag = 0.1;
       let room = '100'
-      if('me' in Object.keys(query)){
+      if(Object.keys(query).includes('me')){
         me = query['me'];
       }
-      if('rag' in Object.keys(query)){
+      if(Object.keys(query).includes('rag')){
         rag = Number(query['rag']);
       }
-      if('room' in Object.keys(query)){
+      if(Object.keys(query).includes('room')){
         room = query['room'];
       }
 
