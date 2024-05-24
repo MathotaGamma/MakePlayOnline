@@ -32,27 +32,27 @@ def Fighters_play():
 #クライアントとのコネクション確立
 @socketio.on('connect')
 def handle_connect():
-    emit('client_echo',{'msg': 'server connected!'})
+  emit('client_echo',{'msg': 'server connected!'})
 
 
 #クライアントからのメッセージを出力する関数
 @socketio.on('server_echo')
 def handle_server_echo(msg):
-    print('echo: ' + str(msg))
+  print('echo: ' + str(msg))
 
 @socketio.on('first_fighters')
 def first_fighters(msg):
-  emit('to_first_fighters',msg)
+  socketio.emit('to_first_fighters',msg)
 
 @socketio.on('fighters_state')
 def fighters_state(msg):
-  emit('to_fighters_state',msg)
-  print(msg)
+  socketio.emit('to_fighters_state',msg)
+  #print(msg)
 
 @socketio.on('finish_fighters')
 def finish_fighters(msg):
-  emit('to_finish_fighters',msg)
-  print(msg)
+  socketio.emit('to_finish_fighters',msg)
+  #print(msg)
 
 
 
