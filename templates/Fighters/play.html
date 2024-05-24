@@ -1,0 +1,701 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.min.js"></script>
+    <style>
+      *{
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        user-select: none;
+        -webkit-touch-callout:none;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        /*user-select: none;*/
+      }
+      canvas {
+        /*user-select: none;*/
+        display: block;
+      }
+      canvas { 
+        user-select: none; 
+        -webkit-user-select: none; 
+        -moz-user-select: none; 
+      } 
+    </style>
+    <title>Fighters</title>
+  </head>
+  <body>
+    <!--<script>
+      var W0 = window.innerWidth;
+      var H0 = window.innerHeight;
+      var W = W0;
+      var H = H0-100;
+      function setup() {
+        createCanvas(W0, H0);
+      }
+
+      function draw() {
+        background(255);
+        noStroke();
+        fill(220);
+        rect(0,0,W,H);
+        fill(0);
+        circle(100,100,20);
+        fill(c1);
+        circle()
+      }
+
+      function touchStarted() {
+        c1 = 255;
+      }
+    </script>-->
+    <script>
+      var socket = io();
+      function getUrlQueries() {
+        var queryStr = window.location.search.slice(1);  // 文頭?を除外
+        queries = {};
+      
+        // クエリがない場合は空のオブジェクトを返す
+        if (!queryStr) {
+          return queries;
+        }
+  
+        // クエリ文字列を & で分割して処理
+        queryStr.split('&').forEach(function(queryStr) {
+        // = で分割してkey,valueをオブジェクトに格納
+        var queryArr = queryStr.split('=');
+          queries[queryArr[0]] = queryArr[1];
+        });
+  
+        return queries;
+      }
+      let query = getUrlQueries();
+      let me = '1';
+      var rag = 0.1;
+      let room = '100'
+      if('me' in Object.keys(query)){
+        me = query['me'];
+      }
+      if('rag' in Object.keys(query)){
+        rag = Number(query['rag']);
+      }
+      if('room' in Object.keys(query)){
+        room = query['room'];
+      }
+
+      
+      var W0 = window.innerWidth;
+      var H0 = window.innerHeight;
+      var W = W0;
+      var H = H0;
+      const M = Math.min(W,H);
+      const R1 = M/9;
+      var c1 = 220;
+      let x0 = 0;
+      let y0 = 0;
+      let x1 = 0;
+      let y1 = 0;
+      let circle1_x = W/10;
+      let circle1_y = H*9/10;
+      if(me == '2'){
+        circle1_x = W*9/10;
+        circle1_y = H/10;
+        alert('hey');
+      }
+      let l_1 = 1;
+      let v1 = 10;
+      let theta_v1 = Math.PI/30;
+      let three_tf1 = false;
+      let fire1_after = false;
+      let fire1_v = 15.5;
+      let fire1_x = 0;
+      let fire1_y = 0;
+      let fire2_x = 0;
+      let fire2_y = 0;
+      let left1 = false;
+      let right1 = false;
+      let front1 = false;
+      let touch_length1 = 0;
+      let touch_tf = false;
+      let touch2_tf = false;
+      let theta1 = Math.PI/4;
+      if(me == '2'){
+        theta1 = Math.PI*5/4;
+      }
+      let start_time1 = 0;
+      let fire1 = false;
+      let fire1_theta = 0;
+      let go_1 = true;
+      let draw_one_data = {W:W,H:H,fire_x:fire1_x,fire_y:fire1_y};
+      let me_color;
+      if (me == '1'){
+        me_color = [127,0,127];
+      } else if(me == '2'){
+        me_color = [127,127,0];
+      }
+      let draw_two_data = false;
+      let draw_one_data_after = {};
+      let finish_tf = false;
+      let W_define = W;
+      let H_define = H;
+      let touches1;
+      let lose = 0;
+      let lose2 = 0;
+      let lose_k = 0;
+      let fire_after_k = false;
+      
+      let draw_one_data_last = false;
+      let l = 0;
+      let L = 0;
+      let all_state_one = false;
+      let all_state_two = false;
+      let num_tent_one = 0;
+      let num_tent_two = 0;
+      let all_state_one_k = {};
+      let all_state_two_k = {};
+      // ラグを抑えるための時間
+      const deltatime = 150;
+      let invisible_tf = false;
+      let invisible_tf_tf = false;
+      let invisible_W = 0;
+      let invisible_H = 0;
+      let invisible_r = 25;
+      let invisible_interval = 19000+Math.random()*2000;
+      let invisible_play = false;
+      let invisible_two = false;
+      let text_text = '';
+
+      /*let a = Date.now();
+      setTimeout(function(){
+        alert(Date.now()-a);
+      },1000);*/
+      alert(me);
+      alert('rag:'+String(rag));
+
+      try {
+      socket.on('connect', function() { // 初期化時に呼ばれるコールバック
+        go_1 = true;
+        socket.emit('first_fighters',{data:me,room:room});
+
+        socket.on('to_first_fighters', function(data) { // pongが帰ってきたら呼ばれるコールバック
+          //t = new Date();
+          //alert(msg.cont != 'undefined');
+          if (String(data.room) != 'null' && String(data.room) != 'undefined'){
+            alert(data.room);
+            //document.getElementById("in").innerHTML = msg.cont;
+          };
+        });
+          //ping();
+        socket.on('to_fighters_state', function(data_state){
+          if ('text' in data_state && data_state.text != '') {
+            text_text = data_state.text;
+          }
+          if ('text' in data_state && data_state.text == 'None'){
+            text_text = '';
+          }
+          if (data_state.me != me){
+            lose2 = data_state.lose;
+          }
+          if (rag == 'True') {
+            if ('invisible' in data_state){
+              if(data_state.invisible == 'True'){
+                invisible_tf = true;
+                invisible_W = data_state.invisible_W;
+                invisible_H = data_state.invisible_H;
+                invisible_r = data_state.invisible_r;
+              } else {
+                invisible_tf = false;
+                invisible_tf_tf = false;
+              }
+            }
+            if ('invisible_me' in data_state && data_state.me != me){
+              if (data_state.invisible_me == 'True'){
+                invisible_two = true;
+              } else {
+                invisible_two = false;
+              }
+            }
+            if (data_state.me == me){
+              if (all_state_one == false){
+                //alert('first');
+                all_state_one = {};
+              }
+              all_state_one[data_state.time] = data_state;
+              //alert(Object.keys(all_state_one));
+            } else {
+              if (all_state_two == false){
+                //alert('first');
+                all_state_two = {};
+              }
+              //draw_one_data_last = data_state;
+              all_state_two[data_state.time] = data_state;
+            //  alert(all_state_two);
+            }
+          } else if (me == '1' && data_state.me == '2') {
+            //alert('hey');
+            
+            draw_two_data = data_state;
+            if (Number(draw_two_data.W) != W_define){
+              createCanvas(Math.min(Number(draw_two_data.W),W),Math.min(Number(draw_two_data.H),H));
+              W = Number(draw_two_data.W);
+              H = Number(draw_two_data.H);
+              M = Math.min(W,H);
+              R1 = M/10;
+              W_define = W;
+              
+            }
+            //fire2_x = data_state1.fire_x;
+            //fire2_y = data_state1.fire_y;
+          } else if (me == '2' && data_state.me == '1') { // player以外
+            draw_two_data = data_state;
+            if (Number(draw_two_data.W) != W_define){
+              //createCanvas(Math.min(Number(draw_two_data.W),W),Math.min(Number(draw_two_data.H),H));
+              W = Number(draw_two_data.W);
+              H = Number(draw_two_data.H);
+              M = Math.min(W,H);
+              R1 = M/10;
+              W_define = W;
+            }
+            //circle1_x = 
+          }
+        });
+        /*socket.on('to_fighters_two_state', function(data_state2){
+          
+          if (me == '1') {
+            
+            //fire2_x = data_state2.fire_x;
+            //fire2_y = data_state2.fire_y;
+          } else if (me != '2') { // player以外
+
+          }
+        });*/
+        socket.on('to_finish_fighters',function(data_finish){
+          if (data_finish.who == me) {
+            lose = lose + 1;
+          } else {
+            lose2 = lose2 + 1;
+          }
+          fire_after_k = true;
+          alert(data_finish.who+':Lose!');
+          if (me == '1'){
+            circle1_x = W/10;
+            circle1_y = H*9/10;
+          } else if (me == '2'){
+            circle1_x = 9*W/10;
+            circle1_y = H/10;
+          }
+          go_1 = true;
+        })
+      });
+
+      socket.on('disconnect', function() { // 退出時に呼ばれるコールバック
+        //socket.on('to_room_enter',function(msg) {
+          //enter_list = msg.msg;
+        //});
+        socket.emit('disconnect_fighters',{data:'leave'});
+      });
+
+      
+      window.addEventListener('beforeunload', function(event){
+        event.preventDefault();
+        event.returnValue = 'Check';
+        //alert('hey')
+      });
+
+      } catch (error) {
+        alert('socket::'+error);
+      }
+
+      /*socket.on('disconnect',function () {
+        alert('hey');
+        socket.emit('disconnect_fighters',{data:me});
+      });*/
+      /*socket.on('disconnect', function() { // 退出時に呼ばれるコールバック
+        //socket.on('to_room_enter',function(msg) {
+          //enter_list = msg.msg;
+        //});
+        socket.emit('disconnect',{data:'leave'});
+      });*/
+      //socket.on('disconnect', function() { // 退出時に呼ばれるコールバック
+
+      
+      function setup() {
+        createCanvas(W0,H0);
+        frameRate(45);
+      }
+
+      //前、左右を決めてる関数
+      function touch_event() {
+        
+        left1 = false;
+        right1 = false;
+        front1 = false;
+
+        //v1 = 10;
+        
+        //var fire1_x = fire1_x;
+        // 棒が飛んでいる時
+        if (fire1 == false) {
+          fire1_theta = theta1;
+          fire1_x = circle1_x;
+          fire1_y = circle1_y;
+        } else if (fire1_after == false) {
+          fire1_after = true;
+          go_1 = true;
+        }
+        if (fire1_after == true) {
+          if (fire1_x >= W || fire1_x <= 0 || fire1_y <= 0 || fire1_y >= H || fire_after_k){
+            fire1_after = false;
+            fire_after_k = false;
+            fire1 = false;
+          }
+          fire1_x += fire1_v*Math.cos(fire1_theta);
+          fire1_y -= fire1_v*Math.sin(fire1_theta);
+          //fire1_theta = theta1;
+          go_1 = true;
+        }
+
+        if (touch_length1 >= 1) {
+          if (x0 <= W/2){
+            left1 = true;
+            //go_1 = true;
+          } else {
+            right1 = true;
+            //go_1 = true;
+          }
+        }
+
+        // 二本指の時
+        if (2 <= touch_length1){
+          if (x1 <= W/2){
+            if (right1 == true) {
+              front1 = true;
+              right1 = false;
+            }
+          } else {
+            if (left1 == true) {
+              front1 = true;
+              left1 = false;
+            }
+          }
+        }
+        //background(255);
+        if (3 == touch_length1){
+          //alert(three_tf1);
+          if (three_tf1 == false && (touches1[2].x-draw_two_data.circle_x)**2+(touches1[2].y-draw_two_data.circle_y)**2 > (draw_one_data.l + draw_two_data.R + 30)**2){
+            three_tf1 = true;
+            //alert(three_tf1);
+            warp();
+          }
+        } else {
+          
+        }
+        // 右
+        if (right1 == true) {
+          theta1 -= theta_v1;
+          go_1 = true;
+        }
+
+        // 左
+        if (left1 == true) {
+          theta1 += theta_v1;
+          go_1 = true;
+        }
+
+        // 前
+        if (front1 == true) {
+          circle1_x += v1*Math.cos(theta1);
+          circle1_y -= v1*Math.sin(theta1);
+          if (circle1_y <= 0 || circle1_y >= H){
+            circle1_y += v1*Math.sin(theta1);
+          }
+          if (circle1_x <= 0 || circle1_x >= W){
+            circle1_x -= v1*Math.cos(theta1);
+          }
+          go_1 = true;
+        }
+        
+      }
+
+      // 描画
+      function draw() {
+
+        // 全体の背景色
+        background(255);
+
+        // 前左右を決めてる関数を呼び出す。
+        touch_event();
+
+        // 背景の設定
+        noStroke();
+        fill(220);
+        rect(0,0,W,H);
+        fill(0);
+        textSize(50);
+        text(text_text,100,100);
+        // fire1_x = 1;
+        
+        
+        
+        draw_one_data = {time:String(Date.now()+deltatime),me:me,W:W,H:H,circle_x:circle1_x,circle_y:circle1_y,l:l_1,fire_x:fire1_x,fire_y:fire1_y,fire_theta:fire1_theta,fire_v:fire1_v,theta:theta1,R:R1,color:me_color,lose:lose};
+        if (invisible_tf_tf){
+          draw_one_data['invisible'] = 'False';
+        }
+        if(invisible_play) {
+          draw_one_data['invisible_me'] = 'True';
+          draw_one_data['text'] = me+':Invisible';
+        } else {
+          draw_one_data['invisible_me'] = 'False';
+          draw_one_data['text'] = 'None';
+        }
+        
+        //go_1 = true;
+        if (go_1) {
+          if (me == '1') {
+            socket.emit('fighters_state',draw_one_data);
+            
+          } else if (me == '2') {
+            socket.emit('fighters_state',draw_one_data);
+            
+          }
+          go_1 = false;
+        }
+        //draw_one_data = 2;
+        //draw_two_data = 3;
+        
+        //alert(Object.entries(draw_one_data));
+       
+      
+        lose_k = lose;
+        try {
+          if (rag == 'True'){
+            //alert(all_state_one);
+            if (all_state_one != false){
+              Object.keys(all_state_one).forEach(function(k) {
+                if (Number(k) <= Date.now()){
+                  if (Number(k) >= num_tent_one) {
+                    num_tent_one = Number(k);
+                    all_state_one_k = all_state_one[k];
+                  }
+                 
+                  delete all_state_one[k];
+                  //alert(k+'::'+String(Object.keys(all_state_one)));
+                }
+              });
+              if(all_state_one_k != {}){
+                draw_player(1,all_state_one_k);
+              } else {
+                alert('None draw');
+                /*if (touch_length1 == 4){
+                  alert(Object.keys(all_state_one_k));
+                }*/
+              }
+
+              //draw_player(1,draw_one_data_last);
+            } else {
+              //draw_player(1,draw_one_data);
+              //alert('Exit');
+            }
+          } else {
+            draw_player(1,draw_one_data);
+          }
+        } catch (error) {
+          alert('1::'+error+'::'+all_state_one_k)
+        }
+
+        
+
+        // 相手の描画
+        if (invisible_two == false){
+          try {
+            //draw_player(1,draw_one_data);
+            if ((draw_two_data != false && rag != 'True') || (all_state_two != {} && rag == 'True')){
+              lose_k = lose2;
+              if (rag == 'True'){
+                if (all_state_two != false){
+                  //alert(all_state_two);
+                  Object.keys(all_state_two).forEach(function(k2) {
+                    if (Number(k2) <= Date.now()){
+                      if (Number(k2) >= num_tent_two){
+                        num_tent_two = Number(k2);
+                        all_state_two_k = all_state_two[k2];
+                      }
+                      draw_two_data = all_state_two_k;
+                      //num_tent_two = Math.max(Number(k2),num_tent_two);
+
+
+
+                      delete all_state_two[k2];
+
+                    }
+                  });
+                  if(all_state_two_k != {}){
+                    draw_player(2,all_state_two_k);
+                  }
+                }
+              } else {
+                draw_player(2,draw_two_data);
+              }
+              //alert(draw_two_data);
+              //text()
+            }
+          } catch (error){
+            alert('2::'+error+'::'+Object.keys(all_state_two_k));
+          }
+        }
+        try {
+          
+          if ((draw_two_data != false && rag != 'True') || (all_state_two != {} && rag == 'True')){
+            l = ((draw_two_data.fire_x-draw_one_data.circle_x)**2 + (draw_two_data.fire_y-draw_one_data.circle_y)**2)**(1/2)
+            L = ((draw_two_data.fire_x+(draw_two_data.l+draw_two_data.R)*Math.cos(draw_two_data.fire_theta)-draw_one_data.circle_x)**2+(draw_two_data.fire_y-(draw_two_data.l+draw_two_data.R)*Math.sin(draw_two_data.fire_theta)-draw_one_data.circle_y)**2)**(1/2)
+            if (1/2*draw_one_data.R >= l || 1/2*draw_one_data.R >= L){
+              //alert('Finish!');
+              if (me == '1'){
+                circle1_x = W/10;
+                circle1_y = H*9/10;
+              } else if (me == '2'){
+                circle1_x = 9*W/10;
+                circle1_y = H/10;
+              }
+              if (finish_tf == false){
+                socket.emit('finish_fighters',{who:me});
+                finish_tf = true;
+                setTimeout(function(){
+                  finish_tf = false;
+                },1000);
+              }
+            }
+          }
+        } catch(error) {
+          alert('out::'+error);
+        }
+      }
+
+      function draw_player(Who,draw_data) {
+        // player1の棒(飛ばしている時も)
+        
+        
+        strokeWeight(W/170);
+        stroke(0);
+        //line(100,0,100,100);
+
+        line(draw_data.fire_x,draw_data.fire_y,draw_data.fire_x+(draw_data.l+draw_data.R)*Math.cos(draw_data.fire_theta),draw_data.fire_y-(draw_data.l+draw_data.R)*Math.sin(draw_data.fire_theta));
+
+
+        strokeWeight(5);
+        point(draw_data.circle_x+(draw_data.l+draw_data.R)*Math.cos(draw_data.theta),draw_data.circle_y-(draw_data.l+draw_data.R)*Math.sin(draw_data.theta));
+
+
+        // player1の円
+        noStroke();
+        fill(draw_data.color);
+        circle(draw_data.circle_x,draw_data.circle_y,draw_data.R);
+        if(Who == 1 && invisible_tf){
+          //alert(draw_data.invisible);
+          if (invisible_tf){
+            fill(100);
+            circle(invisible_W,invisible_H,invisible_r);
+            if (1/4*(invisible_r+draw_data.R)**2 >= (draw_data.circle_x-invisible_W)**2+(draw_data.circle_y-invisible_H)**2){
+              go_1 = true;
+              if (invisible_tf_tf == false){
+                invisible_play = true;
+                setTimeout(function(){
+                  invisible_play = false;
+                  //alert('invisible');
+                  go_1 = true;
+                },3000);
+              }
+              invisible_tf_tf = true;
+            
+            }
+          }
+        }
+        fill(draw_data.color);
+        //text(fire1_after,100,100)
+        textSize(W/30);
+
+
+        if (Who == 1){
+          //alert(draw_data.circle_x);
+
+          text(String(lose),draw_data.circle_x,draw_data.circle_y-draw_data.R-10,50,50);
+        } else if (Who == 2) {
+          //alert(lose2);
+          text(String(lose2),draw_data.circle_x,draw_data.circle_y-draw_data.R-10);
+          
+        }
+        //circle(l-Number(draw_data.R));
+        
+      }
+      
+      // touchした時
+      function touchStarted() {
+        touches1 = touches;
+        x0 = touches[0].x;
+        y0 = touches[0].y;
+        
+        
+        touch_length1 = touches.length;
+        if (2 <= touch_length1) {
+          x1 = touches[1].x;
+          y1 = touches[1].y;
+        }
+        touch_tf1 = true;
+        start_time1 = Date.now();
+      }
+
+      // touchを修了した時
+      function touchEnded() {
+        //touches1 = touches;
+        if (Date.now() - start_time1 <= 200) {
+          if (touch_length1 == 2){
+            fire1 = true;
+          }
+        }
+        touch_length1 = touches.length;
+        touch_tf1 = false;
+        
+      }
+      function warp(){
+        //setTimeout(function() {
+          //three_tf1 = false;
+        if ((touches1[2].x-draw_two_data.circle_x)**2+(touches1[2].y-draw_two_data.circle_y)**2 > (draw_one_data.l + draw_two_data.R + 30)**2){
+          circle1_x = touches1[2].x;
+          circle1_y = touches1[2].y;
+
+          theta_v1 = Math.PI/20;
+          v1 = 2;
+          setTimeout(function(){
+            theta_v1 = Math.PI/30
+            setTimeout(function(){
+              three_tf1 = false;
+              v1 = 7;
+            },2000);
+          },1000);
+        }
+          
+        
+      }
+      if(me == '1'){
+        setInterval(function(){
+          invisible_W = Math.floor(Math.random()*W);
+          invisible_H = Math.floor(Math.random()*H);
+          invisible_interval = 19000+Math.random()*2000;
+          draw_one_data = {time:String(Date.now()+deltatime),me:me,W:W,H:H,circle_x:circle1_x,circle_y:circle1_y,l:l_1,fire_x:fire1_x,fire_y:fire1_y,fire_theta:fire1_theta,fire_v:fire1_v,theta:theta1,R:R1,color:me_color,invisible:'True',invisible_W:invisible_W,invisible_H:invisible_H,invisible_r:invisible_r};
+          socket.emit('fighters_state',draw_one_data);
+          invisible_item = true;
+          //alert(Object.keys(all_state_one));
+        },invisible_interval);
+      }
+      
+
+
+    </script>
+  </body>
+</html>
