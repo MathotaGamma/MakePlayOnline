@@ -83,7 +83,7 @@
         me = query['me'];
       }
       if(Object.keys(query).includes('rag')){
-        rag = Number(query['rag']);
+        rag = query['rag'];
       }
       if(Object.keys(query).includes('room')){
         room = query['room'];
@@ -186,6 +186,7 @@
         socket.on('to_first_fighters', function(data) { // pongが帰ってきたら呼ばれるコールバック
           //t = new Date();
           //alert(msg.cont != 'undefined');
+          //alert(data)
           if (String(data.room) != 'null' && String(data.room) != 'undefined'){
             alert(data.room);
             //document.getElementById("in").innerHTML = msg.cont;
@@ -193,6 +194,7 @@
         });
           //ping();
         socket.on('to_fighters_state', function(data_state){
+          alert(data_state)
           if ('text' in data_state && data_state.text != '') {
             text_text = data_state.text;
           }
