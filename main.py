@@ -11,7 +11,7 @@ socketio = SocketIO(app)
 
 
 @app.errorhandler(Exception)
-def handle_all_error(e: Exception):
+def handle_all_error(e):
   #print("error:", e)
   return e
 
