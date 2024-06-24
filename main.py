@@ -28,6 +28,14 @@ def gltf():
 def Fighters_play():
   return render_template('/Fighters/play.html')
 
+@app.route('/Battle/homepage')
+def Battle_homepage():
+  return render_template('/Battle/homepage.html')
+
+@app.route('/Battle/home.html')
+def Battle_home():
+  return render_template('/Battle/home.html')
+
 
 #クライアントとのコネクション確立
 @socketio.on('connect')
