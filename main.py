@@ -32,7 +32,7 @@ def Fighters_play():
 def Battle_homepage():
   return render_template('/Battle/homepage.html')
 
-@app.route('/Battle/home.html')
+@app.route('/Battle/home')
 def Battle_home():
   return render_template('/Battle/home.html')
 
