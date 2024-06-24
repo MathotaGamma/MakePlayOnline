@@ -9,8 +9,8 @@
     <div id="Text"></div>
     <script>
       function logout(){
-        localStorage.setItem('name',null);
-        localStorage.setItem('pass',null);
+        localStorage.removeItem('name');
+        localStorage.removeItem('pass');
         window.location.href="./homepage";
       }
       let name = localStorage.getItem('name');
