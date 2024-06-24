@@ -10,6 +10,10 @@ app.config['SECRET_KEY'] = 'Gamma'
 socketio = SocketIO(app)
 
 
+@app.errorhandler(Exception)
+def handle_all_error(e: Exception):
+  #print("error:", e)
+  return e
 
 
 @app.route('/')
