@@ -8,6 +8,9 @@
       <input type="text" name="name" id="name" placeholder="NAME" />
       <input type="number" name="pass" id="pass" placeholder="PassWord(Number)" />
       <script>
+        if(localStorage.getItem('name') != null && localStorage.getItem('pass') != null) {
+          window.location.href="./home";
+        }
         function OK(){
           let name = document.getElementById('name').value;
           let pass = String(document.getElementById('pass').value);
