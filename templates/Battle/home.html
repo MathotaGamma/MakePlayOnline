@@ -5,7 +5,17 @@
     <title>Online:Battle:home</title>
   </head>
   <body>
+    <input type="submit" onclick="logout();" value="Logout" />
     <script>
+      function logout(){
+        localStorage.setItem('name',null);
+        localStorage.setItem('pass',null);
+      }
+      let name = localStorage.getItem('name');
+      let pass = localStorage.getItem('pass')
+      if(name == null || pass == null){
+        window.location.href="./homepage";
+      }
       alert(localStorage.getItem('name'));
       alert(localStorage.getItem('pass'));
     </script>
