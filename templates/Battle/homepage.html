@@ -5,20 +5,20 @@
     <title>Online:Battle:Home</title>
   </head>
   <body>
-    <button>Hey</button>
       <input type="text" name="name" id="name" placeholder="NAME" />
       <input type="number" name="pass" id="pass" placeholder="PassWord(Number)" />
-      <input type="submit" onclick="OK();" value="決定" />
-    <script>
-      function OK(){
-        let name = document.getElementById('name');
-        let pass = document.getElementById('pass');
-        if(name != "" && pass != ""){
-          localStorage.setItem('name',name);
-          localStorage.setItem('pass',pass);
-          window.location.href="./home";
+      <script>
+        function OK(){
+          let name = document.getElementById('name');
+          let pass = document.getElementById('pass');
+          if(name != "" && pass != ""){
+            localStorage.setItem('name',name);
+            localStorage.setItem('pass',pass);
+            window.location.href="./home";
+          }
         }
-      }
-    </script>
+      </script>
+      <input type="submit" onclick="OK();" value="決定" />
+    
   </body>
 </html>
