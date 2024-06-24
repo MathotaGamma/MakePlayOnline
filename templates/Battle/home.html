@@ -16,10 +16,24 @@
   <body>
     <input type="submit" onclick="logout();" value="Logout" />
     <div id="Text"></div>
+    <label>Room番号(3桁)</label><input type="num" id="room" value="100" min="100" max="999" placeholder="ROOM" />
+    <input type="button" value="決定" onclick="Click();" />
+    <span id="span"></span>
+    <script>
+      function Click(){
+        let room = document.getElementById('room').value;
+        if(room != null) {
+          window.localStorage.setItem('room',room);
+        } else {
+          document.getElementById('span').innerText = "100~999までの数値を入れてください。";
+        }
+      }
+    </script>
+    
     <div>
       <ul>
         <li><a href="./touch/home">連打対決</a></li>
-        <li>ピンボール</li>
+        <li><a href="./pin/home">ピンボール</a></li>
       </ul>
     </div>
     <script>
