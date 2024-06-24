@@ -11,6 +11,7 @@
       function logout(){
         localStorage.setItem('name',null);
         localStorage.setItem('pass',null);
+        window.location.href="./homepage";
       }
       let name = localStorage.getItem('name');
       let pass = localStorage.getItem('pass')
