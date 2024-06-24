@@ -7,6 +7,8 @@
   <body>
       <input type="text" name="name" id="name" placeholder="NAME" />
       <input type="number" name="pass" id="pass" placeholder="PassWord(Number)" />
+      <br>
+      <div id="ErrorText"></div>
       <script>
         if(localStorage.getItem('name') != null && localStorage.getItem('pass') != null) {
           window.location.href="./home";
@@ -18,6 +20,8 @@
             localStorage.setItem('name',name);
             localStorage.setItem('pass',pass);
             window.location.href="./home";
+          } else {
+            document.getElementById('ErrorText') = "有効な値を入力してください。";
           }
         }
       </script>
