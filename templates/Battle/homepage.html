@@ -6,10 +6,19 @@
   </head>
   <body>
     <button>Hey</button>
-    <form action="./home" method="post">
-      <input type="text" name="name" value="name" placeholder="NAME" />
-      <input type="number" name="pass" value="pass" placeholder="PassWord(Number)" />
-      <input type="submit" href="./home" value="決定" />
-    </form>
+      <input type="text" name="name" id="name" placeholder="NAME" />
+      <input type="number" name="pass" id="pass" placeholder="PassWord(Number)" />
+      <input type="submit" onclick="OK();" value="決定" />
+    <script>
+      function OK(){
+        let name = document.getElementById('name');
+        let pass = document.getElementById('pass');
+        if(name != "" && pass != ""){
+          localStorage.setItem('name',name);
+          localStorage.setItem('pass',pass);
+          window.location.href="./home";
+        }
+      }
+    </script>
   </body>
 </html>
