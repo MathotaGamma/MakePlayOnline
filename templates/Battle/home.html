@@ -6,6 +6,7 @@
   </head>
   <body>
     <input type="submit" onclick="logout();" value="Logout" />
+    <div id="Text"></div>
     <script>
       function logout(){
         localStorage.setItem('name',null);
@@ -16,8 +17,10 @@
       if(name == null || pass == null){
         window.location.href="./homepage";
       }
+      document.getElementById('Text').innerText = name+"さんこんにちは！";
       alert(localStorage.getItem('name'));
       alert(localStorage.getItem('pass'));
     </script>
+    
   </body>
 </html>
