@@ -16,6 +16,19 @@
       let room = localStorage.getItem('room');
       if(room == null) window.location.href="./home";
       document.getElementById('text').innerText = 'Room番号:'+room;
+
+      //socketオブジェクト生成
+      let socket = io();
+      //サーバとのコネクション確立
+      /*socket.on('connect', function() {
+        socket.emit('server_echo', {data: 'client connected!'});
+      });*/
+
+
+      //サーバからのメッセージを出力する関数
+      socket.on('cs_room_connect', function(data) {
+        alert("echo: " + data.msg);
+      });
     </script>
   </body>
 </html>
