@@ -43,6 +43,10 @@ def Battle_home_post():
 def Battle_home():
   return render_template('/Battle/home.html')
 
+@app.route('/Battle/stay')
+def Battle_stay():
+  return render_template('/Battle/stay.html')
+
 @app.route('/Battle/Touch/home')
 def Battle_Touch_home():
   return render_template('/Battle/Touch/home.html')
