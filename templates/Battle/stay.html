@@ -56,7 +56,7 @@
       });
       
       setInterval({
-        #生存信号を送信
+        //生存信号を送信
         socket.emit('cs_room_alive',{time:Date.now()+1000,room:room,who:name});
 
         name_list_text = "";
