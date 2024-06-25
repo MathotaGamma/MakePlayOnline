@@ -27,12 +27,12 @@
       let socket = io();
       //サーバとのコネクション確立
       socket.on('connect', function() {
-        socket.emit('sc_room_connect', {msg: 'client connected!',room:room,who:name});
+        socket.emit('cs_room_connect', {msg: 'client connected!',room:room,who:name});
       });
 
 
       //サーバからのメッセージを出力する関数
-      socket.on('cs_room_connect', function(data) {
+      socket.on('sc_room_connect', function(data) {
         if(room == data.room){
           if(data.who == name) {
             alert('Server Connected!');
@@ -43,7 +43,7 @@
         }
       });
 
-      socket.on('cs_room_alive',function(data){
+      socket.on('sc_room_alive',function(data){
         if(data.room == room){
           if(Object.keys(TimeData).includes(data.who)){
             if(parseInt(data.time) > TimeData[data.who]){
@@ -57,7 +57,7 @@
       
       setInterval({
         #生存信号を送信
-        socket.emit('sc_room_alive',{time:Date.now()+1000,room:room,who:name});
+        socket.emit('cs_room_alive',{time:Date.now()+1000,room:room,who:name});
 
         name_list_text = "";
         for(let k of Object.keys(TimeData)){
