@@ -8,7 +8,7 @@
     <title>MPGinW:Battle/Stay</title>
   </head>
   <body>
-    ver:1.00.01
+    ver:1.00.02
     <div id="text">Room番号:</div>
     <div id="name_list"></div>
     <ul>
@@ -16,6 +16,7 @@
       <li><a href="./Pinball/home">ピンボール</a></li>
     </ul>
     <script>
+      addEventListener("error", (event) => {alert(event});
       let room = localStorage.getItem('room');
       let name = localStorage.getItem('name');
       let name_list_text = "";
