@@ -7,9 +7,15 @@
     <title>MPGinW:Battle/Stay</title>
   </head>
   <body>
+    <div id="text">Room番号:</div>
     <ul>
       <li><a href="./Touch/home">連打</a></li>
       <li><a href="./Pinball/home">ピンボール</a></li>
     </ul>
+    <script>
+      let room = localStorage.getItem('room');
+      if(room == null) window.location.href="./home";
+      document.getElementById('text').innerText = 'Room番号:'+room;
+    </script>
   </body>
 </html>
