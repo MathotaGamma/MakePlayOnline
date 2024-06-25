@@ -59,19 +59,19 @@ def Battle_Pinball_home():
 #クライアントとのコネクション確立
 @socketio.on('connect')
 def handle_connect():
-  emit('client_echo',{'msg': 'server connected!'})
+  socketio.emit('client_echo',{'msg': 'server connected!'})
 
 
 #Battle/stayのconnect時
 @socketio.on('cs_room_connect')
 def cs_room_connect(data):
-  emit('sc_room_connect',data)
+  socketio.emit('sc_room_connect',data)
 
 
 #Battle/stayの生存確認用
 @socketio.on('cs_room_alive')
 def cs_room_alive(data):
-  emit('sc_room_alive',data)
+  socketio.emit('sc_room_alive',data)
 
 
 #クライアントからのメッセージを出力する関数
