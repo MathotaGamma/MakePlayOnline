@@ -62,6 +62,11 @@ def handle_connect():
   emit('client_echo',{'msg': 'server connected!'})
 
 
+@socketio.on('sc_room_connect')
+def sc_room_connect(data):
+  emit('cs_room_connect',data)
+
+
 #クライアントからのメッセージを出力する関数
 @socketio.on('server_echo')
 def handle_server_echo(msg):
