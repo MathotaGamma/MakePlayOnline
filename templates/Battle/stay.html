@@ -64,7 +64,7 @@
         name_list_text = "";
         for(let k of Object.keys(TimeData)){
           if(TimeData[k] >= Data.now()){
-            name_list_text += "<br>+k;
+            name_list_text += "<br>"+k;
           } else {
             delete TimeData[k];
           }
