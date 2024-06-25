@@ -9,27 +9,66 @@
   </head>
   <body>
     <div id="text">Room番号:</div>
+    <div id="name_list"></div>
     <ul>
       <li><a href="./Touch/home">連打</a></li>
       <li><a href="./Pinball/home">ピンボール</a></li>
     </ul>
     <script>
       let room = localStorage.getItem('room');
-      if(room == null) window.location.href="./home";
+      let name = localStorage.getItem('name');
+      let name_list_text = "";
+      #{name:◯,time:△}
+      let TimeData = {};
+      if(room == null || name == null) window.location.href="./home";
       document.getElementById('text').innerText = 'Room番号:'+room;
 
       //socketオブジェクト生成
       let socket = io();
       //サーバとのコネクション確立
       socket.on('connect', function() {
-        socket.emit('sc_room_connect', {msg: 'client connected!'});
+        socket.emit('sc_room_connect', {msg: 'client connected!',room:room,who:name});
       });
 
 
       //サーバからのメッセージを出力する関数
       socket.on('cs_room_connect', function(data) {
-        alert("echo: " + data.msg);
+        if(room == data.room){
+          if(data.who == name) {
+            alert('Server Connected!');
+          } else {
+            //alert(data.who+' Joined');
+            console.log(data);
+          }
+        }
       });
+
+      socket.on('cs_room_alive',function(data){
+        if(data.room == room){
+          if(Object.keys(TimeData).includes(data.who)){
+            if(parseInt(data.time) > TimeData[data.who]){
+              TimeData[data.who] = parseInt(data.time);
+            }
+          } else {
+            TimeData[data.who] = parseInt(data.time);
+          }
+        }
+      });
+      
+      setInterval({
+        #生存信号を送信
+        socket.emit('sc_room_alive',{time:Date.now()+1000,room:room,who:name});
+
+        name_list_text = "";
+        for(let k of Object.keys(TimeData)){
+          if(TimeData[k] >= Data.now()){
+            name_list_text += "<br>+k;
+          } else {
+            delete TimeData[k];
+          }
+        }
+        document.getElementById('name_list').innerText = "参加者:"+name_list_text;
+      },500);
     </script>
   </body>
 </html>
