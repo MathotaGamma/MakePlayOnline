@@ -21,9 +21,9 @@
       //socketオブジェクト生成
       let socket = io();
       //サーバとのコネクション確立
-      /*socket.on('connect', function() {
-        socket.emit('server_echo', {data: 'client connected!'});
-      });*/
+      socket.on('connect', function() {
+        socket.emit('sc_room_connect', {msg: 'client connected!'});
+      });
 
 
       //サーバからのメッセージを出力する関数
