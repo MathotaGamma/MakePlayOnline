@@ -34,7 +34,7 @@
 
 
       //サーバからのメッセージを出力する関数
-      /*socket.on('sc_room_connect', function(data) {
+      socket.on('sc_room_connect', function(data) {
         if(room == data.room){
           if(data.who == name) {
             alert('Server Connected!');
@@ -45,7 +45,7 @@
         }
       });
 
-      socket.on('sc_room_alive',function(data){
+      /*socket.on('sc_room_alive',function(data){
         if(data.room == room){
           if(Object.keys(TimeData).includes(data.who)){
             if(parseInt(data.time) > TimeData[data.who]){
