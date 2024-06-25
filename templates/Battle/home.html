@@ -18,11 +18,11 @@
     
     <div id="Text"></div>
     
-    <label>Room番号(3桁の数字)</label>
-    <input type="num" id="room" value="100" min="100" max="999" placeholder="ROOM" />
+    <label>Room番号(4桁の数字)</label>
+    <input type="num" id="room" value="1111" min="1000" max="9999" placeholder="ROOM" />
     <input type="button" value="決定" onclick="Click();" />
     
-    <div id="room_num">100</div>
+    <div id="room_num">1111</div>
 
     <span id="span"></span>
     
@@ -31,21 +31,21 @@
         document.getElementById('room').value = localStorage.getItem('room');
         document.getElementById('room_num').innerText = localStorage.getItem('room');
       } else {
-        localStorage.setItem('room','100');
+        localStorage.setItem('room','1111');
       }
       function Click(){
         let room = document.getElementById('room').value;
         let room_num = parseInt(room);
         if(room != null && !Number.isNaN(room_num)) {
-          if(100 <= room_num && room_num <= 999){
+          if(1000 <= room_num && room_num <= 9999){
             localStorage.setItem('room',String(room_num));
             document.getElementById('room_num').innerText = String(room_num);
-            document.getElementById('span').innerText = "";
+            document.getElementById('span').innerText = "Room番号を保存しました。";
           } else {
-            document.getElementById('span').innerText = "100~999までの数値を入れてください。";
+            document.getElementById('span').innerText = "1000~9999までの数値を入れてください。";
           }
         } else {
-          document.getElementById('span').innerText = "100~999までの数値を入れてください。";
+          document.getElementById('span').innerText = "1000~9999までの数値を入れてください。";
         }
       }
     </script>
