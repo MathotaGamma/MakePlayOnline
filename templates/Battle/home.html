@@ -38,6 +38,9 @@
           if(100 <= room_num && room_num <= 999){
             localStorage.setItem('room',String(room_num));
             document.getElementById('room_num').innerText = String(room_num);
+            document.getElementById('span').innerText = "";
+          } else {
+            document.getElementById('span').innerText = "100~999までの数値を入れてください。";
           }
         } else {
           document.getElementById('span').innerText = "100~999までの数値を入れてください。";
