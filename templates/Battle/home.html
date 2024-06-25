@@ -17,11 +17,15 @@
     <input type="submit" onclick="logout();" value="Logout" />
     <div id="Text"></div>
     <label>Room番号(3桁の数字)</label><input type="num" id="room" value="100" min="100" max="999" placeholder="ROOM" />
+    <div id="room_num">100</div>
     <input type="button" value="決定" onclick="Click();" />
     <span id="span"></span>
     <script>
       if(localStorage.getItem('room') != null){
         document.getElementById('room').value = localStorage.getItem('room');
+        document.getElementById('room_num').innerText = localStorage.getItem('room');
+      } else {
+        localStorage.setItem('room','100');
       }
       function Click(){
         let room = document.getElementById('room').value;
