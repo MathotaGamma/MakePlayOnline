@@ -20,10 +20,13 @@
     <input type="button" value="決定" onclick="Click();" />
     <span id="span"></span>
     <script>
+      if(localStorage.getItem('room') != null){
+        document.getElementById('room').value = localStorage.getItem('room');
+      }
       function Click(){
         let room = document.getElementById('room').value;
         if(room != null) {
-          window.localStorage.setItem('room',room);
+          localStorage.setItem('room',room);
         } else {
           document.getElementById('span').innerText = "100~999までの数値を入れてください。";
         }
