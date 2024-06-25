@@ -1,0 +1,4 @@
+theme: jekyll-theme-hacker
+google_analytics: G-1Y8VQ2E2XK
+plugins:
+ - jekyll-sitemap
