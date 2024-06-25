@@ -8,7 +8,7 @@
     <title>MPGinW:Battle/Stay</title>
   </head>
   <body>
-    ver:1.00.04
+    ver:1.00.05
     <div id="text">Room番号:</div>
     <div id="name_list"></div>
     <ul>
@@ -57,7 +57,7 @@
         }
       });
       
-      setInterval({
+      /*setInterval({
         //生存信号を送信
         socket.emit('cs_room_alive',{time:Date.now()+1000,room:room,who:name});
 
@@ -70,7 +70,7 @@
           }
         }
         document.getElementById('name_list').innerText = "参加者:"+name_list_text;
-      },500);
+      },500);*/
     </script>
   </body>
 </html>
