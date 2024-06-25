@@ -32,10 +32,13 @@
         localStorage.setItem('room','100');
       }
       function Click(){
-        alert('click');
         let room = document.getElementById('room').value;
-        if(room != null) {
-          localStorage.setItem('room',room);
+        let room_num = parseInt(room);
+        if(room != null && !Number.isNaN(room_num)) {
+          if(100 <= room_num && room_num <= 999){
+            localStorage.setItem('room',String(room_num));
+            document.getElementById('room_num').innerText = String(room_num);
+          }
         } else {
           document.getElementById('span').innerText = "100~999までの数値を入れてください。";
         }
