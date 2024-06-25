@@ -44,6 +44,14 @@ def Battle_home_post():
 def Battle_home():
   return render_template('/Battle/home.html')
 
+@app.route('/Battle/Touch/home')
+def Battle_Touch_home():
+  return render_template('/Battle/Touch/home.html')
+
+@app.route('/Battle/Pinball/home')
+def Battle_Pinball_home():
+  return render_template('/Battle/Pinball/home.html')
+
 
 #クライアントとのコネクション確立
 @socketio.on('connect')
