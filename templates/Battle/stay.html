@@ -35,7 +35,7 @@
 
       //サーバからのメッセージを出力する関数
       socket.on('sc_room_connect', function(data) {
-        alert(data.who);
+        //alert(data.who);
         if(room == data.room){
           if(data.who == name) {
             alert('Server Connected!');
