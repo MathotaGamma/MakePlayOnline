@@ -12,9 +12,9 @@ socketio = SocketIO(app)
 
 db = SQLAlchemy(app)
 
-class ToDo(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	todo = db.Column(db.String(128), nullable=False)
+class Post(db.Model):
+  name = db.Column(db.String(128), nullable=False)
+  id = db.Column(db.Integer, primary_key=True)
 
 
 @app.errorhandler(Exception)
