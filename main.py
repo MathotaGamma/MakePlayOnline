@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mpginw.todo'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mpginw.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'Gamma'
 socketio = SocketIO(app)
