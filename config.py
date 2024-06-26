@@ -1,3 +1,3 @@
 DEBUG = True
-SQLALCHEMY_DATABASE_URI = 'sqlite:///mpgino.db'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///mpginw.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
