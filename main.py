@@ -1,13 +1,20 @@
 from flask import Flask, render_template, session, request ,url_for        
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect                                  
 import threading
-
-
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mpginw.todo'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'Gamma'
 socketio = SocketIO(app)
+
+db = SQLAlchemy(app)
+
+class ToDo(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	todo = db.Column(db.String(128), nullable=False)
 
 
 @app.errorhandler(Exception)
@@ -18,6 +25,15 @@ def handle_all_error(e):
 @app.route('/')
 def homepage():
   return render_template('/homepage.html')
+
+#以下追加↓	
+@app.route('/add', methods=['POST'])
+def add():
+	todo = request.form['todo']
+	new_todo = ToDo(todo=todo)
+	db.session.add(new_todo)
+	db.session.commit()
+	return redirect(url_for('index'))
 
 @app.route('/Lifeshave/play')
 def Lifeshave_play():
