@@ -113,13 +113,13 @@ def finish_fighters(msg):
 
 
 
-if __name__ == '__main__':
+"""if __name__ == '__main__':
   db.create_all()
   #socketio.run(app,host="0.0.0.0", port="8088",allow_unsafe_werkzeug=True)
+"""
 
-
-"""def thread_func():
-  db.create_all()
-  #socketio.run(app,host="0.0.0.0", port="8088",allow_unsafe_werkzeug=True)
+def thread_func():
+  #db.create_all()
+  socketio.run(app,host="0.0.0.0", port="8088",allow_unsafe_werkzeug=True)
 thread = threading.Thread(target=thread_func)
-thread.start()"""
+thread.start()
