@@ -119,7 +119,8 @@ def finish_fighters(msg):
 """
 
 def thread_func():
-  db.create_all()
+  with app.app_context():
+    db.create_all()
   socketio.run(app,host="0.0.0.0", port="8088",allow_unsafe_werkzeug=True)
 thread = threading.Thread(target=thread_func)
 thread.start()
