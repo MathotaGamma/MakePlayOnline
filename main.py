@@ -42,7 +42,11 @@ def add():
   # フォームデータからユーザー情報を取得
 
   # 新しいUserオブジェクトを作成
-  user = Post(name=request.form['todo'], id=1)
+  users = Post.query.all()
+  id_max = 0
+  for k in users:
+    id_max = max(id_max,k.id)
+  user = Post(name=request.form['todo'], id=id_max+1)
 
   # データベースに保存
   db.session.add(user)
@@ -54,9 +58,13 @@ def add():
 def show():
   # すべてのUserレコードを取得
   users = Post.query.all()
+  user_list = []
+  for k in users:
+    user_list.append([k.name,k.id,k.created_day])
+  
 
   # テンプレートにユーザー情報を渡す
-  return render_template('/show.html', users=users)
+  return render_template('/show.html', users=user_list)
 
 @app.route('/Lifeshave/play')
 def Lifeshave_play():
