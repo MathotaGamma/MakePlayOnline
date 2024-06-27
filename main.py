@@ -14,7 +14,8 @@ db = SQLAlchemy(app)
 
 class Post(db.Model):
   name = db.Column(db.String(30), nullable=False)
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, unique=True, primary_key=True)
+  created_day = db.Column(db.Integer)
 
 
 @app.errorhandler(Exception)
