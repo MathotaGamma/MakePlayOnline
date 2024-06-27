@@ -42,7 +42,7 @@ def add():
   # フォームデータからユーザー情報を取得
 
   # 新しいUserオブジェクトを作成
-  user = post(name=request.form['todo'], id=1)
+  user = Post(name=request.form['todo'], id=1)
 
   # データベースに保存
   db.session.add(user)
