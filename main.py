@@ -13,7 +13,7 @@ socketio = SocketIO(app)
 db = SQLAlchemy(app)
 
 class Post(db.Model):
-  name = db.Column(db.String(10), nullable=False)
+  name = db.Column(db.String(30), nullable=False)
   id = db.Column(db.Integer, primary_key=True)
 
 
