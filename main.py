@@ -29,13 +29,34 @@ def handle_all_error(e):
 def homepage():
   return render_template('/homepage.html')
 
-@app.route('/add', methods=['POST'])
+"""@app.route('/add', methods=['POST'])
 def add():
 	todo = request.form['todo']
 	new_todo = ToDo(todo=todo)
 	db.session.add(new_todo)
 	db.session.commit()
-	return redirect(url_for('index'))
+	return redirect(url_for('index'))"""
+
+@app.route('/add', methods=['POST'])
+def add():
+  # フォームデータからユーザー情報を取得
+
+  # 新しいUserオブジェクトを作成
+  user = post(name=request.form['todo'], id=1)
+
+  # データベースに保存
+  db.session.add(user)
+  db.session.commit()
+
+  return redirect(url_for('show'))
+
+@app.route('/show')
+def show():
+  # すべてのUserレコードを取得
+  users = Post.query.all()
+
+  # テンプレートにユーザー情報を渡す
+  return render_template('/show.html', users=users)
 
 @app.route('/Lifeshave/play')
 def Lifeshave_play():
