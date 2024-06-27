@@ -29,13 +29,13 @@ def handle_all_error(e):
 def homepage():
   return render_template('/homepage.html')
 
-@app.route('/add', methods=['POST'])
+"""@app.route('/add', methods=['POST'])
 def add():
 	todo = request.form['todo']
 	new_todo = ToDo(todo=todo)
 	db.session.add(new_todo)
 	db.session.commit()
-	return redirect(url_for('index'))
+	return redirect(url_for('index'))"""
 
 @app.route('/Lifeshave/play')
 def Lifeshave_play():
