@@ -2,6 +2,8 @@ from flask import Flask, render_template, session, request ,url_for
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect                                  
 import threading
 from flask_sqlalchemy import SQLAlchemy
+from datetime
+import pytz
 
 
 app = Flask(__name__)
@@ -15,7 +17,7 @@ db = SQLAlchemy(app)
 class Post(db.Model):
   name = db.Column(db.String(30), nullable=False)
   id = db.Column(db.Integer, unique=True, primary_key=True)
-  created_day = db.Column(db.Integer)
+  created_day = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
 
 
 @app.errorhandler(Exception)
@@ -27,7 +29,6 @@ def handle_all_error(e):
 def homepage():
   return render_template('/homepage.html')
 
-#以下追加↓	
 @app.route('/add', methods=['POST'])
 def add():
 	todo = request.form['todo']
