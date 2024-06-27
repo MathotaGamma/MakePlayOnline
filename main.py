@@ -12,13 +12,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'Gamma'
 socketio = SocketIO(app)
 
-"""db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 class Post(db.Model):
   name = db.Column(db.String(30), nullable=False)
   id = db.Column(db.Integer, unique=True, primary_key=True)
   created_day = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
-"""
+
 
 @app.errorhandler(Exception)
 def handle_all_error(e):
@@ -29,13 +29,13 @@ def handle_all_error(e):
 def homepage():
   return render_template('/homepage.html')
 
-"""@app.route('/add', methods=['POST'])
+@app.route('/add', methods=['POST'])
 def add():
 	todo = request.form['todo']
 	new_todo = ToDo(todo=todo)
 	db.session.add(new_todo)
 	db.session.commit()
-	return redirect(url_for('index'))"""
+	return redirect(url_for('index'))
 
 @app.route('/Lifeshave/play')
 def Lifeshave_play():
@@ -119,7 +119,7 @@ def finish_fighters(msg):
 """
 
 def thread_func():
-  #db.create_all()
+  db.create_all()
   socketio.run(app,host="0.0.0.0", port="8088",allow_unsafe_werkzeug=True)
 thread = threading.Thread(target=thread_func)
 thread.start()
