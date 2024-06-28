@@ -16,6 +16,7 @@ db = SQLAlchemy(app)
 
 class Post(db.Model):
   name = db.Column(db.String(30), nullable=False)
+  pass = db.Column(db.Integer, primary_key=True)
   id = db.Column(db.Integer, unique=True, primary_key=True)
   created_day = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
 
