@@ -56,7 +56,7 @@ def Battle_homepage():
   return render_template('/Battle/homepage.html')
 
 @app.route('/Battle/sign', methods=['POST'])
-def sign():
+def sign_post():
   # フォームデータからユーザー情報を取得
 
   # 新しいUserオブジェクトを作成
@@ -73,6 +73,9 @@ def sign():
 
   return render_template('/Battle/login.html',name=request.form['name'], pass=request.form['pass'], id=id_max+1)
 
+@app.route('/Battle/sign')
+def sign():
+  return redirect(url_for('Battle_homepage'))
 
 @app.route('/show')
 def show():
