@@ -15,10 +15,10 @@ socketio = SocketIO(app)
 db = SQLAlchemy(app)
 
 class Post(db.Model):
-  name = db.Column(db.String(30), nullable=False)
-  pass = db.Column(db.Integer, primary_key=True)
-  id = db.Column(db.Integer, unique=True, primary_key=True)
-  created_day = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
+  name_db = db.Column(db.String(30), nullable=False)
+  pass_db = db.Column(db.Integer, primary_key=True)
+  id_db = db.Column(db.Integer, unique=True, primary_key=True)
+  created_day_db = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
 
 
 @app.errorhandler(Exception)
@@ -64,8 +64,8 @@ def sign_post():
   users = Post.query.all()
   id_max = 0
   for k in users:
-    id_max = max(id_max,k.id)
-  user = Post(name=request.form['name'], pass=request.form['pass'], id=id_max+1)
+    id_max = max(id_max,k.id_db)
+  user = Post(name_db=request.form['name'], pass_db=request.form['pass'], id_db=id_max+1)
   
 
   # データベースに保存
@@ -84,7 +84,7 @@ def show():
   users = Post.query.all()
   user_list = []
   for k in users:
-    user_list.append([k.name,k.id,k.created_day])
+    user_list.append([k.name_db,k.pass_db,k.id_db,k.created_day_db])
   
 
   # テンプレートにユーザー情報を渡す
