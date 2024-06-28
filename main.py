@@ -55,7 +55,7 @@ def Fighters_play():
 def Battle_homepage():
   return render_template('/Battle/homepage.html')
 
-@app.route('/sign', methods=['POST'])
+@app.route('/Battle/sign', methods=['POST'])
 def sign():
   # フォームデータからユーザー情報を取得
 
