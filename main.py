@@ -72,8 +72,8 @@ def sign_post():
   db.session.add(user)
   db.session.commit()
 
-  return render_template('/Battle/home.html')
-  #return render_template('/Battle/login.html',name=request.form['name'], pass=request.form['pass'], id=id_max+1)
+  #return render_template('/Battle/home.html')
+  return render_template('/Battle/login.html',name=request.form['name'], pass=request.form['pass'], id=id_max+1)
 
 
 @app.route('/Battle/sign')
