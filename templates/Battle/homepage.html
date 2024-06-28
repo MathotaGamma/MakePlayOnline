@@ -7,27 +7,29 @@
     <title>MPGinW:Battle/Home</title>
   </head>
   <body>
+    <form action="./sign" method="POST">
       <input type="text" name="name" id="name" placeholder="NAME" />
       <input type="number" name="pass" id="pass" placeholder="PassWord(Number)" />
-      <br>
-      <div id="ErrorText"></div>
-      <script>
-        if(localStorage.getItem('name') != null && localStorage.getItem('pass') != null) {
-          window.location.href="./home";
+      <input type="submit" onClick="OK();" value="決定" />
+    </form>
+    <br>
+    <div id="ErrorText"></div>
+    <script>
+      if(localStorage.getItem('name') != null && localStorage.getItem('pass') != null && localStorage.getItem('id') != null) {
+        window.location.href="./home";
+      }
+      function OK(){
+        let name = document.getElementById('name').value;
+        let pass = String(document.getElementById('pass').value);
+        if(name != "" && pass != ""){
+          return true;
+        } else {
+          document.getElementById('ErrorText').innerText = "有効な値を入力してください。";
+          return false;
         }
-        function OK(){
-          let name = document.getElementById('name').value;
-          let pass = String(document.getElementById('pass').value);
-          if(name != "" && pass != ""){
-            localStorage.setItem('name',name);
-            localStorage.setItem('pass',pass);
-            window.location.href="./home";
-          } else {
-            document.getElementById('ErrorText').innerText = "有効な値を入力してください。";
-          }
-        }
+      }
       </script>
-      <input type="submit" onclick="OK();" value="決定" />
+      
     
   </body>
 </html>
