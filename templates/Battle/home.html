@@ -108,8 +108,9 @@
         window.location.href="./homepage";
       }
       let name = localStorage.getItem('name');
-      let pass = localStorage.getItem('pass')
-      if(name == null || pass == null){
+      let pass = localStorage.getItem('pass');
+      let id = localStorage.getItem('id');
+      if(name == null || pass == null || id == null){
         window.location.href="./homepage";
       }
       document.getElementById('Text').innerText = name+"さんこんにちは！";
