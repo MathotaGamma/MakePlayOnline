@@ -9,9 +9,9 @@
   }
 {% endblock %}
 {% block body %}
-  {{name}}<br>
-  {{password}}<br>
-  {{id}}
+  name:{{name}}<br>
+  id:{{id}}<br>
+  <br>
   <input type="button" value="決定" onclick="window.location.href = './home';"/>
   <script>
     let name = {{name | tojson}};
