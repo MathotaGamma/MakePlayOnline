@@ -64,7 +64,7 @@ def sign_post():
   users = Post.query.all()
   id_max = 0
   for k in users:
-    id_max = max(id_max,k.id_db)
+    id_max = max(id_max,int(k.id_db))
   user = Post(name_db=request.form['name'], pass_db=str(request.form['pass']), id_db=str(id_max+1))
   
 
