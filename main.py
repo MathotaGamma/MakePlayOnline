@@ -16,8 +16,8 @@ db = SQLAlchemy(app)
 
 class Post(db.Model):
   name_db = db.Column(db.String(30), nullable=False)
-  pass_db = db.Column(db.Integer, primary_key=True)
-  id_db = db.Column(db.Integer, unique=True, primary_key=True)
+  pass_db = db.Column(db.String(30), primary_key=True)
+  id_db = db.Column(db.String(20), unique=True, primary_key=True)
   created_day_db = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
 
 
@@ -65,7 +65,7 @@ def sign_post():
   id_max = 0
   for k in users:
     id_max = max(id_max,k.id_db)
-  user = Post(name_db=request.form['name'], pass_db=request.form['pass'], id_db=id_max+1)
+  user = Post(name_db=request.form['name'], pass_db=str(request.form['pass']), id_db=str(id_max+1))
   
 
   # データベースに保存
@@ -73,7 +73,7 @@ def sign_post():
   db.session.commit()
 
   #return render_template('/Battle/home.html')
-  return render_template('/Battle/login.html',name=request.form['name'], password=request.form['pass'], id=id_max+1)
+  return render_template('/Battle/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1))
 
 
 @app.route('/Battle/sign')
