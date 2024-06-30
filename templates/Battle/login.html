@@ -1,3 +1,24 @@
-{{name}}<br>
-{{password}}<br>
-{{id}}
+{% extends "Extend/battle.html" %}
+
+{% block title %}Battle/login{% endblock %}
+
+{% block style %}
+  html,body{
+    heiht: 100%;
+    width: 100%;
+  }
+{% endblock %}
+{% block body %}
+  {{name}}<br>
+  {{password}}<br>
+  {{id}}
+  <input type="button" value="決定" onclick="window.location.href = './home';"/>
+  <script>
+    if(name == null || password == null || id == null){
+      window.location.href = "./homepage";
+    }
+    localStorage.setItem('name',name);
+    localStorage.setItem('pass',password);
+    localStorage.setItem('id',id);
+  </script>
+{% endblock %}
