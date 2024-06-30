@@ -19,10 +19,12 @@
       //addEventListener("error", (event) => {alert(event});
       let room = localStorage.getItem('room');
       let name = localStorage.getItem('name');
+      let id = localStorage.getItem('id');
+      document.getElementById('id').innerText = id;
       let name_list_text = "";
       //{name:◯,time:△}
       let TimeData = {};
-      if(room == null || name == null) window.location.href="./home";
+      if(room == null || name == null || id == null) window.location.href="./home";
       document.getElementById('text').innerText = 'Room番号:'+room;
 
       //socketオブジェクト生成
