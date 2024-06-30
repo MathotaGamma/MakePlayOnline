@@ -14,6 +14,9 @@
   {{id}}
   <input type="button" value="決定" onclick="window.location.href = './home';"/>
   <script>
+    let name = {{name | tojson}};
+    let password = {{password | tojson}};
+    let id = {{id | tojson}};
     if(name == null || password == null || id == null){
       window.location.href = "./homepage";
     }
