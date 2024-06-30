@@ -10,6 +10,7 @@
   <body>
     ver:1.01.01
     <div id="text">Room番号:</div>
+    <div id="id">id:</div>
     <div id="name_list">参加者:</div>
     <ul>
       <li><a href="./Touch/home">連打</a></li>
@@ -20,7 +21,7 @@
       let room = localStorage.getItem('room');
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
-      document.getElementById('id').innerText = id;
+      document.getElementById('id').innerText = "id:"+id;
       let name_list_text = "";
       //{name:◯,time:△}
       let TimeData = {};
