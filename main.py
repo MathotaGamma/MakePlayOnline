@@ -44,13 +44,19 @@ def add():
 def Lifeshave_play():
   return render_template('/LIFESHAVE/play.html')
 
+
+
 @app.route('/gltf')
 def gltf():
   return url_for('static',filename="LIFESHAVE/humancubist.gltf")
 
+
+
 @app.route('/Fighters/play')
 def Fighters_play():
   return render_template('/Fighters/play.html')
+
+
 
 @app.route('/Battle/homepage')
 def Battle_homepage():
@@ -74,7 +80,6 @@ def sign_post():
 
   #return render_template('/Battle/home.html')
   return render_template('/Battle/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1))
-
 
 @app.route('/Battle/sign')
 def sign():
@@ -111,6 +116,18 @@ def Battle_Touch_home():
 @app.route('/Battle/Pinball/home')
 def Battle_Pinball_home():
   return render_template('/Battle/Pinball/home.html')
+
+
+
+@app.route('/Morse/homepage')
+def Morse_homepage():
+  return render_template('/Morse/homepage.html')
+
+
+
+
+
+
 
 
 #クライアントとのコネクション確立
