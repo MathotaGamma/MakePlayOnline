@@ -1,1 +1,14 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" href="{{url_for('static',filename='favicon.ico')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static',filename='apple-touch-icon.png')}}">
+    <title>Make&Play Game in World:{% block title %}{% endblock %}</title>
+    <style>{% block style %}{% endblock %}</style>
+  </head>
+  <body>
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>
