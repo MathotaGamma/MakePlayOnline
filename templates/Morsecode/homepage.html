@@ -1,1 +1,108 @@
+{% extends "Extend/morse_code.html" %}
 
+{% block title %}MorseCode/home{% endblock %}
+
+{% block style %}
+  html,body{
+    heiht: 100%;
+    width: 100%;
+  }
+  /*#container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  #Text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    height: 60px;
+    width: 100%;
+    background-color: #dff;
+    font-size: 30px;
+  }
+  #GoRoom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background-color: #7fffd4;
+    border: 2px;
+    padding: auto;
+  }
+  #InputRoom {
+    width: 100%;
+    height: 80px;
+    margin: 30px 0;
+    background-color: #ffc;
+    font-size: 25px;
+  }*/
+{% endblock %}
+{% block body %}
+  <div id="container">
+      <input type="submit" onclick="logout();" style="height: 80px; font-size: 30px;" value="Logout" />
+    
+      <div id="Text"></div>
+    
+      <div id="InputRoom">
+        <div>
+          <label>Room番号(4桁の数字)</label>
+          <input type="num" style="height: 25px; width: 150px; font-size: 15px;" id="room" value="1111" min="1000" max="9999" placeholder="ROOM" />
+          <input type="button" value="決定" onclick="Click();" />
+        </div>
+    
+        <div>
+          Room:<span id="room_num">1111</span>
+        </div>
+
+      <span id="span"></span>
+
+      <div id="GoRoom">
+        <a href="./stay" style="font-size: 20px;">ROOMに入る</a>
+      </div>
+    </div>
+
+
+    
+    
+    <script>
+      if(localStorage.getItem('room') != null){
+        document.getElementById('room').value = localStorage.getItem('room');
+        document.getElementById('room_num').innerText = localStorage.getItem('room');
+      } else {
+        localStorage.setItem('room','1111');
+      }
+      function Click(){
+        let room = document.getElementById('room').value;
+        let room_num = parseInt(room);
+        if(room != null && !Number.isNaN(room_num)) {
+          if(1000 <= room_num && room_num <= 9999){
+            localStorage.setItem('room',String(room_num));
+            document.getElementById('room_num').innerText = String(room_num);
+            document.getElementById('span').innerText = "Room番号を保存しました。";
+          } else {
+            document.getElementById('span').innerText = "1000~9999までの数値を入れてください。";
+          }
+        } else {
+          document.getElementById('span').innerText = "1000~9999までの数値を入れてください。";
+        }
+      }
+      
+      function logout(){
+        localStorage.removeItem('name');
+        localStorage.removeItem('pass');
+        window.location.href="./homepage";
+      }
+      let name = localStorage.getItem('name');
+      let pass = localStorage.getItem('pass');
+      let id = localStorage.getItem('id');
+      if(name == null || pass == null || id == null){
+        window.location.href="./homepage";
+      }
+      document.getElementById('Text').innerText = name+"さんこんにちは！";
+    </script>
+    
+{% endblock %}
