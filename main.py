@@ -58,11 +58,11 @@ def Fighters_play():
 
 
 
-@app.route('/Battle/homepage')
-def Battle_homepage():
+@app.route('/Connect/homepage')
+def Connect_homepage():
   return render_template('/Battle/homepage.html')
 
-@app.route('/Battle/sign', methods=['POST'])
+@app.route('/Connect/sign', methods=['POST'])
 def sign_post():
   # フォームデータからユーザー情報を取得
 
@@ -78,12 +78,12 @@ def sign_post():
   db.session.add(user)
   db.session.commit()
 
-  #return render_template('/Battle/home.html')
-  return render_template('/Battle/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1))
+  #return render_template('/Connect/home.html')
+  return render_template('/Connect/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1))
 
-@app.route('/Battle/sign')
+@app.route('/Connect/sign')
 def sign():
-  return redirect(url_for('Battle_homepage'))
+  return redirect(url_for('Connect_homepage'))
 
 @app.route('/show')
 def show():
@@ -97,31 +97,31 @@ def show():
   # テンプレートにユーザー情報を渡す
   return render_template('/show.html', users=user_list)
 
-@app.route('/Battle/home',methods=['POST','GET'])
-def Battle_home_post():
-  return render_template('/Battle/home.html')
+@app.route('/Connect/home',methods=['POST','GET'])
+def Connect_home_post():
+  return render_template('/Connect/home.html')
 
-@app.route('/Battle/home')
-def Battle_home():
-  return render_template('/Battle/home.html')
+@app.route('/Connect/home')
+def Connect_home():
+  return render_template('/Connect/home.html')
 
-@app.route('/Battle/stay')
-def Battle_stay():
-  return render_template('/Battle/stay.html')
+@app.route('/Connect/stay')
+def Connect_stay():
+  return render_template('/Connect/stay.html')
 
-@app.route('/Battle/Touch/home')
-def Battle_Touch_home():
-  return render_template('/Battle/Touch/home.html')
+@app.route('/Connect/Touch/home')
+def Connect_Touch_home():
+  return render_template('/Connect/Touch/home.html')
 
-@app.route('/Battle/Pinball/home')
-def Battle_Pinball_home():
-  return render_template('/Battle/Pinball/home.html')
+@app.route('/Connect/Pinball/home')
+def Connect_Pinball_home():
+  return render_template('/Connect/Pinball/home.html')
 
 
 
-@app.route('/Morse/homepage')
-def Morse_homepage():
-  return render_template('/Morse/homepage.html')
+@app.route('/Connect/Morse/homepage')
+def Connect_Morse_homepage():
+  return render_template('/Connect/Morse/homepage.html')
 
 
 
