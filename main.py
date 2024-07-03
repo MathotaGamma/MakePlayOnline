@@ -108,7 +108,7 @@ def Connect_home():
 
 @app.route('/Connect/stay')
 def Connect_stay():
-  dir_path = "./templates/Connect/Room/"
+  dir_path = "./templates/Connect/Root/"
 
   files_dir = ":".join([
     f for f in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, f))
