@@ -32,14 +32,18 @@
       // 親要素を指定する
       var list = document.getElementById('Root');
       let files_dir_str = {{files_dir | tojson}};
-      let files = ":".split(files_dir_str);
+      let files = files_dir_str.split(':');
 
+      for(let k of files){
+        var li = document.createElement('li');
+        li.innerHTML = '<a href="./'+k+'/homepage">'+k+'</a>';
+        
+
+        // 末尾に追加
+        list.appendChild(li);
+      }
       // 追加する要素を作成
-      var li = document.createElement('li');
-      li.innerHTML = 'a';
-
-      // 末尾に追加
-      list.appendChild(li);
+      
 
       //socketオブジェクト生成
       let socket = io();
