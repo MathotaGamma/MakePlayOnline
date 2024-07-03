@@ -13,7 +13,7 @@
     <div id="id">id:</div>
     <div id="name_list">参加者:</div>
     {{files_dir}}
-    <ul>
+    <ul id="Root">
       <li><a href="./Root/Touch/home">連打</a></li>
       <li><a href="./Root/Pinball/home">ピンボール</a></li>
     </ul>
@@ -28,6 +28,17 @@
       let TimeData = {};
       if(room == null || name == null || id == null) window.location.href="./home";
       document.getElementById('text').innerText = 'Room番号:'+room;
+
+      // 親要素を指定する
+      var list = document.getElementById('Root');
+      //let files = {
+
+      // 追加する要素を作成
+      var li = document.createElement('li');
+      li.innerHTML = 'a';
+
+      // 末尾に追加
+      list.appendChild(li);
 
       //socketオブジェクト生成
       let socket = io();
