@@ -109,7 +109,12 @@ def Connect_home():
 def Connect_stay():
   return render_template('/Connect/stay.html')
 
-@app.route('/Connect/Touch/home')
+
+@app.route('/Connect/Root/<string:Space>/<path:Directly>')
+def Connect_Root_ALL(Space,Directly):
+  return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly))
+
+"""@app.route('/Connect/Touch/home')
 def Connect_Touch_home():
   return render_template('/Connect/Touch/home.html')
 
@@ -122,7 +127,7 @@ def Connect_Pinball_home():
 @app.route('/Connect/Morse/homepage')
 def Connect_Morse_homepage():
   return render_template('/Connect/Morse/homepage.html')
-
+"""
 
 
 
