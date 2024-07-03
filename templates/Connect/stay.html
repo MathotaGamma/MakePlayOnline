@@ -31,7 +31,8 @@
 
       // 親要素を指定する
       var list = document.getElementById('Root');
-      //let files = {
+      let files_dir_str = {{files_dir | tojson}};
+      let files = ":".split(files_dir_str);
 
       // 追加する要素を作成
       var li = document.createElement('li');
