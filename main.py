@@ -60,7 +60,7 @@ def Fighters_play():
 
 @app.route('/Connect/homepage')
 def Connect_homepage():
-  return render_template('/Battle/homepage.html')
+  return render_template('/Connect/homepage.html')
 
 @app.route('/Connect/sign', methods=['POST'])
 def sign_post():
