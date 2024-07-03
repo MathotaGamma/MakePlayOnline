@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <link rel="icon" href="{{url_for('static',filename='favicon.ico')}}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static',filename='apple-touch-icon.png')}}">
-    <title>MPGinW:Connect/Home</title>
-  </head>
-  <body>
-    <form action="./sign" method="POST">
+{% extends "Extend/Connect.html" %}
+
+{% block title %}Connect/login{% endblock %}
+
+{% block style %}
+  html,body{
+    heiht: 100%;
+    width: 100%;
+  }
+{% endblock %}
+{% block body %}
+  <form action="./sign" method="POST">
       <input type="text" name="name" id="name" placeholder="NAME" />
       <input type="number" name="pass" id="pass" placeholder="PassWord(Number)" />
       <input type="submit" onClick="OK();" value="決定" />
@@ -29,7 +31,4 @@
         }
       }
       </script>
-      
-    
-  </body>
-</html>
+{% endblock %}
