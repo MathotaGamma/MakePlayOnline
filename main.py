@@ -4,6 +4,7 @@ import threading
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 import pytz
+import os
 
 
 app = Flask(__name__)
@@ -107,7 +108,12 @@ def Connect_home():
 
 @app.route('/Connect/stay')
 def Connect_stay():
-  return render_template('/Connect/stay.html')
+  dir_path = "./templates/Connect/Room/"
+
+  files_dir = ":".join([
+    f for f in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, f))
+  ])
+  return render_template('/Connect/stay.html',files_dir=files_dir)
 
 
 @app.route('/Connect/Root/<string:Space>/<path:Directly>')
