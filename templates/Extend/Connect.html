@@ -6,6 +6,14 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static',filename='apple-touch-icon.png')}}">
     <title>Make&Play Game in World:{% block title %}{% endblock %}</title>
     <style>{% block style %}{% endblock %}</style>
+    <script>
+      let name = localStorage.getItem('name');
+      let pass = localStorage.getItem('pass');
+      let id = localStorage.getItem('id');
+      if(name == null || pass == null || id == null){
+        window.location.href="Connect/homepage";
+      }
+    </script>
     <script>{% block head_script %}{% endblock %}</script>
   </head>
   <body>
