@@ -16,11 +16,12 @@
       let pass = localStorage.getItem('pass');
       let id = localStorage.getItem('id');
       if(name == null || pass == null || id == null){
-        alert('LogInページに遷移します。');
-        window.location.href="/Connect/homepage";
+        window.location.href="/Connect/home";
       }
     </script>
-    <script>{% block head_script %}{% endblock %}</script>
+    <script>
+      
+    </script>
   </head>
   <body>
     <form action="./sign" method="POST">
