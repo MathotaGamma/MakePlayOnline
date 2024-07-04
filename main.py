@@ -58,6 +58,10 @@ def Fighters_play():
   return render_template('/Fighters/play.html')
 
 
+@app.route('/Connect/Root')
+def Connect_Root():
+  return redirect(url_for('Connect_homepage'))
+
 
 @app.route('/Connect/homepage')
 def Connect_homepage():
