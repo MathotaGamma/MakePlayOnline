@@ -15,7 +15,7 @@
       let name = localStorage.getItem('name');
       let pass = localStorage.getItem('pass');
       let id = localStorage.getItem('id');
-      if(name == null || pass == null || id == null){
+      if(name != null && pass != null && id == null){
         window.location.href="/Connect/home";
       }
     </script>
