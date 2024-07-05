@@ -60,7 +60,8 @@ def Fighters_play():
 
 @app.route('/Connect/Root')
 def Connect_Root():
-  return redirect(url_for('Connect_homepage'))
+  return Root
+  #return redirect(url_for('Connect_homepage'))
 
 
 @app.route('/Connect/homepage')
