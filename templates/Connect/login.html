@@ -1,6 +1,17 @@
 {% extends "Extend/Connect.html" %}
 
 {% block title %}Connect/login{% endblock %}
+{% block head_script %}
+  let name = {{name | tojson}};
+  let password = {{password | tojson}};
+  let id = {{id | tojson}};
+  if(name == null || password == null || id == null){
+    window.location.href = "./homepage";
+  }
+  localStorage.setItem('name',name);
+  localStorage.setItem('pass',password);
+  localStorage.setItem('id',id);
+{% endblock %}
 
 {% block style %}
   html,body{
@@ -13,15 +24,4 @@
   id:{{id}}<br>
   <br>
   <input type="button" value="決定" onclick="window.location.href = './home';"/>
-  <script>
-    let name = {{name | tojson}};
-    let password = {{password | tojson}};
-    let id = {{id | tojson}};
-    if(name == null || password == null || id == null){
-      window.location.href = "./homepage";
-    }
-    localStorage.setItem('name',name);
-    localStorage.setItem('pass',password);
-    localStorage.setItem('id',id);
-  </script>
 {% endblock %}
