@@ -19,7 +19,8 @@ class Post(db.Model):
   name_db = db.Column(db.String(30), nullable=False)
   pass_db = db.Column(db.String(30), primary_key=True)
   id_db = db.Column(db.String(20), unique=True, primary_key=True)
-  created_day_db = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
+  #created_day_db = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
+  created_day_db = db.Column(db.String(30), nullable=False)
 
 
 @app.errorhandler(Exception)
@@ -76,8 +77,12 @@ def sign_post():
   users = Post.query.all()
   id_max = 0
   for k in users:
-    id_max = max(id_max,int(k.id_db))
-  user = Post(name_db=request.form['name'], pass_db=str(request.form['pass']), id_db=str(id_max+1))
+    id_max = max(id_max,int(k.id_db)
+
+
+  now_str = datetime.datetime.now(pytz.timezone('Asia/Tokyo')).strftime('%Y-%m/%d-%H:%M:%S')
+
+  user = Post(name_db=request.form['name'], pass_db=str(request.form['pass']), id_db=str(id_max+1),created_day_db=now_str)
   
 
   # データベースに保存
