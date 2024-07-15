@@ -77,7 +77,7 @@ def sign_post():
   users = Post.query.all()
   id_max = 0
   for k in users:
-    id_max = max(id_max,int(k.id_db)
+    id_max = max(id_max,int(k.id_db))
 
 
   now_str = datetime.datetime.now(pytz.timezone('Asia/Tokyo')).strftime('%Y-%m/%d-%H:%M:%S')
