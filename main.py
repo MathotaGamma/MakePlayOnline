@@ -35,7 +35,7 @@ def Notify_pushcode_sw():
   with open('Notify/pushcode_sw.js',mode='r') as f:
     file_k = ''.join(f.readlines())
   return file_k"""
-  return render_template('/static/Notify/pushcode_sw.js')
+  return render_template('/Notify/pushcode_sw.js')
 
 @app.route('/')
 def homepage():
