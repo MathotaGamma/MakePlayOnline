@@ -14,18 +14,26 @@ let color_num = 200;
 let button_color = [color_num,0,0];
 //一分で何回か
 let BPM = 120;
+if(localStorage.getItem('BPM') != null){
+  BPM = parseInt(localStorage.getItem('BPM'));
+}
 //何秒で一回か
 let bpm = 60/BPM;
 
 let BPM_id = document.getElementById('BPM');
-function inputChange(){
+function inputInput(){
   // イベントが発生した時の処理
   BPM = BPM_id.value;
   bpm = 60/BPM;
   document.getElementById('show').innerText = String(BPM);
 }
 
-BPM_id.addEventListener('input', inputChange);
+function inputChange(){
+  localStorage.setItem("BPM",Strong(BPM));
+}
+
+BPM_id.addEventListener('input', inputInput);
+BPM_id.addEventListener('change', inputChange);
 
 BPM = BPM_id.value;
 bpm = 60/BPM;
