@@ -33,7 +33,7 @@ def handle_all_error(e):
 def Notify_pushcode_sw():
   file_k = ""
   with open('static/Notify/pushcode_sw.js',mode='r') as f:
-    file_k = f.read()
+    file_k = f.readlines().join('')
   return file_k
 
 @app.route('/')
