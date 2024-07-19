@@ -13,7 +13,8 @@
         if (PushCode && PushCode.isSupport()) {
           PushCode.init({ domainToken: '89d9c53e916549307c13a9fef12ec4c4169e73565e77e461c0c4c27ee921cd70', userid: '' });
           PushCode.components.openSubscribeDialog();
-        }
+        } else {
+         alert("can't");
       }
       catch (err) {
         alert(err);
