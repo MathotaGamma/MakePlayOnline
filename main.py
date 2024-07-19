@@ -31,11 +31,13 @@ def handle_all_error(e):
 @app.route('/Notify/pushcode_sw.js',methods=['GET'])
 @app.route('/Notify/pushcode_sw.js')
 def Notify_pushcode_sw():
-  """file_k = ""
-  with open('Notify/pushcode_sw.js',mode='r') as f:
-    file_k = ''.join(f.readlines())
-  return file_k"""
   return render_template('/Notify/pushcode_sw.js')
+
+@app.route('/Notify/icon.png',methods=['GET'])
+@app.route('/Notify/icon.png')
+def Notify_pushcode_sw():
+  return render_template('/Notify/icon.png')
+
 
 @app.route('/')
 def homepage():
