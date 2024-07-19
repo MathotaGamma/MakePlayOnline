@@ -32,7 +32,7 @@ def handle_all_error(e):
 @app.route('/Notify/pushcode_sw.js')
 def Notify_pushcode_sw():
   """file_k = ""
-  with open('static/Notify/pushcode_sw.js',mode='r') as f:
+  with open('Notify/pushcode_sw.js',mode='r') as f:
     file_k = ''.join(f.readlines())
   return file_k"""
   return render_template('/static/Notify/pushcode_sw.js')
