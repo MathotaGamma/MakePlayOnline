@@ -1,8 +1,8 @@
-//alert('start')
+alert('読み込み中')
 import * as THREE from "three";
 import { GLTFLoader } from "GLTFLoader";
 import { OrbitControls } from "OrbitControls";
-//alert('import')
+alert('1')
 
 
 document.addEventListener("gesturestart", (e) => {
@@ -378,3 +378,5 @@ document.addEventListener('touchend', function(event_k) {
   touch_move_list = touch_list.concat();
 
 }, false);
+
+alert('読み込み終了');
