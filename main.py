@@ -28,6 +28,12 @@ def handle_all_error(e):
   return render_template('/error.html',Error=e)
 
 
+@app.route('/Notify/pushcode_sw.js',methods=['GET'])
+@app.route('/Notify/pushcode_sw.js')
+def Notify_pushcode_sw():
+  return url_for('static',filename="Notify/pushcode_sw.js")
+
+
 @app.route('/')
 def homepage():
   return render_template('/homepage.html')
