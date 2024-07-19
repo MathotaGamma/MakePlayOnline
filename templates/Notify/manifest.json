@@ -1,0 +1,13 @@
+{
+    "short_name": "MakePlayOnline",
+    "name": "MakePlayOnline",
+    "icons": [
+        {
+            "src": "/Notify/icon.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone"
+}
