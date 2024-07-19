@@ -35,8 +35,14 @@ def Notify_pushcode_sw():
 
 @app.route('/Notify/icon.png',methods=['GET'])
 @app.route('/Notify/icon.png')
-def Notify_pushcode_sw():
+def Notify_icon():
   return render_template('/Notify/icon.png')
+
+
+@app.route('/Notify/manifest.json',methods=['GET'])
+@app.route('/Notify/manifest.json')
+def Notify_manifest():
+  return render_template('/Notify/manifest.json')
 
 
 @app.route('/')
