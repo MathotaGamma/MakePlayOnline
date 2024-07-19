@@ -31,8 +31,8 @@ def handle_all_error(e):
 @app.route('/Notify/pushcode_sw.js',methods=['GET'])
 @app.route('/Notify/pushcode_sw.js')
 def Notify_pushcode_sw():
-  with open('static/Notify/pushcode_sw.js') as f:
-    return f
+  with open('static/Notify/pushcode_sw.js',mode='r') as f:
+    return f.readlines()
 
 
 @app.route('/')
