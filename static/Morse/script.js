@@ -12,15 +12,17 @@ console.log(morse_img_id.left)*/
 
 let color_num = 200;
 let button_color = [color_num,0,0];
+
+let BPM_id = document.getElementById('BPM');
 //一分で何回か
 let BPM = 120;
 if(localStorage.getItem('BPM') != null){
   BPM = parseInt(localStorage.getItem('BPM'));
+  BPM_id.value = String(BPM);
 }
 //何秒で一回か
 let bpm = 60/BPM;
 
-let BPM_id = document.getElementById('BPM');
 function inputInput(){
   // イベントが発生した時の処理
   BPM = BPM_id.value;
