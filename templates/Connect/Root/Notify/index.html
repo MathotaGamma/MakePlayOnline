@@ -8,68 +8,25 @@
    <title>ブラウザでプッシュ通知を実装</title>
  </head>
  <body>
-   <button id="notifyButton">通知を送信</button>
-
-<script>
-  try{
-document.getElementById('notifyButton').addEventListener('click', function() {
-    alert('post');
-    Push.create("アクション通知", {
-        body: "ボタンがクリックされました！",
-        icon: 'p.png',
-        timeout: 5000,
-        onClick: function () {
-            alert('通知がクリックされました！');
-            this.close();
+   <script defer src="https://www.pushcode.jp/dist/js/pushcode.js"></script>
+  <script>
+    window.PushCodeInit = function() {
+      try {
+        if (PushCode && PushCode.isSupport()) {
+          PushCode.init({ domainToken: '89d9c53e916549307c13a9fef12ec4c4169e73565e77e461c0c4c27ee921cd70', userid: '' });
+          PushCode.components.openSubscribeDialog();
         }
-    });
-});
-  } catch(k) {
-    alert(k)
-  }
+      }
+      catch (err) {
+        console.error(err);
+        if (PushCode) {
+          PushCode.sendError(err);
+        }
+      }
+    };
 </script>
-   <!--<script>
-     try{
-   alert('Notification' in window)
-   /*Notification.requestPermission().then(function (result) {
-  console.log(result);
-});*/
-  
-     
-     /*window.onload = function() {
-    Notification.requestPermission();
-    const notification = new Notification("Check!");
-  };*/
 
-     function push(){
-       Push.Permission.request(
-    () => alert('許可されました！'),
-    () => alert('許可されませんでした。')
-);
-       Push.create('Hey')
-       
-  Push.create("更新情報", 
-   {
-    body: "ブログの更新をお知らせします!",
-    timeout: 8000,
-    icon: 'p.png',
-    onClick: function () {
-    window.focus(); 
-    this.close();
-    }
-  })
-     }
-     push();
-        } catch(k) {
-   alert(k)
-     }
-   </script>-->
-   
-  
-   <!--<h1 style="margin-top: 10px">ブラウザでプッシュ通知を実装しよう</h1>
-  
-   <input type="button" id="push" onclick="return push()" value="クリックするとプッシュ通知が送られます">-->
-  
-   
+
+
  </body>
 </html>
