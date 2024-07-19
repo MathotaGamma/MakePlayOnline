@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  /*height: 100%;
+  width: 100%;*/
+  padding: 0;
+}
+html,body,canvas{
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  overflow:hidden;
+  padding:0;
+  width:100%;
+  height:100%;
+  margin:0;
+}
+
+textarea {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  font-size: 30px;
+}
+
+#BPM {
+  position: absolute;
+  top: 220px;
+  height: 40px;
+  width: 150px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  background: transparent; /* 背景を透明に*/
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Track: Chrome, Safari, Opera, Edge Chromium */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #55ffbb;
+  height: 8px;
+  border-radius: 8px;
+}
+
+/* Thumb: Chrome, Safari, Opera, Edge Chromium */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  margin-top: -6px;   /* Thumb の位置を調整 */
+  background-color: #4cabe2;
+  border-radius: 50%;
+  border: 2px solid #333;
+}
+
+/* Track: Firefox */
+input[type="range"]::-moz-range-track {
+  background: #efafda;
+  height: 8px;
+  border-radius: 8px;
+}
+
+/* Thumb: Firefox */
+input[type="range"]::-moz-range-thumb {
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  background-color: #4cabe2;
+  border-radius: 50%;
+  border: 2px solid #333;
+}
+
+#show {
+  position: absolute;
+  top: 260px;
+  height: 20px;
+  width: 150px;
+  color: white;
+}
+
+/*#morse_img {
+  position: absolute;
+  top: 300px;
+  right: 100px;
+  width: 300px;
+}*/
+
+#morse_list {
+  color: white;
+  top: 280px;
+  position: absolute;
+  font-size: 50px;
+}
