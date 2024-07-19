@@ -29,7 +29,7 @@ function inputInput(){
 }
 
 function inputChange(){
-  localStorage.setItem("BPM",Strong(BPM));
+  localStorage.setItem("BPM",String(BPM));
 }
 
 BPM_id.addEventListener('input', inputInput);
