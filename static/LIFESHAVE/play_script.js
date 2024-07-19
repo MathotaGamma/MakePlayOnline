@@ -4,6 +4,9 @@ import { GLTFLoader } from "GLTFLoader";
 import { OrbitControls } from "OrbitControls";
 alert('1')
 
+document.addEventListener("error", (event) => {
+  alert(event.message);
+});
 
 document.addEventListener("gesturestart", (e) => {
   e.preventDefault();
@@ -379,4 +382,4 @@ document.addEventListener('touchend', function(event_k) {
 
 }, false);
 
-alert('読み込み終了');
+alert('2');
