@@ -174,10 +174,27 @@ def handle_connect():
   socketio.emit('client_echo',{'msg': 'server connected!'})
 
 
-#Battle/stayのconnect時
+@socketio.on('cs_exist_room')
+def exist_room(data):
+  socketio.emit('sc_exist_room',data)
+
+#LifeShaveのconnect時
 @socketio.on('cs_room_connect')
 def cs_room_connect(data):
   socketio.emit('sc_room_connect',data)
+
+@socketio.on('cs_signal')
+def signal(data):
+  socketio.emit('sc_signal',data)
+
+@socketio.on('cs_join_lifeshave')
+def join_lifeshave(data):
+  socketio.emit('sc_join_lifeshave',data)
+
+@socketio.on('cs_signal_lifeshave')
+def signal_lifeshave(data):
+  socketio.emit('sc_signal_lifeshave',data)
+
 
 
 #Battle/stayの生存確認用
