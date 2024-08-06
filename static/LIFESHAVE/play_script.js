@@ -9,7 +9,7 @@ import { OrbitControls } from "OrbitControls";
 addEventListener("error", (event) => {
   alert(event)
 })
-alert('1');
+
 let Text = "";
 let Text_id = document.getElementById('text');
 
@@ -193,14 +193,6 @@ let theta = [0.0,0.0];
 
 
 
-
-
-alert('2');
-
-
-
-
-
 function Main(){
   // レンダラーを作成
   const renderer = new THREE.WebGLRenderer({
@@ -232,8 +224,11 @@ function Main(){
   const loader = new GLTFLoader();
   let floor_group = new THREE.Group();
   scene.add(floor_group);
+
+  alert('1');
   loader.load("../static/LIFESHAVE/humancubist.glb", function (human) {
     loader.load("../static/LIFESHAVE/lifeshave_floor.gltf", function (floor) {
+      alert('2');
       //console.log(floor)
       const box = new THREE.Box3().setFromObject(floor.scene.clone());
       r = (box.max.x-box.min.x)*floor_scale/2;
