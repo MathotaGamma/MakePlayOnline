@@ -4,9 +4,6 @@
     <meta charset="utf-8">
     <title>LIFESHAVE/home</title>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
-    <script>
-      localStorage.setItem('Lifeshave-RoomNum','111')
-    </script>
   </head>
   <body>
     <h1>LIFESHAVE</h1>
@@ -18,9 +15,9 @@
     <!--<a href="./play">Play</a>-->
 
     <script>
-      let name = localStorage.getItem('NAME');
-      let id = localStorage.getItem('ID');
-      let room = localStorage.getItem('ROOM')
+      let name = localStorage.getItem('name');
+      let id = localStorage.getItem('id');
+      let room = localStorage.getItem('room')
       //socketオブジェクト生成
       let socket = io();
       let exist_list = {};
