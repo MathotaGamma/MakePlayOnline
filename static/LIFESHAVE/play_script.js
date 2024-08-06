@@ -220,7 +220,7 @@ function Main(){
   const loader = new GLTFLoader();
   let floor_group = new THREE.Group();
   scene.add(floor_group);
-  loader.load("../static/LIFESHAVE/test.glb", function (human) {
+  loader.load("../static/LIFESHAVE/humancubist.glb", function (human) {
     loader.load("../static/LIFESHAVE/lifeshave_floor.gltf", function (floor) {
       //console.log(floor)
       const box = new THREE.Box3().setFromObject(floor.scene.clone());
