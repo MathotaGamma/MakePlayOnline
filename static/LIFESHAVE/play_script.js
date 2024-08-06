@@ -227,8 +227,10 @@ function Main(){
 
   alert('1');
   
-  loader.load("./static/LIFESHAVE/humancubist.glb", function (human) {
-    loader.load("./static/LIFESHAVE/lifeshave_floor.gltf", function (floor) {
+  loader.load("/static/LIFESHAVE/humancubist.glb", function (human) {
+    alert(human);
+    loader.load("/static/LIFESHAVE/lifeshave_floor.gltf", function (floor) {
+      alert(floor);
       alert('2');
       //console.log(floor)
       const box = new THREE.Box3().setFromObject(floor.scene.clone());
