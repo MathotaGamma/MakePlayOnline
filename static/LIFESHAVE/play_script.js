@@ -1,6 +1,7 @@
 //localStorageのkeyを変更して使って
 
 alert('ver:1');
+var fs = require("fs");
 fs.exists('/static/LIFESHAVE/humancubist.glb', function(exists) {
   alert(exists);
 }
