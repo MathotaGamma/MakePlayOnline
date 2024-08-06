@@ -79,8 +79,8 @@ if(Object.keys(getUrlQueries()).includes('num')){
 }
 //console.log(max_num)
 
-let id = localStorage.getItem('ID');
-let room = localStorage.getItem('ROOM');
+let id = localStorage.getItem('id');
+let room = localStorage.getItem('room');
 
 
 if(room == null){
@@ -90,7 +90,7 @@ if(room == null){
   room = Number(room);
 }
 
-let name = localStorage.getItem('NAME')
+let name = localStorage.getItem('name')
 
 
 //socketオブジェクト生成
