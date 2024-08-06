@@ -9,7 +9,7 @@ import { OrbitControls } from "OrbitControls";
 addEventListener("error", (event) => {
   alert(event)
 })
-
+alert('1');
 let Text = "";
 let Text_id = document.getElementById('text');
 
@@ -188,6 +188,18 @@ let human_list = {};
 
 //[横,縦]
 let theta = [0.0,0.0];
+
+
+
+
+
+
+
+alert('2');
+
+
+
+
 
 function Main(){
   // レンダラーを作成
