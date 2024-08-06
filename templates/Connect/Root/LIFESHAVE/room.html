@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>LIFESHAVE/home</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+    <script>
+      localStorage.setItem('Lifeshave-RoomNum','111')
+    </script>
+  </head>
+  <body>
+    <h1>LIFESHAVE</h1>
+    <h2>ROOM</h2><br>
+    <div id="name_list"></div>
+    <br>
+    <br>
+    <input type="button" onclick="Post();" value="スタート">
+    <!--<a href="./play">Play</a>-->
+
+    <script>
+      let name = localStorage.getItem('NAME');
+      let id = localStorage.getItem('ID');
+      let room = localStorage.getItem('ROOM')
+      //socketオブジェクト生成
+      let socket = io();
+      let exist_list = {};
+      let exist_name = [];
+      let num = 0;
+      //サーバとのコネクション確立
+      socket.on('sc_connect', function(data) {
+        alert(data.msg)
+        //socket.emit('server_echo', {data: 'client connected!'});
+      });
+
+      socket.on('sc_exist_room',function(data){
+        if(data.room == room){
+          if(Object.keys(exist_list).includes(data.id)){
+            if(exist_list[data.id][0] <= data.time){
+              exist_list[data.id] = [data.time,data.name];
+            }
+          } else {
+            exist_list[data.id] = [data.time,data.name];
+          }
+        }
+      })
+
+      
+      socket.on('sc_signal',function(data){
+        if(data.room == room && data.path == 'LIFESHAVE_home'){
+          if(data.kind == 'start'){
+            
+            window.location.href = "./play?num="+String(num)+"&id="+data.id;
+          } else if(data.kind == 'join'){
+            //alert(data.name+'が参加しました。');
+          }
+        }
+      })
+
+      socket.emit('cs_signal',{'path':'LIFESHAVE_home','room':room,'name':name,'id':id,'kind':'join'})
+      function Post(){
+        socket.emit('cs_signal',{'path':'LIFESHAVE_home','room':room,'name':name,'id':Object.keys(exist_list).join('-'),'kind':'start'})
+      }
+
+      setInterval(() => {
+        exist_name = [];
+        num = 0;
+        for(let k of Object.keys(exist_list)){
+          if(Date.now()-1000 <= exist_list[k][0]){
+            num += 1;
+            exist_name.push(exist_list[k][1]);
+          }
+        }
+        document.getElementById('name_list').innerText = exist_name.join('\n')
+        
+        socket.emit('cs_exist_room',{room:room,id:id,name:name,time:Date.now()});
+      },100);
+      
+    </script>
+
+
+    <br><br>
+    <h2>Error一覧</h2><br>
+    No<br>
+    002:Lifeshaveにおいて、Roomがlocalstorageに保存されていません。
+    003:Lifeshaveにおいて、人数(num)がクエリに存在しません。
+  </body>
+</html>

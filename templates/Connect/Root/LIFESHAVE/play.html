@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+          "GLTFLoader": "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js",
+          "OrbitControls": "https://unpkg.com/three@0.139.2/examples/jsm/controls/OrbitControls.js"
+          
+        }
+      }
+    </script>
+    <style>
+      html,body,canvas{
+        -webkit-touch-callout:none;
+        -webkit-user-select:none;
+        overflow:hidden;
+        padding:0;
+        width:100%;
+        height:100%;
+        margin:0;
+      }
+      #text {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        font-size: 50px;
+        color: white;
+         -webkit-text-stroke: 1px blue;
+        text-stroke: 2px blue;
+      }
+    </style>
+    <script type="module" src="{{url_for('static',filename='LIFESHAVE/script.js')}}"></script>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <div id="text">Load中<br>しばらくお待ちください。</div>
+  </body>
+</html>

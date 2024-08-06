@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>LIFESHAVE/home</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+    <script>
+      localStorage.setItem('Lifeshave-RoomNum','111')
+    </script>
+  </head>
+  <body>
+    <h1>LIFESHAVE</h1>
+    <h2>Hello</h2><br>
+    <label>Name:<input type="name" id="my_name" placeholder="名前を入力してください。" /></label><br>
+    <label>ID(4桁の数字):<input type="number" id="my_id" min="1000" max="9999" step="1" value="1000" /></label><br>
+    <label>Room(3桁の数字):<input type="number" id="my_room" min="100" max="999" step="1" value="100" /></label><br>
+    <script>
+      if(localStorage.getItem('NAME') != null){
+        document.getElementById('my_name').value = localStorage.getItem('NAME');
+      }
+      if(localStorage.getItem('ID') != null){
+        document.getElementById('my_id').value = localStorage.getItem('ID');
+      }
+      if(localStorage.getItem('ROOM') != null){
+        document.getElementById('my_room').value = localStorage.getItem('ROOM');
+      }
+      function set_func(){
+        //document.getElementById("my_id").value
+        localStorage.setItem('NAME',String(document.getElementById('my_name').value));
+        localStorage.setItem('ID',String(document.getElementById('my_id').value));
+        localStorage.setItem('ROOM',String(document.getElementById('my_room').value));
+        alert('名前を'+String(document.getElementById('my_name').value)+',IDを'+String(document.getElementById('my_id').value)+',ROOMを'+String(document.getElementById('my_room').value)+'に設定しました。');
+      }
+    </script>
+    <input type="button" onclick="set_func();" value="OK" /><br>
+    <br>
+    <br>
+    <!--<input type="button" onclick="Post();">-->
+    <a href="./room">Roomに入る</a>
+    
+    
+    
+
+    <br><br>
+    <h2>Error一覧</h2><br>
+    No<br>
+    002:Lifeshaveにおいて、Roomがlocalstorageに保存されていません。
+    003:Lifeshaveにおいて、人数(num)がクエリに存在しません。
+  </body>
+</html>
