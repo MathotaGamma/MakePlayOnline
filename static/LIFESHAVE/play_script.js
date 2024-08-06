@@ -226,6 +226,7 @@ function Main(){
   scene.add(floor_group);
 
   alert('1');
+  
   loader.load("./static/LIFESHAVE/humancubist.glb", function (human) {
     loader.load("./static/LIFESHAVE/lifeshave_floor.gltf", function (floor) {
       alert('2');
@@ -501,7 +502,11 @@ function Main(){
 }
 
 
-Main();
+try{
+  Main();
+} catch(e) {
+  alert(e.message);
+}
 
 
 
