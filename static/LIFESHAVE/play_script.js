@@ -227,7 +227,7 @@ function Main(){
 
   alert('1');
   
-  loader.load("../static/LIFESHAVE/humancubist.glb", function (human) {
+  loader.load("../static/LIFESHAVE/humancubist.gltf", function (human) {
     alert(human);
     loader.load("../static/LIFESHAVE/lifeshave_floor.gltf", function (floor) {
       alert(floor);
