@@ -1,6 +1,6 @@
 //localStorageのkeyを変更して使って
 
-alert('ver:1');
+alert('ver:2');
 
 import * as THREE from "three";
 import { GLTFLoader } from "GLTFLoader";
