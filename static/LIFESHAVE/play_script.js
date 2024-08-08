@@ -501,7 +501,7 @@ function Main(){
       tick();
     });
   },undefined, function (error) {
-    alert(error);
+    //alert(error);
   });
 }
 
