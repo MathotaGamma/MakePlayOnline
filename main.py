@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, url_for, redirect
+from flask import Flask, render_template, session, request, url_for, redirect, send_from_directory
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect                                  
 import threading
 from flask_sqlalchemy import SQLAlchemy
@@ -68,6 +68,10 @@ def Lifeshave_play():
 @app.route('/gltf')
 def gltf():
   return url_for('static',filename="LIFESHAVE/humancubist.gltf")
+
+@app.route('/Static/<path:Path>')
+def Static_file(Path):
+  return send_from_directory('static',Path)
 
 
 
