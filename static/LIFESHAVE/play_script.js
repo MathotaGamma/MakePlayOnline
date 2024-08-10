@@ -177,7 +177,9 @@ loader.load("../static/LIFESHAVE/humancubist.gltf", function (human) {
     requestAnimationFrame(animate);
   }
   animate();
-});
+},undefined,function(e_k) => {
+  alert(e_k)
+);
 
 
 function main_func(){
