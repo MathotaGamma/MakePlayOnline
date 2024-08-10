@@ -149,8 +149,12 @@ def Connect_stay():
 
 @app.route('/Connect/Root/<string:Space>/<path:Directly>')
 def Connect_Root_ALL(Space,Directly):
-  return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly))
-
+  if(Space == "LIFESHAVE"):
+    with open('static/LIFESHAVE/humancubist.gltf') as f:
+      human = json.load(f)
+    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),human=human)
+  else:
+    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly))
 """@app.route('/Connect/Touch/home')
 def Connect_Touch_home():
   return render_template('/Connect/Touch/home.html')
