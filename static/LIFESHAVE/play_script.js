@@ -227,7 +227,7 @@ function Main(){
 
   alert('1');
   
-  loader.load("{{url_for('static',filename='LIFESHAVE/humancubist.gltf') | tojson}}", function (human) {
+  loader.load("{{human | tojson}}", function (human) {
     alert(human);
     loader.load("../../../Static/LIFESHAVE/lifeshave_floor.gltf", function (floor) {
       alert(floor);
