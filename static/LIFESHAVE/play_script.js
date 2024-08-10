@@ -1,6 +1,7 @@
 //localStorageのkeyを変更して使って
 
 alert('ver:2');
+alert({{human | tojson}});
 
 import * as THREE from "three";
 import { GLTFLoader } from "GLTFLoader";
