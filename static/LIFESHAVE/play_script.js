@@ -3,7 +3,7 @@ addEventListener("error", (event) => {
   alert(event)
 })
 alert('ver:3');
-alert('A'+String({{human | tojson}}));
+
 
 import * as THREE from "three";
 import { GLTFLoader } from "GLTFLoader";
