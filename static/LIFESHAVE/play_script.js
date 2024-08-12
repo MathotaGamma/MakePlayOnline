@@ -2,7 +2,6 @@
 addEventListener("error", (event) => {
   alert(event)
 })
-alert('ver:3');
 
 
 import * as THREE from "three";
@@ -225,14 +224,9 @@ function Main(){
   const loader = new GLTFLoader();
   let floor_group = new THREE.Group();
   scene.add(floor_group);
-
-  alert('1');
   
   loader.load("/Static/LIFESHAVE/humancubist.gltf", function (human) {
-    alert(human);
     loader.load("../../../Static/LIFESHAVE/lifeshave_floor.gltf", function (floor) {
-      alert(floor);
-      alert('2');
       //console.log(floor)
       const box = new THREE.Box3().setFromObject(floor.scene.clone());
       r = (box.max.x-box.min.x)*floor_scale/2;
@@ -454,9 +448,6 @@ function Main(){
       }
 
 
-
-
-      alert('3');
 
 
       
