@@ -1,5 +1,7 @@
 //localStorageのkeyを変更して使って
-
+addEventListener("error", (event) => {
+  alert(event)
+})
 alert('ver:3');
 alert('A'+String({{human | tojson}}));
 
@@ -7,9 +9,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "GLTFLoader";
 import { OrbitControls } from "OrbitControls";
 
-addEventListener("error", (event) => {
-  alert(event)
-})
+
 
 let Text = "";
 let Text_id = document.getElementById('text');
