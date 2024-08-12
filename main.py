@@ -70,6 +70,10 @@ def Lifeshave_play():
 def gltf():
   return url_for('static',filename="LIFESHAVE/humancubist.gltf")
 
+@app.route('/Static/<path:Path>',methods=['GET','POST'])
+def Static_file(Path):
+  return send_from_directory(directory='static',filename=Path)
+
 @app.route('/Static/<path:Path>')
 def Static_file(Path):
   return send_from_directory(directory='static',filename=Path)
