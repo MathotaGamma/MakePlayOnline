@@ -72,11 +72,11 @@ def gltf():
 
 @app.route('/Static/<path:Path>',methods=['GET','POST'])
 def Static_file(Path):
-  return send_from_directory(directory='static',filename=Path)
+  return send_from_directory('static',Path)
 
 @app.route('/Static/<path:Path>')
 def Static_file(Path):
-  return send_from_directory(directory='static',filename=Path)
+  return send_from_directory('static',Path)
 
 
 
