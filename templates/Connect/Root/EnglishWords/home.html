@@ -5,8 +5,23 @@
     <title>MPGinWorld:English Words</title>
   </head>
   <body>
-    A
-    <object data="/Static/EnglishWords/words_data.txt"></object>
-    B
+    <object id="english_words" data="/Static/EnglishWords/words_data.txt" style="display:none;"></object>
+    <div id="Text"></div>
+    <script>
+      let english = document.getElementById('english_words').innerText;
+      let Text_id = document.getElementById('Text');
+      let words = english.split('\n');
+      const words_num = words.length;
+
+      let k = 0;
+      setInterval(() => {
+        Text_id.innerText = words[k];
+        k += 1;
+        if(k == words_num){
+          k = 0;
+        }
+      },1500);
+    </script>
+    
   </body>
 </html>
