@@ -8,8 +8,9 @@
     <object id="english_words" data="/Static/EnglishWords/words_data.txt" style="display:none;"></object>
     <div id="Text"></div>
     <script>
-      let english = document.getElementById('english_words');
+      let english = document.getElementById('english_words').data;
       alert(english);
+      alert(Object.keys(document.getElementById('english_words')));
       let Text_id = document.getElementById('Text');
       let words = english.split('\n');
       alert(words);
