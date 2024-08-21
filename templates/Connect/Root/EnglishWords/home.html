@@ -9,7 +9,7 @@
     <object id="english_words" data="/Static/EnglishWords/words_data.txt" style="display:none;"></object>
     <div id="Text"></div>
     <script>
-      
+      var socket = io();
       let english = '';
       let words_num = 0;
       let words = [];
@@ -31,7 +31,11 @@
           console.error('Error:', error);
         });
 
+      socket.on('connect', function() { // 初期化時に呼ばれるコールバック
+        
+      }
       if(words_num > 0){
+        socket.emit('');
         let k = 0;
         setInterval(() => {
           Text_id.innerText = words[k];
