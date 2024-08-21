@@ -8,22 +8,30 @@
     <object id="english_words" data="/Static/EnglishWords/words_data.txt" style="display:none;"></object>
     <div id="Text"></div>
     <script>
-      let english = document.getElementById('english_words').data;
-      alert(english);
-      alert(Object.keys(document.getElementById('english_words')));
-      let Text_id = document.getElementById('Text');
-      let words = english.split('\n');
-      alert(words);
-      const words_num = words.length;
+      const filePath = "/Static/EnglishWords/words_data.txt";
+      // 非同期でファイルを読み込む
+      fetch(filePath)
+        .then(response => response.text())
+        .then(data => {
+          let english = data;
+          let Text_id = document.getElementById('Text');
+          let words = english.split('\n');
+          const words_num = words.length;
 
-      let k = 0;
-      setInterval(() => {
-        Text_id.innerText = words[k];
-        k += 1;
-        if(k == words_num){
-          k = 0;
-        }
-      },1500);
+          let k = 0;
+          setInterval(() => {
+            Text_id.innerText = words[k];
+            k += 1;
+            if(k == words_num){
+              k = 0;
+           }
+          },1500);
+    
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      
     </script>
     
   </body>
