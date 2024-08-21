@@ -31,11 +31,16 @@
           console.error('Error:', error);
         });
 
-      socket.on('connect', function() { // 初期化時に呼ばれるコールバック
+      socket.on('connect', function() {
         
-      }
+      });
+
+      socket.on('sc_signal', (data) => {
+        alert(data);
+      });
+      
       if(words_num > 0){
-        socket.emit('');
+        socket.emit('cs_signal',{room:'100'});
         let k = 0;
         setInterval(() => {
           Text_id.innerText = words[k];
