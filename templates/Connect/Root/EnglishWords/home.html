@@ -31,16 +31,26 @@
           console.error('Error:', error);
         });
 
+
+
+      let name = localStorage.getItem('name');
+      let id = localStorage.getItem('id');
+      let room = localStorage.getItem('room');
+      
       socket.on('connect', function() {
         
       });
 
       socket.on('sc_signal', (data) => {
-        alert(data);
+        if(data.path == 'EnglishWords_home' && data.room == room){
+          if(data.kind == 'join'){
+            alert(data.name+'が参加しました。');
+          }
+        }
       });
       
       if(words_num > 0){
-        socket.emit('cs_signal',{room:'100'});
+        socket.emit('cs_signal',{path:'EnglishWords_home',name:name,id:id,room:room,kind:'join'});
         let k = 0;
         setInterval(() => {
           Text_id.innerText = words[k];
