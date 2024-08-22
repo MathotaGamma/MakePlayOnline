@@ -166,12 +166,14 @@
             if(5*k*k/8/height >= 1){
               if(x <= width/2 && rl == 0){
                 alert('died');
+                state = 0;
               } else if(x > width/2 && rl == 1){
                 alert('died');
+                state = 0;
               } else {
                 z.shift();
                 now_ind = -1;
-                state = 0;
+                //state = 0;
               }
               break;
             }
@@ -199,7 +201,7 @@
           //単語を表示
           textAlign(CENTER);
           noStroke();
-          textSize(50);
+          textSize(50*now_word[1].length/6);
           fill(0);
           text(now_word[1],width/2,100);
     
