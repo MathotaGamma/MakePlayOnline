@@ -8,10 +8,14 @@
   <body>
     <object id="english_words" data="/Static/EnglishWords/words_data.txt" style="display:none;"></object>
     <div id="Text"></div>
+    範囲:<input type="number" id="under" placeholder="下限" min="1" max="1900" step="1" value="1" />~<input type="number" id="roof" placeholder="上限" min="1" max="1900" step="1" value="1900" />
+    <button onclick="start();" id="Start">スタート</button>
     <script>
       window.addEventListener("error", (event) => {
         alert(event);
       });
+      
+
       var socket = io();
       let english = '';
       let words_num = 0;
@@ -24,7 +28,7 @@
       fetch(filePath)
         .then(response => response.text())
         .then(data => {
-          alert('get');
+          //alert('get');
           english = data;
           words = english.split('\n');
           
@@ -46,7 +50,7 @@
       socket.on('connect', function() {
         alert('接続しました。');
       });
-      alert('2');
+      //alert('2');
       socket.on('sc_signal',function (data_k){
         if(data_k.path == 'EnglishWords_home' && data_k.room == room){
           if(data_k.kind == 'join'){
@@ -57,9 +61,10 @@
       
       function main(){
         if(words_num > 0){
-          alert('3');
+          //alert('3');
           socket.emit('cs_signal',{path:'EnglishWords_home',name:name,id:id,room:room,kind:'join'});
           let k = 0;
+          
           setInterval(() => {
             Text_id.innerText = words[k];
             k += 1;
@@ -69,7 +74,13 @@
           },1000);
         }
       }
-      
+      function start(){
+        let k_num = [document.getElementById('under').value,document.getElementById('roof').value];
+        k_num.sort(function(first, second){
+          return first - second;
+        });
+        window.location.href="./play?num="+String(k_num[0])+"_"+String(k_num[1]);
+      }
     </script>
     
   </body>
