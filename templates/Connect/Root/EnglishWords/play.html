@@ -8,6 +8,9 @@
   </head>
   <body>
     <script>
+
+var socket = io();
+      
 let words = ["1:create/を作り出す","2:Hello/こんにちは","3:mean/を意味する"]
 words = words.map((k) => {
   let k_k = k.split(/(:|\/)/)
