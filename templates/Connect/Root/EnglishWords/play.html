@@ -20,35 +20,41 @@
   <body>
     <script>
       alert('ver:1.01.01');
-      
+
+      let words = [];
+      let len = 0;
       const filePath = "/Static/EnglishWords/words_data.txt";
       // 非同期でファイルを読み込む
+      
         fetch(filePath)
           .then(response => response.text())
           .then(data => {
             alert('get');
-            let words_k = data.split('\n');
+            words = data.split('\n');
           
-            let len_k = words_k.length;
+            len = words.length;
             
-            main(words_k,len_k);
+            
     
           })
           .catch(error => {
             console.error('Error:', error);
           });
-
+    
       
       
-
-      function main(k1,k2){
-        alert('main');
-      alert(k1);
+      while(true){
+        if(len >= 1){
+          break;
+        }
+      }
+      
+      alert('main');
+      
       var socket = io();
-      alert(k2);
+      
 
-      let words = k1;
-      let len = k2;
+      
 
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
