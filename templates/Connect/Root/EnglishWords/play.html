@@ -9,183 +9,188 @@
   <body>
     <script>
 
-var socket = io();
+      var socket = io();
+
+      let name = localStorage.getItem('name');
+      let id = localStorage.getItem('id');
+      let room = localStorage.getItem('room');
       
-let words = ["1:create/を作り出す","2:Hello/こんにちは","3:mean/を意味する"]
-words = words.map((k) => {
-  let k_k = k.split(/(:|\/)/)
-  return [k_k[0],k_k[2],k_k[4]]
-});
+      let words = ["1:create/を作り出す","2:Hello/こんにちは","3:mean/を意味する"]
+      words = words.map((k) => {
+        let k_k = k.split(/(:|\/)/)
+        return [k_k[0],k_k[2],k_k[4]]
+      });
 
-const len = words.length;
+      const len = words.length;
 
-const fr = 30;
-
-
-function shuffleArray(array) {
-  const cloneArray = [...array];
-
-  const result = cloneArray.reduce((_,cur,idx) => {
-    let rand = Math.floor(Math.random() * (idx + 1));
-    cloneArray[idx] = cloneArray[rand]
-    cloneArray[rand] = cur;
-    return cloneArray
-  })
-
-  return result;
-}
+      const fr = 30;
 
 
-const ind_origin = Array.from({length: len}, (v, k) => k);
-//console.log(words[0])
+      function shuffleArray(array) {
+        const cloneArray = [...array];
 
+        const result = cloneArray.reduce((_,cur,idx) => {
+          let rand = Math.floor(Math.random() * (idx + 1));
+          cloneArray[idx] = cloneArray[rand]
+          cloneArray[rand] = cur;
+          return cloneArray
+        })
 
-
-
-
-
-const width = innerWidth;
-const height = innerHeight;
-
-function setup() {
-  createCanvas(width,height);
-  frameRate(fr);
-  //rectMode(RIGHT);
-}
-
-let z = [];
-let v = 0.1;
-let v_x = 50*v;
-
-let now_ind = -1;
-let ind = [];
-let now_word = [];
-let now_oppo_word = [];
-
-let size = 50;
-let x = 50;
-
-let rl = -1;
-let state = 0;
-
-
-function draw() {
-  //console.log('hey')
-  clear();
-  background(255);
-  noStroke();
-  fill(255,190,200);
-  beginShape();
-  vertex(0,4*height/5);
-  vertex(0,height);
-  vertex(width,height);
-  vertex(width,4*height/5);
-  vertex(width/2,2*height/5);
-  endShape();
-  
-  
-  //場合分けをして、変数を決定、壁を描画
-  //単語が変わる時と始める時
-  if(now_ind == -1){
-    v += 0.005;
-    v_x = v*50;
-    z.push(0);
-    if(ind.length == 0){
-      ind = shuffleArray(ind_origin);
-    }
-    now_ind = ind.shift();
-    now_word = words[now_ind];
-    rl = Math.floor(2*Math.random());
-    while(true){
-      let rand_k = Math.floor(len*Math.random());
-      if(rand_k != now_ind){
-        now_oppo_word = words[rand_k];
-        break;
+        return result;
       }
-      //break;
-    }
-    //console.log(ind)
-  } else {
-    
-    
-    
-    
-    //壁類を表示
-    let z_k = [];
-    for(let k of z){
-      //壁に衝突した時
-      if(5*k*k/8/height >= 1){
-        if(x <= width/2 && rl == 0){
-          alert('died');
-        } else if(x > width/2 && rl == 1){
-          alert('died');
+
+
+      const ind_origin = Array.from({length: len}, (v, k) => k);
+      //console.log(words[0])
+
+
+
+
+
+
+      const width = innerWidth;
+      const height = innerHeight;
+
+      function setup() {
+        createCanvas(width,height);
+        frameRate(fr);
+        //rectMode(RIGHT);
+      }
+
+      let z = [];
+      let v = 0.1;
+      let v_x = 50*v;
+
+      let now_ind = -1;
+      let ind = [];
+      let now_word = [];
+      let now_oppo_word = [];
+
+      let size = 50;
+      let x = 50;
+
+      let rl = -1;
+      let state = 0;
+
+
+      function draw() {
+        //console.log('hey')
+        clear();
+        background(255);
+        noStroke();
+        fill(255,190,200);
+        beginShape();
+        vertex(0,4*height/5);
+        vertex(0,height);
+        vertex(width,height);
+        vertex(width,4*height/5);
+        vertex(width/2,2*height/5);
+        endShape();
+  
+  
+        //場合分けをして、変数を決定、壁を描画
+        //単語が変わる時と始める時
+        if(now_ind == -1){
+          v += 0.005;
+          v_x = v*50;
+          z.push(0);
+          if(ind.length == 0){
+            ind = shuffleArray(ind_origin);
+          }
+          now_ind = ind.shift();
+          now_word = words[now_ind];
+          rl = Math.floor(2*Math.random());
+          while(true){
+            let rand_k = Math.floor(len*Math.random());
+            if(rand_k != now_ind){
+              now_oppo_word = words[rand_k];
+              break;
+            }
+          }
+          //console.log(ind)
         } else {
-          z.shift();
-          now_ind = -1;
-          state = 0;
-        }
-        break;
-      }
-      //左側
-      fill(100,230,100);
-      rect(width/2-5*width*k*k/16/height,2*height/5-k*k/4,5*width*k*k/16/height,k*k/2);
-      //右側
-      fill(130,130,255);
-      rect(width/2,2*height/5-k*k/4,5*width*k*k/16/height,k*k/2);
-      fill(0);
-      textSize(0.1+k*k/20);
-      if(rl == 1){
-        text(now_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-        text(now_oppo_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-      } else if(rl == 0) {
-        text(now_oppo_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-        text(now_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-      }
-      z_k.push(k+v);
-    }
-    z = z_k;
     
-    //単語を表示
-    textAlign(CENTER);
-    noStroke();
-    textSize(50);
-    fill(0);
-    text(now_word[1],width/2,100);
     
-    //自分の動きを制御
-    if(touch_x >= 0){
-      if(touch_x <= width/2){
-        x -= v_x;
-        if(x < size/2){
-          x = size/2;
-        }
-      } else {
-        x += v_x;
-        if(x > width-size/2){
-          x = width-size/2;
-        }
-      }
-    }
     
-    //自分を表示
-    fill(100,0,0);
-    rect(x-size/2,4*height/5-size/2,size,size);
-  }
-  //console.log(10*z*z/16/height);
-}
+    
+          //壁類を表示
+          let z_k = [];
+          for(let k of z){
+            //壁に衝突した時
+            if(5*k*k/8/height >= 1){
+              if(x <= width/2 && rl == 0){
+                alert('died');
+              } else if(x > width/2 && rl == 1){
+                alert('died');
+              } else {
+                z.shift();
+                now_ind = -1;
+                state = 0;
+              }
+              break;
+            }
+            //左側
+            fill(100,230,100);
+            rect(width/2-5*width*k*k/16/height,2*height/5-k*k/4,5*width*k*k/16/height,k*k/2);
+            //右側
+            fill(130,130,255);
+            rect(width/2,2*height/5-k*k/4,5*width*k*k/16/height,k*k/2);
 
-let touch_x = -1;
-function touchStarted(){
-  touch_x = touches[0].x;
-}
+            //壁の文字
+            fill(0);
+            textSize(0.1+k*k/20);
+            if(rl == 1){
+              text(now_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+              text(now_oppo_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+            } else if(rl == 0) {
+              text(now_oppo_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+              text(now_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+            }
+            z_k.push(k+v);
+          }
+          z = z_k;
+    
+          //単語を表示
+          textAlign(CENTER);
+          noStroke();
+          textSize(50);
+          fill(0);
+          text(now_word[1],width/2,100);
+    
+          //自分の動きを制御
+          if(touch_x >= 0){
+            if(touch_x <= width/2){
+              x -= v_x;
+              if(x < size/2){
+                x = size/2;
+              }
+            } else {
+              x += v_x;
+              if(x > width-size/2){
+                x = width-size/2;
+              }
+            }
+          }
+    
+          //自分を表示
+          fill(100,0,0);
+          rect(x-size/2,4*height/5-size/2,size,size);
+        }
+        //console.log(10*z*z/16/height);
+      }
 
-function touchEnded(){
-  if(touches.length >= 1){
-    touch_x = touches[0].x;
-  } else {
-    touch_x = -1;
-  }
-}
+      let touch_x = -1;
+      function touchStarted(){
+        touch_x = touches[0].x;
+      }
+
+      function touchEnded(){
+        if(touches.length >= 1){
+          touch_x = touches[0].x;
+        } else {
+          touch_x = -1;
+        }
+      }
     </script>
   </body>
 </html>
