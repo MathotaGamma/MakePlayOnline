@@ -8,6 +8,26 @@
   </head>
   <body>
     <script>
+      let words = [];
+      let len = 0;
+      window.onload = function(){
+        const filePath = "/Static/EnglishWords/words_data.txt";
+        // 非同期でファイルを読み込む
+        fetch(filePath)
+          .then(response => response.text())
+          .then(data => {
+            //alert('get');
+            words = data.split('\n');
+          
+            len = words.length;
+
+            //main();
+    
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
 
       var socket = io();
 
@@ -15,13 +35,13 @@
       let id = localStorage.getItem('id');
       let room = localStorage.getItem('room');
       
-      let words = ["1:create/を作り出す","2:Hello/こんにちは","3:mean/を意味する"]
+      //let words = ["1:create/を作り出す","2:Hello/こんにちは","3:mean/を意味する"]
       words = words.map((k) => {
         let k_k = k.split(/(:|\/)/)
         return [k_k[0],k_k[2],k_k[4]]
       });
 
-      const len = words.length;
+      len = words.length;
 
       const fr = 30;
 
