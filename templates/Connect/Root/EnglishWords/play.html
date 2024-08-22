@@ -27,9 +27,9 @@
           .then(response => response.text())
           .then(data => {
             alert('get');
-            words_k = data.split('\n');
+            let words_k = data.split('\n');
           
-            len_k = words.length;
+            let len_k = words.length;
             
             main(words_k,len_k);
     
