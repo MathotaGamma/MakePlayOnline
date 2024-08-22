@@ -41,7 +41,7 @@
         
       });
 
-      socket.on('sc_signal', (data) => {
+      socket.on('sc_signal',function (data) => {
         if(data.path == 'EnglishWords_home' && data.room == room){
           if(data.kind == 'join'){
             alert(data.name+'が参加しました。');
