@@ -27,6 +27,7 @@
       let words = [];
       let len = 0;
       let state = 0;
+      let ind_origin = [];
       const filePath = "/Static/EnglishWords/words_data.txt";
       // 非同期でファイルを読み込む
       
@@ -40,6 +41,7 @@
               return [k_k[0],k_k[2],k_k[4]]
             });
             len = words.length;
+            ind_origin = Array.from({length: len}, (v, k) => k);
             
             state = 1;
     
@@ -82,7 +84,7 @@
       }
 
 
-      const ind_origin = Array.from({length: len}, (v, k) => k);
+      
       //console.log(words[0])
 
 
@@ -135,7 +137,7 @@
         //場合分けをして、変数を決定、壁を描画
         //単語が変わる時と始める時
         if(now_ind == -1){
-          alert('start');
+          //alert('start');
           v += 0.005;
           v_x = v*50;
           z.push(0);
@@ -152,6 +154,7 @@
               break;
             }
           }
+          //alert(String(z)+
           //console.log(ind)
         } else {
     
