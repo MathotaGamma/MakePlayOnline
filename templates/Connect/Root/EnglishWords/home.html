@@ -24,6 +24,7 @@
       fetch(filePath)
         .then(response => response.text())
         .then(data => {
+          alert('get');
           english = data;
           words = english.split('\n');
           
