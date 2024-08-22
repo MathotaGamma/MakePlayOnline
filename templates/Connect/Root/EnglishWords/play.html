@@ -45,6 +45,7 @@
         alert('main');
       alert(k1);
       var socket = io();
+      alert(k2);
 
       let words = k1;
       let len = k2;
@@ -58,8 +59,9 @@
         let k_k = k.split(/(:|\/)/)
         return [k_k[0],k_k[2],k_k[4]]
       });
-
+     
       len = words.length;
+      alert('1');
 
       const fr = 30;
 
