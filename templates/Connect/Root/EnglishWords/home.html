@@ -9,8 +9,8 @@
     <object id="english_words" data="/Static/EnglishWords/words_data.txt" style="display:none;"></object>
     <div id="Text"></div>
     <script>
-      document.addEventListener("error", (event) => {
-        alert(event.message);
+      window.addEventListener("error", (event) => {
+        alert(event);
       });
       var socket = io();
       let english = '';
