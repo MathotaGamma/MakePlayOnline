@@ -19,8 +19,7 @@
   </head>
   <body>
     <script>
-      let words = [];
-      let len = 0;
+      
       
       const filePath = "/Static/EnglishWords/words_data.txt";
       // 非同期でファイルを読み込む
@@ -28,11 +27,11 @@
           .then(response => response.text())
           .then(data => {
             alert('get');
-            words = data.split('\n');
+            words_k = data.split('\n');
           
-            len = words.length;
+            len_k = words.length;
             
-            main();
+            main(words_k,len_k);
     
           })
           .catch(error => {
@@ -42,9 +41,13 @@
       
       
 
-      function main(){
+      function main(k_1,k_2){
         alert('main');
+      alert(k_1);
       var socket = io();
+
+      let words = k_1;
+      let len = k_2;
 
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
