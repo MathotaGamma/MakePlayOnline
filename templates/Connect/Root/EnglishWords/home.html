@@ -14,6 +14,8 @@
       let words_num = 0;
       let words = [];
       const Text_id = document.getElementById('Text');
+
+      alert('hey');
       const filePath = "/Static/EnglishWords/words_data.txt";
       // 非同期でファイルを読み込む
       fetch(filePath)
@@ -40,7 +42,7 @@
       socket.on('connect', function() {
         
       });
-
+      alert('2');
       socket.on('sc_signal',function (data) => {
         if(data.path == 'EnglishWords_home' && data.room == room){
           if(data.kind == 'join'){
@@ -50,6 +52,7 @@
       });
       
       if(words_num > 0){
+        alert('3');
         socket.emit('cs_signal',{path:'EnglishWords_home',name:name,id:id,room:room,kind:'join'});
         let k = 0;
         setInterval(() => {
