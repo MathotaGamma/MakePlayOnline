@@ -23,6 +23,7 @@
 
       let words = [];
       let len = 0;
+      let state = 0;
       const filePath = "/Static/EnglishWords/words_data.txt";
       // 非同期でファイルを読み込む
       
@@ -30,11 +31,14 @@
           .then(response => response.text())
           .then(data => {
             alert('get');
-            words = data.split('\n');
-          
+            
+            words = data.split('\n').map((k) => {
+              let k_k = k.split(/(:|\/)/)
+              return [k_k[0],k_k[2],k_k[4]]
+            });
             len = words.length;
             
-            
+            state = 1;
     
           })
           .catch(error => {
@@ -43,28 +47,17 @@
     
       
       
-      while(true){
-        if(len >= 1){
-          break;
-        }
-      }
+      
       
       alert('main');
       
       var socket = io();
-      
-
-      
-
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
       let room = localStorage.getItem('room');
       
       //let words = ["1:create/を作り出す","2:Hello/こんにちは","3:mean/を意味する"]
-      words = words.map((k) => {
-        let k_k = k.split(/(:|\/)/)
-        return [k_k[0],k_k[2],k_k[4]]
-      });
+      
      
       //len = words.length;
       alert('1');
@@ -120,7 +113,8 @@
 
 
       function draw() {
-        //console.log('hey')
+        if(state == 1){
+          //console.log('hey')
         clear();
         background(255);
         noStroke();
@@ -223,6 +217,7 @@
           rect(x-size/2,4*height/5-size/2,size,size);
         }
         //console.log(10*z*z/16/height);
+        }
       }
 
       let touch_x = -1;
