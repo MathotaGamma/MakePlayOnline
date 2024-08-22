@@ -40,13 +40,13 @@
       let room = localStorage.getItem('room');
       
       socket.on('connect', function() {
-        
+        alert('接続しました。');
       });
       alert('2');
-      socket.on('sc_signal',function (data) => {
-        if(data.path == 'EnglishWords_home' && data.room == room){
-          if(data.kind == 'join'){
-            alert(data.name+'が参加しました。');
+      socket.on('sc_signal',function (data_k) => {
+        if(data_k.path == 'EnglishWords_home' && data_k.room == room){
+          if(data_k.kind == 'join'){
+            alert(data_k.name+'が参加しました。');
           }
         }
       });
