@@ -13,23 +13,25 @@
       
       const filePath = "/Static/EnglishWords/words_data.txt";
       // 非同期でファイルを読み込む
-      fetch(filePath)
-        .then(response => response.text())
-        .then(data => {
-          alert('get');
-          words = data.split('\n');
+      (async function(){
+        await fetch(filePath)
+          .then(response => response.text())
+          .then(data => {
+            alert('get');
+            words = data.split('\n');
           
-          len = words.length;
+            len = words.length;
 
-          main();
+            //main();
     
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
       
 
-      function main(){
+      
       var socket = io();
 
       let name = localStorage.getItem('name');
@@ -211,7 +213,6 @@
         } else {
           touch_x = -1;
         }
-      }
       }
     </script>
   </body>
