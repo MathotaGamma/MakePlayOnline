@@ -100,9 +100,11 @@
           if(data_socket.kind == 'join'){
             alert(name+'が参加しました。');
           } else if(data_socket.kind == 'v'){
+            
             let k = data_socket.x_data.split('_');
+            alert(k);
             if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
-              alert(k[1]);
+              //alert(k[1]);
               x += k[1];
               if(x > width-size/2){
                 x = width-size/2;
