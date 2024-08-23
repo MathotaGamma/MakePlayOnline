@@ -171,7 +171,7 @@
         if(state == 1){
           /*fill(0,0,0);
           text(String(1+socket_list.length),200,75);*/
-          let socket_list_k = socket_list;
+          
           if(socket_list.length > 0){
             for(let k1 of Array.from({length: socket_list.length}, (v0, k0) => k0)){
               //alert(k1);
@@ -187,13 +187,14 @@
                 }
                 x = real_x;
                 socket_time_now = parseInt(k[0]);
-                socket_list_k.slice(k1,1);
+                delete socket_list[k1];
               } else if(parseInt(k[0]) <= Date.now()){
-                socket_list_k.slice(k1,1);
+                delete socket_list[k1];
               }
             }
           }
-          socket_list = socket_list_k;
+          socket_list = socket_list.filter(v => v);
+         
           //alert(words);
           //console.log('hey')
           clear();
