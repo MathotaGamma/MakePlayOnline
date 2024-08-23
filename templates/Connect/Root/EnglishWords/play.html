@@ -193,14 +193,14 @@
             //壁の文字
             fill(0);
             if(rl == 1){
-              textSize((0.1+k*k/20)*(5+6/now_word[2].length));
+              textSize((0.1+k*k/20)*(0.1+6/now_word[2].length));
               text(now_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-              textSize((0.1+k*k/20)*(5+6/now_oppo_word[2].length));
+              textSize((0.1+k*k/20)*(0.1+6/now_oppo_word[2].length));
               text(now_oppo_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
             } else if(rl == 0) {
-              textSize((0.1+k*k/20)*(5+6/now_oppo_word[2].length));
+              textSize((0.1+k*k/20)*(0.1+6/now_oppo_word[2].length));
               text(now_oppo_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-              textSize((0.1+k*k/20)*(5+6/now_word[2].length));
+              textSize((0.1+k*k/20)*(0.1+6/now_word[2].length));
               text(now_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
             }
             z_k.push(k+v);
