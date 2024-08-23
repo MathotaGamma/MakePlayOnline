@@ -21,6 +21,8 @@
     <script>
       alert('ver:1.01.11');
 
+      const width = innerWidth;
+      const height = innerHeight;
       
       let params_origin = window.location.search.split('&');
       let params = params_origin[0].split('=')[1].split('_');
@@ -80,7 +82,7 @@
       
       //alert('main');
       
-      //var socket = io();
+      var socket = io();
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
       let room = localStorage.getItem('room');
@@ -88,11 +90,11 @@
       let socket_time_now = 0;
 
 
-      /*socket.on('connect',function(){
+      socket.on('connect',function(){
         
       });
-      socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'join'});*/
-      /*socket.on('sc_signal',function(data_socket){
+      socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'join'});
+      socket.on('sc_signal',function(data_socket){
         if(data_socket.room == room && data_socket.path == 'EnglishWords_play'){
           if(data_socket.kind == 'join'){
             alert(name+'が参加しました。');
@@ -104,7 +106,7 @@
             }
           }
         }
-      });*/
+      });
       
       //let words = ["1:create/を作り出す","2:Hello/こんにちは","3:mean/を意味する"]
       
@@ -137,8 +139,7 @@
 
 
 
-      const width = innerWidth;
-      const height = innerHeight;
+      
 
       function setup() {
         createCanvas(width,height);
@@ -305,9 +306,9 @@
             textSize(35);
             text('miss:'+String(miss_Count),75,100);
           }
-          /*textSize(35);
+          textSize(35);
           fill(0,0,0);
-          text('速さ:'+v.toFixed(4),75,150);*/
+          text('速さ:'+v.toFixed(4),75,150);
         }
       }
 
