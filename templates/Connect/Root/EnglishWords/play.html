@@ -35,14 +35,13 @@
         fetch(filePath)
           .then(response => response.text())
           .then(data => {
-            alert('get');
+            //alert('get');
             
             words = data.split('\n').map((k) => {
               let k_k = k.split(/(:|\/)/)
               return [k_k[0],k_k[2],k_k[4]]
             });
-            words = words.slice(parseInt(params[0])-1,parseInt(params[1])-parseInt(params[0])+1);
-            alert(parseInt(params[0])-1);
+            words = words.slice(parseInt(params[0])-1,parseInt(params[1])-1);
             alert(words);
             len = words.length;
             ind_origin = Array.from({length: len}, (v, k) => k);
@@ -194,14 +193,14 @@
             //壁の文字
             fill(0);
             if(rl == 1){
-              textSize((0.1+k*k/20)*6/now_word[2].length);
+              textSize((0.1+k*k/20)*(5+6/now_word[2].length));
               text(now_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-              textSize((0.1+k*k/20)*6/now_oppo_word[2].length);
+              textSize((0.1+k*k/20)*(5+6/now_oppo_word[2].length));
               text(now_oppo_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
             } else if(rl == 0) {
-              textSize((0.1+k*k/20)*6/now_oppo_word[2].length);
+              textSize((0.1+k*k/20)*(5+6/now_oppo_word[2].length));
               text(now_oppo_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-              textSize((0.1+k*k/20)*6/now_word[2].length);
+              textSize((0.1+k*k/20)*(5+6/now_word[2].length));
               text(now_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
             }
             z_k.push(k+v);
