@@ -171,8 +171,10 @@
         if(state == 1){
           fill(0,0,0);
           text(String(socket_list.length),200,75);
+          let socket_list_k = socket_list;
           for(let k1 of Array.from({length: socket_list.length}, (v0, k0) => k0)){
-            k = socket_list[k1];
+            let k = socket_list[k1];
+            
             if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
               //alert(k[1]);
               real_x += Number(k[1]);
@@ -183,11 +185,12 @@
               }
               x = real_x;
               socket_time_now = parseInt(k[0]);
-              socket_list.slice(k1,1);
+              socket_list_l.slice(k1,1);
             } else if(parseInt(k[0]) <= Date.now()){
-              socket_list.slice(k1,1);
+              socket_list_k.slice(k1,1);
             }
           }
+          socket_list = socket_list_k;
           //alert(words);
           //console.log('hey')
           clear();
