@@ -23,8 +23,19 @@
 
       let params = window.location.search.split('=')[1].split('_');
       alert(params);
-      
-      let margin_size = 0.5;
+      function word_slice(num_k,text_k){
+        let text_k1 = text_k;
+        let text_k2 = "";
+        for (let i = 0; i < text_k.length / num_k; i++) {
+          let k1 = text_k1.slice(0, num_k);
+          let k2 = text_k1.slice(num_k);
+          text_k2 += k1 + '\n';
+          text_k1 = k2;
+        }
+        return text_k2;
+      }
+      let margin_size = 1;
+      let word_count = 10;
       let words = [];
       let len = 0;
       let state = 0;
@@ -193,15 +204,15 @@
             //壁の文字
             fill(0);
             if(rl == 1){
-              textSize((0.1+k*k/20)*(margin_size+6/now_word[2].length));
-              text(now_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-              textSize((0.1+k*k/20)*(margin_size+6/now_oppo_word[2].length));
-              text(now_oppo_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+              textSize((0.1+k*k/20)*(margin_size+6/word_count));
+              text(word_slice(word_count,now_word[2]),width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+              textSize((0.1+k*k/20)*(margin_size+6/word_count);
+              text(word_slice(word_count,now_oppo_word[2]),width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
             } else if(rl == 0) {
-              textSize((0.1+k*k/20)*(margin_size+6/now_oppo_word[2].length));
-              text(now_oppo_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
-              textSize((0.1+k*k/20)*(margin_size+6/now_word[2].length));
-              text(now_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+              textSize((0.1+k*k/20)*(margin_size+6/word_count));
+              text(word_slice(word_count,now_oppo_word[2]),width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+              textSize((0.1+k*k/20)*(margin_size+6/word_count));
+              text(word_slice(word_count,now_word[2]),width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
             }
             z_k.push(k+v);
           }
