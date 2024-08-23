@@ -90,6 +90,7 @@
       let room = localStorage.getItem('room');
 
       let socket_time_now = 0;
+      let socket_list = [];
 
 
       socket.on('connect',function(){
@@ -102,19 +103,9 @@
             alert(name+'が参加しました。');
           } else if(data_socket.kind == 'v'){
             
-            let k = data_socket.x_data.split('_');
+            socket_list.push(data_socket.x_data.split('_'));
             //alert(k);
-            if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
-              //alert(k[1]);
-              real_x += Number(k[1]);
-              if(real_x > width-size/2){
-                real_x = width-size/2;
-              } else if(real_x < size/2){
-                real_x = size/2;
-              }
-              x = real_x;
-              socket_time_now = parseInt(k[0]);
-            }
+            
           }
         }
       });
@@ -178,6 +169,19 @@
 
       function draw() {
         if(state == 1){
+          for(let k of socket_list){
+            if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
+              //alert(k[1]);
+              real_x += Number(k[1]);
+              if(real_x > width-size/2){
+                real_x = width-size/2;
+              } else if(real_x < size/2){
+                real_x = size/2;
+              }
+              x = real_x;
+              socket_time_now = parseInt(k[0]);
+            }
+          }
           //alert(words);
           //console.log('hey')
           clear();
