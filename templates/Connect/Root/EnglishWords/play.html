@@ -29,6 +29,7 @@
       let died_tf = params_origin[1].split('=')[1];
       let margin_size = 0.3;
       let word_count = 10;
+      const margin_time = 100;
 
       //最速の速さ(壁の)
       let Fast = 0.4;
@@ -101,7 +102,12 @@
           } else if(data_socket.kind == 'v'){
             let k = data_socket.x_data.split('_');
             if(parseInt(k[0]) >= Date.now() && parseInt(k[0]) >= socket_time_now){
-              x = k[1];
+              x += k[1];
+              if(x > width-size/2){
+                x = width-size/2;
+              } else if(x < size/2){
+                x = size/2;
+              }
               socket_time_now = parseInt(k[0]);
             }
           }
@@ -277,20 +283,25 @@
     
             //自分の動きを制御
             if(touch_x >= 0){
+              let v_k = 0;
               if(touch_x <= width/2){
-                x -= v_x;
-                if(x < size/2){
-                  x = size/2;
-                }
+                //x -= v_x;
+                v_k = -v_x;
+                /*if(x < size/2){
+                  //x = size/2;
+                  v_k = 0;
+                }*/
                 
               } else {
-                x += v_x;
-                if(x > width-size/2){
-                  x = width-size/2;
-                }
+                //x += v_x;
+                v_k = v_x;
+                /*if(x > width-size/2){
+                  //x = width-size/2;
+                  v_k = 0;
+                }*/
               }
               //socket.emit('
-              //socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'v'});
+              socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'v',x_data:String(Date.now+margin_time)+'_'+String(v_k)});
             }
     
             //自分を表示
@@ -306,7 +317,7 @@
             textSize(35);
             text('miss:'+String(miss_Count),75,100);
           }
-          textSize(35);
+          textSize(25);
           fill(0,0,0);
           text('速さ:'+v.toFixed(4),75,150);
         }
