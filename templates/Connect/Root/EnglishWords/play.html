@@ -323,9 +323,13 @@
             textSize(35);
             text('miss:'+String(miss_Count),75,100);
           }
-          textSize(25);
-          fill(0,0,0);
-          text('速さ:'+real_x.toFixed(4),75,150);
+          try{
+            textSize(25);
+            fill(0,0,0);
+            text('速さ:'+real_x,75,150);
+          } catch(k) {
+            alert(k);
+          }
         }
       }
 
