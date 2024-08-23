@@ -27,6 +27,10 @@
       let died_tf = params_origin[1].split('=')[1];
       let margin_size = 0.3;
       let word_count = 10;
+
+      //最速の速さ(壁の)
+      let Fast = 0.4;
+      
       //alert(params);
       function word_slice(num_k,text_k){
         let text_k1 = text_k;
@@ -161,6 +165,9 @@
             //alert('start');
             Count += 1;
             v += 0.005;
+            if(v >= Fast){
+              v = Fast;
+            }
             v_x = v*50;
             z.push(0);
             if(ind.length == 0){
@@ -236,6 +243,7 @@
               z_k.push(1.005*k+v);
             }
             z = z_k;
+            
     
             //単語を表示
             textAlign(CENTER);
@@ -274,9 +282,9 @@
             textSize(35);
             text('miss:'+String(miss_Count),75,100);
           }
-          if(v >= 0.25){
-            alert('Fast');
-          }
+          textSize(35)
+          fill(0);
+          text('速さ:'+String(v),75,150);
         }
       }
 
