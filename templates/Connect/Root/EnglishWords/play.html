@@ -47,6 +47,7 @@
       let words = [];
       let len = 0;
       let state = 0;
+      let x = width/2;
       let ind_origin = [];
       const filePath = "/Static/EnglishWords/words_data.txt";
       // 非同期でファイルを読み込む
@@ -83,6 +84,27 @@
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
       let room = localStorage.getItem('room');
+
+      let socket_time_now = 0;
+
+
+      socket.on('connect',function(){
+        
+      });
+      socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'join'});
+      socket.on('sc_signal',function(data_socket){
+        if(data_socket.room == room && data_socket.path == 'EnglishWords_play'){
+          if(data_socket.kind == 'join'){
+            alert(name+'が参加しました。');
+          } else if(data_socket.kind == 'v'){
+            let k = data_socket.x_data.split('_');
+            if(parseInt(k[0]) >= Date.now() && parseInt(k[0]) >= socket_time_now){
+              x = k[1];
+              socket_time_now = parseInt(k[0]);
+            }
+          }
+        }
+      }
       
       //let words = ["1:create/を作り出す","2:Hello/こんにちは","3:mean/を意味する"]
       
@@ -136,7 +158,7 @@
       let miss_Count = 0;
 
       let size = 50;
-      let x = width/2;
+      
 
       let rl = -1;
       //let state = 0;
@@ -267,6 +289,7 @@
                 }
               }
               //socket.emit('
+              //socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'v'});
             }
     
             //自分を表示
