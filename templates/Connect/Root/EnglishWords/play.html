@@ -190,12 +190,15 @@
 
             //壁の文字
             fill(0);
-            textSize(0.1+k*k/20);
             if(rl == 1){
+              textSize(10+(0.1+k*k/20)*6/now_word[2].length);
               text(now_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+              textSize(10+(0.1+k*k/20)*6/now_oppo_word[2].length);
               text(now_oppo_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
             } else if(rl == 0) {
+              textSize(10+(0.1+k*k/20)*6/now_oppo_word[2].length);
               text(now_oppo_word[2],width/2-5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
+              textSize(10+(0.1+k*k/20)*6/now_word[2].length);
               text(now_word[2],width/2+5*width*k*k/32/height,2*height/5-k*k/4+k*k/4);
             }
             z_k.push(k+v);
@@ -205,7 +208,7 @@
           //単語を表示
           textAlign(CENTER);
           noStroke();
-          textSize(25+25*now_word[1].length/6);
+          textSize(40);
           fill(0);
           text(now_word[1],width/2,100);
     
