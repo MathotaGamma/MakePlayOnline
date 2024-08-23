@@ -101,7 +101,7 @@
             alert(name+'が参加しました。');
           } else if(data_socket.kind == 'v'){
             let k = data_socket.x_data.split('_');
-            if(parseInt(k[0]) >= Date.now() && parseInt(k[0]) >= socket_time_now){
+            if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
               x += k[1];
               if(x > width-size/2){
                 x = width-size/2;
