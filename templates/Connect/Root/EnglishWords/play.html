@@ -169,6 +169,8 @@
 
       function draw() {
         if(state == 1){
+          fill(0,0,0);
+          text(String(socket_list.length),200,75);
           for(let k1 of Array.from({length: socket_list.length}, (v0, k0) => k0)){
             k = socket_list[k1];
             if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
