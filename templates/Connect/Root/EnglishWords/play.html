@@ -106,7 +106,7 @@
             //alert(k);
             if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
               //alert(k[1]);
-              real_x = k[1];
+              real_x = Number(k[1]);
               if(real_x > width-size/2){
                 real_x = width-size/2;
               } else if(real_x < size/2){
@@ -326,7 +326,7 @@
           try{
             textSize(25);
             fill(0,0,0);
-            text('速さ:'+real_x,75,150);
+            text('速さ:'+v.toFixed(4),75,150);
           } catch(k) {
             alert(k);
           }
