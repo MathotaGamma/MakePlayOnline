@@ -192,6 +192,7 @@
                   if(died_tf == 'true'){
                     alert('died');
                     state = 0;
+                    break;
                   } else {
                     miss_Count += 1;
                   }
@@ -199,6 +200,7 @@
                   if(died_tf == 'true'){
                     alert('died');
                     state = 0;
+                    break;
                   } else {
                     miss_Count += 1;
                   }
@@ -206,8 +208,9 @@
                   z.shift();
                   now_ind = -1;
                   //state = 0;
+                  break;
                 }
-                break;
+                
               }
               //左側
               fill(100,230,100);
@@ -262,11 +265,11 @@
           //console.log(10*z*z/16/height);
           fill(100,0,100);
           textSize(35);
-          text(String(Count)+'問目',50,50);
+          text(String(Count)+'問目',75,50);
           if(died_tf != 'true'){
             fill(255,0,0);
             textSize(35);
-            text('miss:'+String(miss_Count),50,100);
+            text('miss:'+String(miss_Count),75,100);
           }
         }
       }
