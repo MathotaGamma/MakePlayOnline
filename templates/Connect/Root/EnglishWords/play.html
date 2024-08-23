@@ -22,7 +22,9 @@
       alert('ver:1.01.10');
 
       
-      let params = window.location.search.split('=')[1].split('_');
+      let params_origin = window.location.search.split('&');
+      let params = params_origin[0].split('=')[1].split('_');
+      let died_tf = params_origin[1].split('=')[1];
       let margin_size = 0.3;
       let word_count = 10;
       //alert(params);
@@ -127,6 +129,7 @@
       let now_word = [];
       let now_oppo_word = [];
       let Count = 0;
+      let miss_Count = 0;
 
       let size = 50;
       let x = width/2;
@@ -186,11 +189,19 @@
               //壁に衝突した時
               if(5*k*k/8/height >= 1){
                 if(x <= width/2 && rl == 0){
-                  alert('died');
-                  state = 0;
+                  if(died_tf == 'true'){
+                    alert('died');
+                    state = 0;
+                  } else {
+                    miss_Count += 1;
+                  }
                 } else if(x > width/2 && rl == 1){
-                  alert('died');
-                  state = 0;
+                  if(died_tf == 'true'){
+                    alert('died');
+                    state = 0;
+                  } else {
+                    miss_Count += 1;
+                  }
                 } else {
                   z.shift();
                   now_ind = -1;
@@ -251,7 +262,12 @@
           //console.log(10*z*z/16/height);
           fill(100,0,100);
           textSize(35);
-          text(String(Count),50,50);
+          text(String(Count)+'問目',50,50);
+          if(died_tf != 'true'){
+            fill(255,0,0);
+            textSize(35);
+            text('miss:'+String(died_Count),50,100);
+          }
         }
       }
 
