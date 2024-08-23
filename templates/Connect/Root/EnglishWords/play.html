@@ -169,7 +169,8 @@
 
       function draw() {
         if(state == 1){
-          for(let k of socket_list){
+          for(let k1 of Array.from({length: socket_list.length}, (v0, k0) => k0)){
+            k = socket_list[k1];
             if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
               //alert(k[1]);
               real_x += Number(k[1]);
@@ -180,6 +181,7 @@
               }
               x = real_x;
               socket_time_now = parseInt(k[0]);
+              socket_list.slice(k1,1);
             }
           }
           //alert(words);
