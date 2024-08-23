@@ -170,7 +170,7 @@
       function draw() {
         if(state == 1){
           fill(0,0,0);
-          text(String(socket_list.length),200,75);
+          text(String(1+socket_list.length),200,75);
           let socket_list_k = socket_list;
           for(let k1 of Array.from({length: socket_list.length}, (v0, k0) => k0)){
             let k = socket_list[k1];
