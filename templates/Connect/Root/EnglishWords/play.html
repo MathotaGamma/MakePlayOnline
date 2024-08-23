@@ -21,8 +21,11 @@
     <script>
       alert('ver:1.01.10');
 
+      
       let params = window.location.search.split('=')[1].split('_');
-      alert(params);
+      let margin_size = 0.4;
+      let word_count = 10;
+      //alert(params);
       function word_slice(num_k,text_k){
         let text_k1 = text_k;
         let text_k2 = "";
@@ -34,8 +37,7 @@
         }
         return text_k2;
       }
-      let margin_size = 1;
-      let word_count = 10;
+      
       let words = [];
       let len = 0;
       let state = 0;
@@ -53,7 +55,7 @@
               return [k_k[0],k_k[2],k_k[4]]
             });
             words = words.slice(parseInt(params[0])-1,parseInt(params[1]));
-            alert(words);
+            //alert(words);
             len = words.length;
             ind_origin = Array.from({length: len}, (v, k) => k);
             
@@ -80,7 +82,7 @@
       
      
       //len = words.length;
-      alert('1');
+      //alert('1');
 
       const fr = 30;
 
