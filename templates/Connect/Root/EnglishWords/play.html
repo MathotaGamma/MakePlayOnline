@@ -80,7 +80,7 @@
       
       //alert('main');
       
-      var socket = io();
+      //var socket = io();
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
       let room = localStorage.getItem('room');
@@ -305,8 +305,8 @@
             textSize(35);
             text('miss:'+String(miss_Count),75,100);
           }
-          textSize(35)
-          fill(0);
+          textSize(35);
+          fill(0,0,0);
           text('速さ:'+v.toFixed(4),75,150);
         }
       }
