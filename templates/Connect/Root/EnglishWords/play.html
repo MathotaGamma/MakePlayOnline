@@ -19,9 +19,10 @@
   </head>
   <body>
     <script>
-      alert('ver:1.01.06');
+      alert('ver:1.01.07');
 
       let params = window.location.search.split('=')[2].split('-');
+      alert(params);
       
       
       let words = [];
@@ -40,7 +41,7 @@
               let k_k = k.split(/(:|\/)/)
               return [k_k[0],k_k[2],k_k[4]]
             });
-            words = words.slice(params[0]-1,parseInt(params[1])-parseInt(params[0])+1);
+            words = words.slice(parseInt(params[0])-1,parseInt(params[1])-parseInt(params[0])+1);
             len = words.length;
             ind_origin = Array.from({length: len}, (v, k) => k);
             
