@@ -102,7 +102,7 @@
           } else if(data_socket.kind == 'v'){
             
             let k = data_socket.x_data.split('_');
-            alert(k);
+            //alert(k);
             if(parseInt(k[0]) <= Date.now() && parseInt(k[0]) >= socket_time_now){
               //alert(k[1]);
               x += k[1];
@@ -304,7 +304,7 @@
                 }*/
               }
               //socket.emit('
-              socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'v',x_data:String(Date.now+margin_time)+'_'+String(v_k)});
+              socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'v',x_data:String(Date.now()+margin_time)+'_'+String(v_k)});
             }
     
             //自分を表示
