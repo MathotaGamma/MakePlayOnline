@@ -143,7 +143,7 @@
 
       
 
-      /*function setup() {
+      function setup() {
         createCanvas(width,height);
         frameRate(fr);
         //rectMode(RIGHT);
@@ -154,7 +154,7 @@
           socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'alive',time:String(Date.now()+500)});
           let k0 = [];
           if(Object.keys(alive_list).length > 0){
-            for(let k of Array.from({length: Object.keys(alive_list).length}, (v,k) => k){
+            for(let k of Array.from({length: Object.keys(alive_list).length}, (v,k) => k)){
               let k1 = Object.keys(alive_list)[k]
               if(parseInt(alive_list[k1][0]) <= Date.now()){
                 delete alive_list[k1];
@@ -172,7 +172,7 @@
           alert('error:'+e);
           state = 0;
         }
-      }*/
+      }
 
       
 
