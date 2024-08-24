@@ -14,6 +14,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'Gamma'
 socketio = SocketIO(app)
 
+ver = "1.01.01";
+
 db = SQLAlchemy(app)
 
 class Post(db.Model):
@@ -157,9 +159,9 @@ def Connect_Root_ALL(Space,Directly):
   if(Space == "LIFESHAVE"):
     with open('static/LIFESHAVE/humancubist.gltf') as f:
       human = json.load(f)
-    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),human=human)
+    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),human=human,ver=ver)
   else:
-    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly))
+    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),ver=ver)
 """@app.route('/Connect/Touch/home')
 def Connect_Touch_home():
   return render_template('/Connect/Touch/home.html')
