@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.min.js"></script>
+    <style>
+      * {
+        position: absolute;
+      }
+      html,body,canvas{
+        -webkit-touch-callout:none;
+        -webkit-user-select:none;
+        overflow:hidden;
+        padding:0;
+        width:100%;
+        height:100%;
+        margin:0;
+      }
+    </style>
+    <title>Words</title>
+  </head>
+  <body>
+    <div id="Text"></div>
+    <script>
+      alert('ver:1.01.14');
+
+      const width = innerWidth;
+      const height = innerHeight;
+
+      let alive_list = {};
+
+      let hp = {};
+      
+      let params_origin = window.location.search.split('&');
+      let params = params_origin[0].split('=')[1].split('_');
+      let died_tf = params_origin[1].split('=')[1];
+      
+      
+      //alert(params);
+      function word_slice(num_k,text_k){
+        let text_k1 = text_k;
+        let text_k2 = "";
+        for (let i = 0; i < text_k.length / num_k; i++) {
+          let k1 = text_k1.slice(0, num_k);
+          let k2 = text_k1.slice(num_k);
+          text_k2 += k1 + '\n';
+          text_k1 = k2;
+        }
+        return text_k2;
+      }
+      
+      let words = [];
+      let len = 0;
+      let state = 0;
+      let ind_origin = [];
+      
+      const filePath = "/Static/EnglishWords/words_data.txt";
+      // 非同期でファイルを読み込む
+      
+        fetch(filePath)
+          .then(response => response.text())
+          .then(data => {
+            //alert('get');
+            
+            words = data.split('\n').map((k) => {
+              let k_k = k.split(/(:|\/)/)
+              return [k_k[0],k_k[2],k_k[4]]
+            });
+            words = words.slice(parseInt(params[0])-1,parseInt(params[1]));
+            //alert(words);
+            len = words.length;
+            ind_origin = Array.from({length: len}, (v, k) => k);
+            
+            
+            state = 1;
+    
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+    
+      
+      
+      
+      
+      //alert('main');
+      
+      var socket = io();
+      let name = localStorage.getItem('name');
+      let id = localStorage.getItem('id');
+      let room = localStorage.getItem('room');
+
+      const Text = document.getElementById('Text');
+
+      
+
+
+      socket.on('connect',function(){
+        
+      });
+      
+      socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'join'});
+      
+      
+      socket.on('sc_signal',function(data_socket){
+        if(data_socket.room == room && data_socket.path == 'EnglishWords_play'){
+          if(data_socket.kind == 'join'){
+            alert(data_socket.name+'が参加しました。');
+          } else if(data_socket.kind == 'alive'){
+            alive_list[data_socket.id] = [data_socket.time,data_socket.name];
+          }
+        }
+      });
+      
+      
+      //alert('1');
+
+      const fr = 30;
+
+
+      function shuffleArray(array) {
+        const cloneArray = [...array];
+
+        const result = cloneArray.reduce((_,cur,idx) => {
+          let rand = Math.floor(Math.random() * (idx + 1));
+          cloneArray[idx] = cloneArray[rand]
+          cloneArray[rand] = cur;
+          return cloneArray
+        })
+
+        return result;
+      }
+
+
+      
+      //console.log(words[0])
+
+
+
+
+
+
+      
+
+      function setup() {
+        createCanvas(width,height);
+        frameRate(fr);
+        //rectMode(RIGHT);
+      }
+
+      function draw(){
+        try{
+          socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'alive',time:String(Date.now()+500)});
+          let k0 = [];
+          for(let k of Array.from({length: Object.keys(alive_list).length}, (v,k) => k){
+            let k1 = Object.keys(alive_list)[k]
+            if(parseInt(alive_list[k1][0]) <= Date.now()){
+              delete alive_list[k1];
+            } else {
+              k0.push(alive_list[k1][1]);
+            }
+          }
+          Text.innerText = k0.join('\n');
+              
+          if(state == 1){
+            
+          }
+        } catch(e) {
+          alert('error:'+e);
+          state = 0;
+        }
+      }
+
+      
+
+      let touch_x = -1;
+      function touchStarted(){
+        touch_x = touches[0].x;
+      }
+
+      function touchEnded(){
+        if(touches.length >= 1){
+          touch_x = touches[0].x;
+        } else {
+          touch_x = -1;
+        }
+      }
+    </script>
+  </body>
+</html>
