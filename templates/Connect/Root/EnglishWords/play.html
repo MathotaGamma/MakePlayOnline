@@ -176,7 +176,9 @@
           }
         } catch(e) {
           alert(e.lineNumber);
-          alert(alive_list);
+          alert(Object.keys(alive_list).map((x) => {
+            String(x)+alive_list[x];
+          }));
           state = 0;
         }
       }
