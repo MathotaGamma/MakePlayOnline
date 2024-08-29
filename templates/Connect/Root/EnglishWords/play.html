@@ -22,6 +22,7 @@
     <title>Words</title>
   </head>
   <body>
+    <ul id="list"></ul>
     <div id="Text"></div>
     <script>
       alert('ver:1.01.01');
@@ -93,6 +94,7 @@
       let room = localStorage.getItem('room');
 
       const Text = document.getElementById('Text');
+      const list = document.getElementById('list');
 
       
 
@@ -165,8 +167,21 @@
               }
             }
           }
+          //Text.innerText = k0.join('\n');
+
+
+          //main
+          // 親要素
           
-          Text.innerText = k0.join('\n');
+
+          // 追加する要素を作成
+          const li = document.createElement('li');
+          list.innerHTML = "<li>None</li>";
+          li.innerHTML = '<a href="./P">A</a>';
+
+          // 末尾に追加
+          list.appendChild(li);
+          
               
           if(state == 1){
             //alert(k0);
