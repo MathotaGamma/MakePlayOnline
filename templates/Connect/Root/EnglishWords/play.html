@@ -153,8 +153,9 @@
       function draw(){
         try{
           socket.emit('cs_signal',{path:'EnglishWords_play',name:name,id:id,room:room,kind:'alive',time:String(Date.now()+500)});
+
+          //onlineの人
           let k0 = [];
-          
           if(Object.keys(alive_list).length > 0){
             for(let k of Array.from({length: Object.keys(alive_list).length}, (v,k) => k)){
               let k1 = Object.keys(alive_list)[k];
@@ -171,7 +172,7 @@
             //alert(k0);
           }
         } catch(e) {
-          alert(e);
+          alert('error:'+String(e));
           /*alert(e.lineNumber);
           alert(Object.keys(alive_list).map((x) => {
             String(x)+alive_list[x];
