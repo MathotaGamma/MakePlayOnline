@@ -12,7 +12,7 @@
     </style>
   </head>
   <body>
-    <div class="Set"><span id="Text"></span><input type="range" id="slider" value="1" min="0" max="3" step="0.25"></div>
+    <div class="Set"><span id="Text">1.00:</span><input type="range" id="slider" value="1" min="0" max="3" step="0.25"></div>
     <br><audio type="audio/mpeg" src="/Static/EnglishWords/TG1900_0001_0200.mp3" controls></audio>
     <script>
       window.addEventListener('DOMContentLoaded', function(){
@@ -20,9 +20,9 @@
         const audioElement = document.querySelector("audio");
         const Text = document.getElementById('Text');
         let slider = document.getElementById('slider');
-slider.addEventListener('input', function(){
-          Text.innerText = slider.value.toFixed(2)+":";
-          audioElement.playbackRate = slider.value;
+        slider.addEventListener('input', function(){
+          Text.innerText = Number(slider.value).toFixed(2)+":";
+          audioElement.playbackRate = Number(slider.value);
         });
       });
     </script>
