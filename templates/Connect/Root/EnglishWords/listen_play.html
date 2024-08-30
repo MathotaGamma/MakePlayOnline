@@ -5,6 +5,18 @@
     <title>EnglishWord_Listen</title>
   </head>
   <body>
-    Listen
+    <span id="Text"></span><input type="range" id="slider" value="1" min="0" max="3" step="0.25">
+    <audio type="audio/mpeg" src="/Static/EnglishWords/TG1900_0001_0200.mp3" controls></audio>
+    <script>
+      window.addEventListener('DOMContentLoaded', function(){
+
+        const audioElement = document.querySelector("audio");
+        const Text = document.getElementById('Text');
+        let slider = document.getElementById('slider');
+slider.addEventListener('input', function(){
+          Text.innerText = String(slider.value)+":";
+        });
+      });
+    </script>
   </body>
 </html>
