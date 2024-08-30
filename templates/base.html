@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
+    <script>
+      if(localStorage.getItem('name') == null){
+        if(localStorage.getItem('id') == null){
+          alert('サーバーがアップデートされたため、再度ログインをお願いします。');
+        }
+        window.location.href = "/Connect/homepage";
+      }
+    </script>
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+  </body>
+</html>
