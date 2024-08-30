@@ -36,12 +36,14 @@
     <script>
       window.addEventListener('DOMContentLoaded', function(){
 
-        const audioElement = document.querySelector("audio");
+        const audioElement = document.querySelectorAll("audio");
         const Text = document.getElementById('Text');
         let slider = document.getElementById('slider');
         slider.addEventListener('input', function(){
           Text.innerText = Number(slider.value).toFixed(2)+":";
-          audioElement.playbackRate = Number(slider.value);
+          audioElement.forEach((k) => {
+            k.playbackRate = Number(slider.value);
+          });
         });
       });
     </script>
