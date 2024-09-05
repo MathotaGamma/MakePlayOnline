@@ -53,8 +53,8 @@
       localStorage.setItem('English_Words',until_num.join(','));
       let element_k = document.getElementsByClassName('but');
       for(let k = 0; k < parseInt(params[2]); k++){
-       element_k.textContent = '0:'+String(words_list[k][0]);
-       element_k.style.color = 'black';
+       element_k[k].textContent = '0:'+String(words_list[k][0]);
+       element_k[k].style.color = 'black';
       }
     }
   }
