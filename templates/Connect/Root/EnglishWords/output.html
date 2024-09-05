@@ -53,11 +53,14 @@
             
             state = 1;
             let k0 = 0;
+            alert('start');
             for(let k = 0; k < parseInt(params[2]); k++){
               let k1 = words[Math.floor((parseInt(params[2])-k0)*Math.random())];
               words_list.push(k1);
               k0 += 1;
+              alert(k1);
               table.appendChild('<tr><tb>'+k0+'</td><td>'+k1+'</td><td></td></tr>');
+             
             }
             
     
