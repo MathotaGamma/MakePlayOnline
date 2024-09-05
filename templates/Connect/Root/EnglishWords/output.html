@@ -1,9 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Test{% endblock %}
-{% block head %}{% endblock %}
+{% block head %}
+<style>
+  * {
+    margin: 10px;
+    padding: 5px;
+  }
+  .num {
+    wodth: 5%;
+  }
+  .word {
+    width: 25%;
+  }
+  .ans {
+    width: 70%;
+  }
+</style>
+{% endblock %}
 {% block body %}
 <table id="table" border="1">
-  <tr><th width="5%">番号</th><th width="25%">単語</th><th width="70%">解答欄</th></tr>
+  <tr><th class="num">番号</th><th class="word">単語</th><th class="ans">解答欄</th></tr>
 </table>
 <script>
   let table = document.getElementById('table');
