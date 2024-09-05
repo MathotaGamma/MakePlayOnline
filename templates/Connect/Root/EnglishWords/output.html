@@ -35,7 +35,7 @@ function create_csv(){
              ["A4","B4","C4"],
             ]
 
-    console.log(data);
+    alert(data);
 
     //作った二次元配列をCSV文字列に直す。
     let csv_string  = ""; 
@@ -49,20 +49,16 @@ function create_csv(){
 
     //CSVのバイナリデータを作る
     let blob        = new Blob([csv_string], {type: "text/csv"});
-    let uri         = URL.createObjectURL(blob);
+    let url         = URL.createObjectURL(blob);
 
     //リンクタグを作る
     let link        = document.createElement("a");
     link.download   = file_name;
-    link.href       = uri;
+    link.href       = url;
 
     //作ったリンクタグをクリックさせる
     document.body.appendChild(link);
-    link.click();
-
-    //クリックしたら即リンクタグを消す
-    document.body.removeChild(link);
-    delete link;
+    alert(url);
 
 }
 
