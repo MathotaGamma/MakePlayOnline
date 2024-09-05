@@ -18,6 +18,8 @@ ver = "1.01.01";
 
 db = SQLAlchemy(app)
 
+file_created_db = db.Column(db.DateTime,nullable=False,default=datetime.datetime.now())
+
 class Post(db.Model):
   name_db = db.Column(db.String(30), nullable=False)
   pass_db = db.Column(db.String(30), primary_key=True)
