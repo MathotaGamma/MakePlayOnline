@@ -23,6 +23,35 @@
 </table>
 <script>
   let table = document.getElementById('table');
+  let words = [];
+  let params = [1,1900];
+  let len = 0;
+  let ind_origin = [];
+  let state = 0;
+  const filePath = "/Static/EnglishWords/words_data.txt";
+      // 非同期でファイルを読み込む
+      
+        fetch(filePath)
+          .then(response => response.text())
+          .then(data => {
+            //alert('get');
+            
+            words = data.split('\n').map((k) => {
+              let k_k = k.split(/(:|\/)/)
+              return [k_k[0],k_k[2],k_k[4]]
+            });
+            words = words.slice(parseInt(params[0])-1,parseInt(params[1]));
+            //alert(words);
+            len = words.length;
+            ind_origin = Array.from({length: len}, (v, k) => k);
+            
+            
+            state = 1;
+    
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
   //table.appendChild('<
  
 
