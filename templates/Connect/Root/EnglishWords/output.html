@@ -87,7 +87,7 @@
               let td1 = document.createElement("td");
               let but = document.createElement("button");
               but.textContent = until_num[parseInt(words[k1][0])-1]+':'+words[k1][0];
-              but.setAttribute('onclick', 'up('+words[k1][0]+');');
+              but.setAttribute('onclick', 'up('+String(k0-1)+');');
               but.classList.add('but');
               td1.appendChild(but);
               //td1.textContent = words[k1][0];
@@ -111,9 +111,11 @@
             console.error('Error:', error);
           });
   //table.appendChild('<
-  function up(ind_k){
+  function up(ind_k0){
+    //ind_k0はボタンのindex
+    let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
-    let element_k = document.getElementsByClassName('but')[ind_k-1];
+    let element_k = document.getElementsByClassName('but')[ind_k0];
     element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     element_k.style.color = 'blue';
     localStorage.setItem('English_Words',until_num.join(','));
