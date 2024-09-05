@@ -86,7 +86,7 @@
               let tr = document.createElement("tr");
               let td1 = document.createElement("td");
               let but = document.createElement("button");
-              but.value = until_num[parseInt(words[k1][0])-1]+':'+words[k1][0];
+              but.textContent = until_num[parseInt(words[k1][0])-1]+':'+words[k1][0];
               but.setAttribute('onclick', 'up('+words[k1][0]+');');
               but.classList.add('but');
               td1.appendChild(but);
@@ -114,7 +114,7 @@
   function up(ind_k){
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
     let element_k = document.getElementsByClassName('but')[ind_k-1];
-    element_k.value = until_num[ind_k-1]+':'+String(ind_k);
+    element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     element_k.style.color = 'blue';
     localStorage.setItem('English_Words',until_num.join(','));
   }
