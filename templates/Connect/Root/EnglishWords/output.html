@@ -33,7 +33,8 @@
 </style>
 {% endblock %}
 {% block body %}
-<button onclick="ans();">答えを表示</button>
+<button onclick="ans();">答えを表示</button> <button onclick="reset();">間違えた回数をリセット</button>
+<br>
 <table id="table" border="1">
   <tr><th class="num">番号</th><th class="word">単語</th><th class="ans">解答欄</th></tr>
 </table>
@@ -46,6 +47,13 @@
   } else {
     until_num = until_num.split(',');
   }
+  function reset(){
+    if(confirm('本当にRESETしますか？(この操作は取り消せません。)')){
+      until_num = new Array(1900).fill("0");
+      localStorage.setItem('English_Words',until_num.join(','));
+    }
+  }
+
   //alert('table');
   let words = [];
   //let params = [1,1900];
