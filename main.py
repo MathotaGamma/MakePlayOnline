@@ -18,7 +18,7 @@ ver = "1.01.01";
 
 db = SQLAlchemy(app)
 
-file_created_db = db.Column(db.DateTime,nullable=False,default=datetime.datetime.now())
+created_date = datetime.datetime.now()
 
 class Post(db.Model):
   name_db = db.Column(db.String(30), nullable=False)
@@ -161,9 +161,9 @@ def Connect_Root_ALL(Space,Directly):
   if(Space == "LIFESHAVE"):
     with open('static/LIFESHAVE/humancubist.gltf') as f:
       human = json.load(f)
-    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),human=human,ver=ver)
+    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),human=human,ver=ver,created_date=created_date)
   else:
-    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),ver=ver)
+    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),ver=ver,created_date=created_date)
 """@app.route('/Connect/Touch/home')
 def Connect_Touch_home():
   return render_template('/Connect/Touch/home.html')
