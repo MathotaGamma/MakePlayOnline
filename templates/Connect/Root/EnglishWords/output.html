@@ -65,8 +65,8 @@
             //alert('get');
             
             words = data.split('\n').map((k) => {
-              let k_k = k.split(/(:|\/)/,3)
-              return [k_k[0],k_k[1],k_k[2]]
+              let k_k = k.split(/(:|\/)/,5)
+              return [k_k[0],k_k[2],k_k[4]]
             });
             words = words.slice(parseInt(params[0])-1,parseInt(params[1]));
             //alert(words);
