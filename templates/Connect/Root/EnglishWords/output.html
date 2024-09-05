@@ -51,6 +51,11 @@
     if(confirm('本当にRESETしますか？(この操作は取り消せません。)')){
       until_num = new Array(1900).fill("0");
       localStorage.setItem('English_Words',until_num.join(','));
+      let element_k = document.getElementsByClassName('but');
+      for(let k = 0; k < parseInt(params[2]); k++){
+       element_k.textContent = '0:'+String(words_list[k][0]);
+       element_k.style.color = 'black';
+      }
     }
   }
 
@@ -97,6 +102,7 @@
               but.textContent = until_num[parseInt(words[k1][0])-1]+':'+words[k1][0];
               but.setAttribute('onclick', 'up('+String(k0-1)+');');
               but.classList.add('but');
+              but.style.color = "black";
               td1.appendChild(but);
               //td1.textContent = words[k1][0];
               //alert(words[k1]);
@@ -120,13 +126,15 @@
             console.error('Error:', error);
           });
   //table.appendChild('<
+
+ 
   function up(ind_k0){
     //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
     let element_k = document.getElementsByClassName('but')[ind_k0];
     element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
-    element_k.style.color = 'blue';
+    element_k.style.color = 'green';
     localStorage.setItem('English_Words',until_num.join(','));
   }
   function ans(){
