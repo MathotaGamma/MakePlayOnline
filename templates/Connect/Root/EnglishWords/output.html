@@ -24,43 +24,7 @@
 <script>
   let table = document.getElementById('table');
   //table.appendChild('<
- //現在スタックされているデータをCSVに変換してダウンロードする
-function create_csv(){
+ 
 
-    //文字列型で二次元配列のデータ
-    data = [ ["A","B","C"],
-             ["A1","B1","C1"],
-             ["A2","B2","C2"],
-             ["A3","B3","C3"],
-             ["A4","B4","C4"],
-            ]
-
-    alert(data);
-
-    //作った二次元配列をCSV文字列に直す。
-    let csv_string  = ""; 
-    for (let d of data) {
-        csv_string += d.join(",");
-        csv_string += '\r\n';
-    }   
-
-    //ファイル名の指定
-    let file_name   = "test.csv";
-
-    //CSVのバイナリデータを作る
-    let blob        = new Blob([csv_string], {type: "text/csv"});
-    let url         = URL.createObjectURL(blob);
-
-    //リンクタグを作る
-    let link        = document.createElement("a");
-    link.download   = file_name;
-    link.href       = url;
-
-    //作ったリンクタグをクリックさせる
-    document.body.appendChild(link);
-    alert(url);
-
-}
-create_csv();
 </script>
 {% endblock %}
