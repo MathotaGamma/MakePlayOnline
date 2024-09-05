@@ -23,7 +23,7 @@
 </table>
 <script>
   let table = document.getElementById('table');
-  alert('table');
+  //alert('table');
   let words = [];
   //let params = [1,1900];
   let params_origin = window.location.search;
@@ -33,32 +33,32 @@
   let state = 0;
   let words_list = [];
   const filePath = "/Static/EnglishWords/words_data.txt";
-  alert(params);
+  //alert(params);
       // 非同期でファイルを読み込む
       
         fetch(filePath)
           .then(response => response.text())
           .then(data => {
-            alert('get');
+            //alert('get');
             
             words = data.split('\n').map((k) => {
               let k_k = k.split(/(:|\/)/)
               return [k_k[0],k_k[2],k_k[4]]
             });
             words = words.slice(parseInt(params[0])-1,parseInt(params[1]));
-            alert(words);
+            //alert(words);
             len = words.length;
             ind_origin = Array.from({length: len}, (v, k) => k);
             
             
-            /*state = 1;
+            state = 1;
             let k0 = 0;
             for(let k = 0; k < parseInt(params[2]); k++){
               let k1 = words[Math.floor((parseInt(params[2])-k0)*Math.random())];
               words_list.push(k1);
               k0 += 1;
               table.appendChild('<tr><tb>'+k0+'</td><td>'+k1+'</td><td></td></tr>');
-            }*/
+            }
             
     
           })
