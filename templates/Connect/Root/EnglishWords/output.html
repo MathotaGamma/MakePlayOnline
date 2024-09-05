@@ -56,7 +56,6 @@
             alert('start');
             for(let k = 0; k < parseInt(params[2]); k++){
               let k1 = Math.floor((parseInt(params[2])-k0)*Math.random());
-             delete words[k1]
               words_list.push(words[k1]);
               k0 += 1;
               //alert(k1);
@@ -72,7 +71,9 @@
               tr.appendChild(td2);
               tr.appendChild(td3);
               table.appendChild(tr);
+              delete words[k1];
             }
+           
             
     
           })
