@@ -43,7 +43,7 @@
               return [k_k[0],k_k[2],k_k[4]]
             });
             words = words.slice(parseInt(params[0])-1,parseInt(params[1]));
-            //alert(words);
+            alert(words);
             len = words.length;
             ind_origin = Array.from({length: len}, (v, k) => k);
             
@@ -54,7 +54,7 @@
               let k1 = words[Math.floor((params[2]-k0)*Math.random())];
               words_list.push(k1);
               k0 += 1;
-              table.appendChild('<tb>'+k0+'</td><td>'+k1+'</td><td></td>');
+              table.appendChild('<tr><tb>'+k0+'</td><td>'+k1+'</td><td></td></tr>');
             }
             
     
