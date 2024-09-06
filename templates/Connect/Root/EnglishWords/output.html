@@ -94,6 +94,7 @@
             let k_tf = false;
             if(k5 != null){
               if(confirm('前回のやつを呼び起こしますか？')){
+                let k0 = 0;
                 let pre_k = localStorage.getItem('English_preWords').split(',');
                 k_tf = true;
                 state = 1;
@@ -103,29 +104,30 @@
               
                   k0 += 1;
                   //alert(k1);
-              //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
-              let tr = document.createElement("tr");
-              let td1 = document.createElement("td");
-              let but = document.createElement("button");
-              but.textContent = until_num[parseInt(words[k1][0])-1]+':'+words[k1][0];
-              but.setAttribute('onclick', 'up('+String(k0-1)+');');
-              but.classList.add('but');
-              but.style.color = "black";
-              td1.appendChild(but);
-              //td1.textContent = words[k1][0];
-              //alert(words[k1]);
-              let td2 = document.createElement("td");
-              td2.textContent = words[k1][1];
-              let td3 = document.createElement("td");
-              td3.classList.add('Ans_area');
-              td3.textContent = "";
-              tr.appendChild(td1);
-              tr.appendChild(td2);
-              tr.appendChild(td3);
-              table.appendChild(tr);
-              delete words[k1];
-              words = words.filter(v0 => v0);
+                  //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
+                  let tr = document.createElement("tr");
+                  let td1 = document.createElement("td");
+                  let but = document.createElement("button");
+                  but.textContent = until_num[k1]+':'+words[k1][0];
+                  but.setAttribute('onclick', 'up('+String(k0-1)+');');
+                  but.classList.add('but');
+                  but.style.color = "black";
+                  td1.appendChild(but);
+                  //td1.textContent = words[k1][0];
+                  //alert(words[k1]);
+                  let td2 = document.createElement("td");
+                  td2.textContent = words[k1][1];
+                  let td3 = document.createElement("td");
+                  td3.classList.add('Ans_area');
+                  td3.textContent = "";
+                  tr.appendChild(td1);
+                  tr.appendChild(td2);
+                  tr.appendChild(td3);
+                  table.appendChild(tr);
+                  delete words[k1];
+                  
                 }
+                words = words.filter(v0 => v0);
               }
             }
            
