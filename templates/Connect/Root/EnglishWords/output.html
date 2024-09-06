@@ -71,6 +71,7 @@
   let ind_origin = [];
   let state = 0;
   let words_list = [];
+  
   const filePath = "/Static/EnglishWords/words_data.txt";
   //alert(params);
       // 非同期でファイルを読み込む
@@ -81,19 +82,58 @@
             //alert('get');
             
             words = data.split('\n').map((k) => {
-              let k_k = k.split(/(:|\/)/,5)
-              return [k_k[0],k_k[2],k_k[4]]
+              let k_k = k.split(/(:|\/)/)
+              return [k_k[0],k_k[2],k_k.slice(4)]
             });
             words = words.slice(parseInt(params[0])-1,parseInt(params[1]));
             //alert(words);
             len = words.length;
             ind_origin = Array.from({length: len}, (v, k) => k);
             
-            
-            state = 1;
-            let k0 = 0;
-            //alert('start');
-            let pre_list = [];
+            let k5 = localStorage.getItem('English_preWords');
+            let k_tf = false;
+            if(k5 != null){
+              if(confirm('前回のやつを呼び起こしますか？')){
+                let pre_k = localStorage.getItem('English_preWords').split(',');
+                k_tf = true;
+                state = 1;
+                for(let k of pre_k){
+                  let k1 = parseInt(k) - 1;
+                  words_list.push(words[k1]);
+              
+                  k0 += 1;
+                  //alert(k1);
+              //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
+              let tr = document.createElement("tr");
+              let td1 = document.createElement("td");
+              let but = document.createElement("button");
+              but.textContent = until_num[parseInt(words[k1][0])-1]+':'+words[k1][0];
+              but.setAttribute('onclick', 'up('+String(k0-1)+');');
+              but.classList.add('but');
+              but.style.color = "black";
+              td1.appendChild(but);
+              //td1.textContent = words[k1][0];
+              //alert(words[k1]);
+              let td2 = document.createElement("td");
+              td2.textContent = words[k1][1];
+              let td3 = document.createElement("td");
+              td3.classList.add('Ans_area');
+              td3.textContent = "";
+              tr.appendChild(td1);
+              tr.appendChild(td2);
+              tr.appendChild(td3);
+              table.appendChild(tr);
+              delete words[k1];
+              words = words.filter(v0 => v0);
+                }
+              }
+            }
+           
+            if(k_tf == false){
+              state = 1;
+              let k0 = 0;
+              //alert('start');
+              let pre_list = [];
             for(let k = 0; k < parseInt(params[2]); k++){
               let k1 = Math.floor((len-k0)*Math.random());
               words_list.push(words[k1]);
@@ -124,6 +164,8 @@
               words = words.filter(v0 => v0);
             }
             localStorage.setItem('English_preWords',pre_list.join(','));
+            }
+            
             
     
           })
@@ -142,6 +184,9 @@
     element_k.style.color = '#20b2aa';
     localStorage.setItem('English_Words',until_num.join(','));
   }
+
+  
+ 
   function ans(){
     let td_ans = document.getElementsByClassName('Ans_area');
     
