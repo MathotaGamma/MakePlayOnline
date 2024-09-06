@@ -155,6 +155,9 @@ def Connect_stay():
   ])
   return render_template('/Connect/stay.html',files_dir=files_dir)
 
+@app.route('/base.html')
+def base():
+  return render_template('/base.html',created_date=created_date)
 
 @app.route('/Connect/Root/<string:Space>/<path:Directly>')
 def Connect_Root_ALL(Space,Directly):
