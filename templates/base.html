@@ -7,7 +7,7 @@
     {% block head %}{% endblock %}
     <script>
       let created_date = {{created_date | tojson}};
-      alert(typeof created_date);
+      alert(created_date);
       if(localStorage.getItem('name') == null or localStorage.getItem('id') == null){
         alert('ログインしていないため、ログインをお願いします。');
         window.location.href = "/Connect/homepage";
