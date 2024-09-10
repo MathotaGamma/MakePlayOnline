@@ -207,6 +207,20 @@
       }
     }
 
+    let local = localStorage.getItem('AI/data');
+    if(local != null){
+      if(confirm('復元しますか？')){
+        local = local.split(',');
+        for(let k = 0; k < 91; k++){
+          for(let i = 0; i < w_size+1; i++){
+            v[k][i] = local[2*k*w_size+i].split(',');
+          }
+        }
+        alert(v);
+        reset();
+      }
+    }
+
     function draw(){
       background(0);
       strokeWeight(1);
