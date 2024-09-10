@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.10.0/lib/p5.js"></script>
   </head>
   <body>
+    <button onclick="IN();'>保存</button>
     <canvas id="chart" style="z-index: 99; position: fixed; background-color: #fff; height: 200px; width: 600px;"></canvas>
     <script>
     const w = innerWidth;
@@ -105,6 +106,11 @@
       x += dt*v_x;
 
 
+    }
+
+    function IN(){
+      localStorage.setItem('AI/data',v.join(','));
+      alert(localStorage.getItem('AI/data');
     }
 
     function chart_show(){
