@@ -202,7 +202,7 @@
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
     //alert(until_num[ind_k-1]);
     let element_k = document.getElementsByClassName('Word')[ind_k-1];
-    element_k.textContent = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
+    element_k.innerText = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
     /*element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     element_k.style.color = '#20b2aa';*/
     localStorage.setItem('English_Words',until_num.join(','));
