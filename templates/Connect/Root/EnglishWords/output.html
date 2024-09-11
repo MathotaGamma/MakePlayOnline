@@ -99,7 +99,7 @@
             let k5 = localStorage.getItem('English_preWords');
             let k_tf = false;
             if(k5 != null){
-              /*if(confirm('前回のやつを呼び起こしますか？')){
+              if(confirm('前回のやつを呼び起こしますか？')){
                 let k0 = 0;
                 let pre_k = localStorage.getItem('English_preWords').split(',');
                 k_tf = true;
@@ -114,7 +114,7 @@
                   //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
                   let tr = document.createElement("tr");
                   let td1 = document.createElement("td");
-                  td1.textContent = String(k1)+'番目:'words[k1][0]+':'+String(until_num[k1])+'回';
+                  td1.textContent = String(k1)+'番目:'+words[k1][0]+':'+String(until_num[k1])+'回';
                   //alert(words[k1]);
                   let td2 = document.createElement("td");
                   td2.setAttribute('onclick', 'INC('+String(k0-1)+');');
@@ -135,7 +135,7 @@
                   
                 }
                 words = words.filter(v0 => v0);
-              }*/
+              }
             }
            
             /*if(k_tf == false){
