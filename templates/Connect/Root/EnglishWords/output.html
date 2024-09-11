@@ -107,12 +107,20 @@
                   //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
                   let tr = document.createElement("tr");
                   let td1 = document.createElement("td");
+                  let sp = document.createElement("span");
                   let but = document.createElement("button");
-                  but.textContent = until_num[k1]+':'+words[k1][0];
+                  let but1 = document.createdElement("button");
+                  sp.innerText = until_num[k1]+':'+words[k1][0];
+                  but.textContent = '+';
+                  but.textContent = '-';
                   but.setAttribute('onclick', 'up('+String(k0-1)+');');
+                  but.setAttribute('onclick', 'down('+String(k0-1)+');');
                   but.classList.add('but');
+                  but1.classList.add('but');
                   but.style.color = "black";
+                  but1.style.color = "red";
                   td1.appendChild(but);
+                  td1.appendChild(but1);
                   //td1.textContent = words[k1][0];
                   //alert(words[k1]);
                   let td2 = document.createElement("td");
@@ -181,6 +189,15 @@
     //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
+    let element_k = document.getElementsByClassName('but')[ind_k0];
+    element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
+    element_k.style.color = '#20b2aa';
+    localStorage.setItem('English_Words',until_num.join(','));
+  }
+  function down(ind_k0){
+    //ind_k0はボタンのindex
+    let ind_k = parseInt(words_list[ind_k0][0]);
+    until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])-1);
     let element_k = document.getElementsByClassName('but')[ind_k0];
     element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     element_k.style.color = '#20b2aa';
