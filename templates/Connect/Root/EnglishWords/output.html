@@ -231,10 +231,10 @@
   function ANS_one(ind_k0){
     let ind_k = parseInt(ind_k0);
     let td_ans = document.getElementsByClassName('Ans_area');
-    if(td_ans[ind_k-1].textContent == ''){
-      td_ans[ind_k-1].textContent = words_list[ind_k-1][2];
+    if(td_ans[ind_k].textContent == ''){
+      td_ans[ind_k].textContent = words_list[ind_k][2];
     } else {
-      td_ans[ind_k-1].textContent = '';
+      td_ans[ind_k].textContent = '';
     }
   }
   
