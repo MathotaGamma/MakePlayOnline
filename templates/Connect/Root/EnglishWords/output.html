@@ -198,29 +198,27 @@
  
   function up(ind_k0){
     let ind_k = parseInt(words_list[ind_k0][0]);
-    document.getElementsByClassName('Word')[ind_k0-1].innerHTML = "UP";
-    /*//ind_k0はボタンのindex
+    //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
     
-    let element_k = document.getElementsByClassName('Word')[ind_k-1];
+    let element_k = document.getElementsByClassName('Word')[ind_k0];
     alert(Object.keys(element_k)));
     element_k.innerHTML = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
     
     //element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     //element_k.style.color = '#20b2aa';
-    localStorage.setItem('English_Words',until_num.join(','));*/
+    localStorage.setItem('English_Words',until_num.join(','));
   }
   function down(ind_k0){
-    /*//ind_k0はボタンのindex+1
+    //ind_k0はボタンのindex+1
     let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])-1);
-    let element_k = document.getElementsByClassName('Word')[ind_k-1];
-    element_k.innerHTML = "down";
-    //element_k.textContent = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
+    let element_k = document.getElementsByClassName('Word')[ind_k0];
+    element_k.innerHTML = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
     //element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     //element_k.style.color = '#20b2aa';
-    localStorage.setItem('English_Words',until_num.join(','));*/
+    localStorage.setItem('English_Words',until_num.join(','));
   }
 
   function INC(ind_k0){
