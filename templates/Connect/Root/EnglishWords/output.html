@@ -113,32 +113,19 @@
                   //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
                   let tr = document.createElement("tr");
                   let td1 = document.createElement("td");
-                  /*let sp = document.createElement("span");
-                  let but = document.createElement("button");
-                  let but1 = document.createdElement("button");
-                  sp.innerText = until_num[k1]+':'+words[k1][0];*/
-                  /*but.textContent = '+';
-                  but.textContent = '-';
-                  but.setAttribute('onclick', 'up('+String(k0-1)+');');
-                  but.setAttribute('onclick', 'down('+String(k0-1)+');');
-                  but.classList.add('but');
-                  but1.classList.add('but');
-                  but.style.color = "black";
-                  but1.style.color = "red";*/
-                  /*td1.appendChild(but);
-                  td1.appendChild(but1);*/
-                  td1.textContent = words[k1][0];
+                  td1.textContent = String(k1)+'番目:'words[k1][0]+':'+String(until_num[k1])+'回';
                   //alert(words[k1]);
                   let td2 = document.createElement("td");
-                  let but2 = document.createElement("button");
-                  but2.textContent = words[k1][1];
-                  but2.style.color = "black";
-                  but2.setAttribute('onclick', 'INC('+String(k0-1)+');');
-                  but2.classList.add('inc');
-                  td2.appendChild(but2);
+                  td2.setAttribute('onclick', 'INC('+String(k0-1)+');');
+                  td2.classList.add('inc');
+                  td2.textContent = words[k1][1];
+                  td2.style.color = "black";
+                  
+                  
                   let td3 = document.createElement("td");
                   td3.classList.add('Ans_area');
                   td3.textContent = "";
+                  td3.setAttribute('onclick', 'ANS_one('+String(k0-1)+');');
                   tr.appendChild(td1);
                   tr.appendChild(td2);
                   tr.appendChild(td3);
@@ -230,15 +217,32 @@
   }
 
   
- 
+
+  function ANS_one(ind_k0){
+    let ind_k = parseInt(words_list[ind_k0][0]);
+    let td_ans = document.getElementsByClassName('Ans_area');
+    if(td_ans[ind_k-1].textContent == ''){
+      td_ans[ind_k-1].textContent = words_list[ind_k-1][2];
+    } else {
+      td_ans[ind_k-1].textContent = '';
+    }
+  }
+  
+
+  let ans_tf = false;
+  
   function ans(){
     let td_ans = document.getElementsByClassName('Ans_area');
-    
-    for(let k = 0; k < parseInt(params[2]); k++){
-      if(td_ans[k].textContent == ''){
-        td_ans[k].textContent = words_list[k][2];
-      } else {
+
+    if(ans_tf){
+      ans_tf = false;
+      for(let k = 0; k < parseInt(params[2]); k++){
         td_ans[k].textContent = '';
+      }
+    } else {
+      ans_tf = true;
+      for(let k = 0; k < parseInt(params[2]); k++){
+        td_ans[k].textContent = words_list[k][2];
       }
     }
   }
