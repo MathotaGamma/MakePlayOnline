@@ -75,9 +75,10 @@
   let words_list = [];
   //間違えた単語
   let inc = [];
-  
-  const filePath = "/Static/EnglishWords/words_data.txt";
-  //alert(params);
+
+  try{
+    const filePath = "/Static/EnglishWords/words_data.txt";
+    //alert(params);
       // 非同期でファイルを読み込む
       
         fetch(filePath)
@@ -181,6 +182,9 @@
           .catch(error => {
             console.error('Error:', error);
           });
+  } catch(e_k) {
+    alert(e_k);
+  }
   //table.appendChild('<
 
  
