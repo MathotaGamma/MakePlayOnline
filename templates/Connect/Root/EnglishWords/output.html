@@ -120,6 +120,7 @@
                   td0.textContent = String(k0);
                   let td1 = document.createElement("td");
                   td1.textContent = words[k1][0]+':'+String(until_num[k1])+'回';
+                  td1.classList.add('Word');
                   //alert(words[k1]);
                   let td2 = document.createElement("td");
                   td2.setAttribute('onclick', 'INC('+String(k0-1)+');');
@@ -159,6 +160,7 @@
               //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
               let tr = document.createElement("tr");
               let td1 = document.createElement("td");
+              td1.classList.add('Word');
               let but = document.createElement("button");
               but.textContent = until_num[parseInt(words[k1][0])-1]+':'+words[k1][0];
               but.setAttribute('onclick', 'up('+String(k0-1)+');');
@@ -198,17 +200,19 @@
     //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
-    /*let element_k = document.getElementsByClassName('but')[ind_k0];
-    element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
+    let element_k = document.getElementsByClassName('Word')[ind_k0];
+    element_k.textContent = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
+    /*element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     element_k.style.color = '#20b2aa';*/
     localStorage.setItem('English_Words',until_num.join(','));
   }
   function down(ind_k0){
     //ind_k0はボタンのindex+1
     let ind_k = parseInt(words_list[ind_k0][0]);
-    /*until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])-1);
-    let element_k = document.getElementsByClassName('but')[ind_k0];
-    element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
+    until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])-1);
+    let element_k = document.getElementsByClassName('Word')[ind_k0];
+    element_k.textContent = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
+    /*element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     element_k.style.color = '#20b2aa';*/
     localStorage.setItem('English_Words',until_num.join(','));
   }
