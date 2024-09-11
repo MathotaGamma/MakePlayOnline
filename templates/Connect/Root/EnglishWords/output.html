@@ -59,10 +59,10 @@
     if(confirm('本当にRESETしますか？(この操作は取り消せません。)')){
       until_num = new Array(1900).fill("0");
       localStorage.setItem('English_Words',until_num.join(','));
-      let element_k = document.getElementsByClassName('but');
+      let element_k = document.getElementsByClassName('Ans_area');
       for(let k = 0; k < parseInt(params[2]); k++){
-       element_k[k].textContent = '0:'+String(words_list[k][0]);
-       element_k[k].style.color = 'black';
+        element_k[k].textContent = String(words_list[k][0])+':0';
+        element_k[k].style.color = 'black';
       }
     }
   }
