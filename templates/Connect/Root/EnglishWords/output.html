@@ -13,8 +13,11 @@
     padding: 0px;
     margin: 0px;
   }
+  .no {
+    width: 5%;
+  }
   .num {
-    width: 15%;
+    width: 10%;
   }
   .word {
     width: 20%;
@@ -40,7 +43,7 @@
 <!--<button onclick="pre();">前回の問題を呼び起こす</button>-->
 <br>
 <table id="table" border="1">
-  <tr><th class="num">番号</th><th class="word">単語</th><th class="ans">解答欄</th></tr>
+  <tr><th class="no">\</th><th class="num">番号</th><th class="word">単語</th><th class="ans">解答欄</th></tr>
 </table>
 <script>
   alert('var:1.01.02');
@@ -113,8 +116,10 @@
                   //alert(k1);
                   //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
                   let tr = document.createElement("tr");
+                  let td0 = document.createElement("td");
+                  td0.textContent = String(k1);
                   let td1 = document.createElement("td");
-                  td1.textContent = String(k1)+'番目:'+words[k1][0]+':'+String(until_num[k1])+'回';
+                  td1.textContent = words[k1][0]+':'+String(until_num[k1])+'回';
                   //alert(words[k1]);
                   let td2 = document.createElement("td");
                   td2.setAttribute('onclick', 'INC('+String(k0-1)+');');
@@ -126,7 +131,8 @@
                   let td3 = document.createElement("td");
                   td3.classList.add('Ans_area');
                   td3.textContent = "";
-                  //td3.setAttribute('onclick', 'ANS_one('+String(k0-1)+');');
+                  td3.setAttribute('onclick', 'ANS_one('+String(k0-1)+');');
+                  tr.appendChild(td0);
                   tr.appendChild(td1);
                   tr.appendChild(td2);
                   tr.appendChild(td3);
@@ -138,7 +144,7 @@
               }
             }
            
-            /*if(k_tf == false){
+            if(k_tf == false){
               state = 1;
               let k0 = 0;
               //alert('start');
@@ -174,7 +180,7 @@
               words = words.filter(v0 => v0);
             }
             localStorage.setItem('English_preWords',pre_list.join(','));
-            }*/
+            }
             
             
     
@@ -222,7 +228,7 @@
 
   
 
-  /*function ANS_one(ind_k0){
+  function ANS_one(ind_k0){
     let ind_k = parseInt(words_list[ind_k0][0]);
     let td_ans = document.getElementsByClassName('Ans_area');
     if(td_ans[ind_k-1].textContent == ''){
@@ -230,7 +236,7 @@
     } else {
       td_ans[ind_k-1].textContent = '';
     }
-  }*/
+  }
   
 
   let ans_tf = false;
