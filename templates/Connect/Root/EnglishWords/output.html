@@ -200,9 +200,10 @@
     //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
-    //alert(until_num[ind_k-1]);
+    alert(Object.keys(element_k)));
     let element_k = document.getElementsByClassName('Word')[ind_k-1];
     element_k.innerHTML = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
+    
     /*element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     element_k.style.color = '#20b2aa';*/
     localStorage.setItem('English_Words',until_num.join(','));
