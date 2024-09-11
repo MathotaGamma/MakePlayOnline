@@ -126,7 +126,7 @@
                   let td3 = document.createElement("td");
                   td3.classList.add('Ans_area');
                   td3.textContent = "";
-                  td3.setAttribute('onclick', 'ANS_one('+String(k0-1)+');');
+                  //td3.setAttribute('onclick', 'ANS_one('+String(k0-1)+');');
                   tr.appendChild(td1);
                   tr.appendChild(td2);
                   tr.appendChild(td3);
@@ -222,7 +222,7 @@
 
   
 
-  function ANS_one(ind_k0){
+  /*function ANS_one(ind_k0){
     let ind_k = parseInt(words_list[ind_k0][0]);
     let td_ans = document.getElementsByClassName('Ans_area');
     if(td_ans[ind_k-1].textContent == ''){
@@ -230,7 +230,7 @@
     } else {
       td_ans[ind_k-1].textContent = '';
     }
-  }
+  }*/
   
 
   let ans_tf = false;
