@@ -71,6 +71,8 @@
   let ind_origin = [];
   let state = 0;
   let words_list = [];
+  //間違えた単語
+  let inc = [];
   
   const filePath = "/Static/EnglishWords/words_data.txt";
   //alert(params);
@@ -90,6 +92,7 @@
             len = words.length;
             ind_origin = Array.from({length: len}, (v, k) => k);
             
+            
             let k5 = localStorage.getItem('English_preWords');
             let k_tf = false;
             if(k5 != null){
@@ -98,6 +101,7 @@
                 let pre_k = localStorage.getItem('English_preWords').split(',');
                 k_tf = true;
                 state = 1;
+                inc = new Array(pre_k.length).fill(0);
                 for(let k of pre_k){
                   let k1 = parseInt(k) - 1;
                   words_list.push(words[k1]);
@@ -111,20 +115,25 @@
                   let but = document.createElement("button");
                   let but1 = document.createdElement("button");
                   sp.innerText = until_num[k1]+':'+words[k1][0];
-                  but.textContent = '+';
+                  /*but.textContent = '+';
                   but.textContent = '-';
                   but.setAttribute('onclick', 'up('+String(k0-1)+');');
                   but.setAttribute('onclick', 'down('+String(k0-1)+');');
                   but.classList.add('but');
                   but1.classList.add('but');
                   but.style.color = "black";
-                  but1.style.color = "red";
+                  but1.style.color = "red";*/
                   td1.appendChild(but);
                   td1.appendChild(but1);
                   //td1.textContent = words[k1][0];
                   //alert(words[k1]);
                   let td2 = document.createElement("td");
-                  td2.textContent = words[k1][1];
+                  let but2 = document.createElement("button");
+                  but2.textContent = words[k1][1];
+                  but2.style.color = "black";
+                  but2.setAttribute('onclick', 'INC('+String(k0-1)+');');
+                  but2.classList.add('inc');
+                  td2.appendChild(but2);
                   let td3 = document.createElement("td");
                   td3.classList.add('Ans_area');
                   td3.textContent = "";
@@ -144,6 +153,7 @@
               let k0 = 0;
               //alert('start');
               let pre_list = [];
+              inc = new Array(parseInt(params[2])).fill(0);
             for(let k = 0; k < parseInt(params[2]); k++){
               let k1 = Math.floor((len-k0)*Math.random());
               words_list.push(words[k1]);
@@ -189,19 +199,32 @@
     //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
-    let element_k = document.getElementsByClassName('but')[ind_k0];
+    /*let element_k = document.getElementsByClassName('but')[ind_k0];
     element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
-    element_k.style.color = '#20b2aa';
+    element_k.style.color = '#20b2aa';*/
     localStorage.setItem('English_Words',until_num.join(','));
   }
   function down(ind_k0){
-    //ind_k0はボタンのindex
+    //ind_k0はボタンのindex+1
     let ind_k = parseInt(words_list[ind_k0][0]);
-    until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])-1);
+    /*until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])-1);
     let element_k = document.getElementsByClassName('but')[ind_k0];
     element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
-    element_k.style.color = '#20b2aa';
+    element_k.style.color = '#20b2aa';*/
     localStorage.setItem('English_Words',until_num.join(','));
+  }
+
+  function INC(ind_k0){
+    let ind_k = parseInt(words_list[ind_k0][0]);
+    let element_k = document.getElementsByClassName('inc')[ind_k0];
+    inc[ind_k-1] = 1-inc[ind_k-1];
+    if(inc[ind_k-1] == 0){
+      element_k.style.color = "black";
+      down(ind_k0);
+    } else {
+      element_k.style.color = "red";
+      up(ind_k0);
+    }
   }
 
   
