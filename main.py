@@ -89,7 +89,7 @@ def stable_post():
   # 画像のファイル名
 
 
-  if 'install_pip' not in locals():
+  """if 'install_pip' not in locals():
     #!pip install "jax[cuda12_pip==0.4.23]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
     #subprocess.run(['pip','install','diffusers==0.11.1'])
     #!pip install transformers scipy ftfy
@@ -98,7 +98,7 @@ def stable_post():
     #!pip install jax==0.4.23 jaxlib==0.4.23
     #install_pip = True
   else:
-    print('PIP was Installed')
+    print('PIP was Installed')"""
 
 
   
