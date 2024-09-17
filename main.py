@@ -71,11 +71,11 @@ def add():
 def Lifeshave_play():
   return render_template('/LIFESHAVE/play.html')
 
-@app.route('/stable')
+@app.route('/stable/home')
 def stable():
   return render_template('/stable/home.html')
 
-@app.route('/stable',methods=['POST'])
+@app.route('/stable/play',methods=['POST'])
 def stable_post():
 
 	
