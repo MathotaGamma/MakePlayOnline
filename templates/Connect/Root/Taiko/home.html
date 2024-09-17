@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Taiko</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+      }
+
+      button {
+        width: 100px;
+        height: 50px;
+      }
+
+      .inp {
+        width: 300px;
+        height: 20px;
+      }
+
+      .text {
+        font-size: 20px;
+        width: 100%;
+        height: 80%;
+        margin: 0;
+        padding: 0;
+        display: block;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+  </head>
+  <body>
+    <button type="button" onclick="ok();">FINISH</button><input class="inp" id="file" type="file" />
+    <textarea id="text" class="text"></textarea>
+    <script>
+      const text_id = document.getElementById('text');
+
+text_id.value = `TITLE:??
+SUBTITLE:??
+BPM:??
+WAVE:??
+OFFSET:??
+SONGVOL:100
+SEVOL:100
+DEMOSTART:??
+SCOREMODE:1
+
+COURSE:Oni
+LEVEL:??
+BALOON:??
+SCOREINIT:440
+SCOREDIFF:120
+
+#START
+
+#END
+`;
+
+let t = localStorage.getItem('text');
+
+if(t != null){
+  if(confirm('復元しますか？')){
+    text_id.value = t;
+  }
+}
+
+
+text_id.addEventListener('input',()=>{
+  localStorage.setItem('text',text_id.value);
+});
+
+
+
+function ok(){
+  //1. Blobオブジェクトを作成する
+  const blob = new Blob([text_id.value],{type:"tja/plain"});
+
+  let file_id = document.getElementById('file');
+
+  let zip = new JSZip();
+  zip.file(text_id.value.split('\n')[0].slice(6)+'.tja',blob)
+  zip.file('music.ogg',file_id.files[0]);
+  
+  zip
+    .generateAsync({type: 'blob'})
+    .then((content) => saveAs(content,text_id.value.split('\n')[0].slice(6)+'.zip'));
+
+  alert(zip)
+  
+
+  //2. HTMLのa要素を生成
+  const link = document.createElement('a');
+
+  //3. BlobオブジェクトをURLに変換
+  link.href = URL.createObjectURL(zip);
+  
+  
+  //4. ファイル名を指定する
+  link.download = text_id.value.split('\n')[0].slice(6)+'.tja';
+
+  //5. a要素をクリックする処理を行う
+  link.click();
+};
+    </script>
+  </body>
+</html>
