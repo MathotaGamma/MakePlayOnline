@@ -91,10 +91,10 @@ def stable_post():
 
   if 'install_pip' not in locals():
     #!pip install "jax[cuda12_pip==0.4.23]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-    subprocess.run(['pip','install','diffusers==0.11.1'])
+    #subprocess.run(['pip','install','diffusers==0.11.1'])
     #!pip install transformers scipy ftfy
     #!pip install diffusers==0.11.1
-    subprocess.run(['pip','install','jax=0.4.23','jaxlib==0.4.23'])
+    #subprocess.run(['pip','install','jax=0.4.23','jaxlib==0.4.23'])
     #!pip install jax==0.4.23 jaxlib==0.4.23
     #install_pip = True
   else:
@@ -107,14 +107,16 @@ def stable_post():
     print("diffusers was imported")
   else:
     print("diffusers is not imported")
-    !pip install diffusers==0.8.0 transformers scipy ftfy
-    install_diffusers = True
+    #subprocess.run(['pip','install','diffusers==0.8.0','transformers','scipy','ftfy'])
+    #!pip install diffusers==0.8.0 transformers scipy ftfy
+    #install_diffusers = True
 
   if "install_torch" in locals():
     print("torch was imported")
   else:
     print("torch is not imported")
-    !pip install torch
+	  
+    #!pip install torch
     install_torch = True
 
 
