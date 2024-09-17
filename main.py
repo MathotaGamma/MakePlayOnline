@@ -9,6 +9,11 @@ import json
 import re
 from PIL import Image
 import sys
+import subprocess
+import jax.random
+from diffusers import StableDiffusionPipeline,StableDiffusionImg2ImgPipeline, DPMSolverMultistepScheduler
+import torch
+
 
 
 app = Flask(__name__)
@@ -86,15 +91,17 @@ def stable_post():
 
   if 'install_pip' not in locals():
     #!pip install "jax[cuda12_pip==0.4.23]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-    !pip install transformers scipy ftfy
+    subprocess.run(['pip','install','diffusers==0.11.1'])
+    #!pip install transformers scipy ftfy
     #!pip install diffusers==0.11.1
-    !pip install jax==0.4.23 jaxlib==0.4.23
-    install_pip = True
+    subprocess.run(['pip','install','jax=0.4.23','jaxlib==0.4.23'])
+    #!pip install jax==0.4.23 jaxlib==0.4.23
+    #install_pip = True
   else:
     print('PIP was Installed')
 
 
-  import jax.random
+  
 
   if "install_diffusers" in locals():
     print("diffusers was imported")
@@ -155,8 +162,7 @@ def stable_post():
 
   if pre_kind != kind and kind == 'T':
     print('model is begun define')
-    from diffusers import StableDiffusionPipeline,StableDiffusionImg2ImgPipeline, DPMSolverMultistepScheduler
-    import torch
+    
 
     # アクセストークンの設定
     #access_tokens="" # @param {type:"string"}
@@ -173,10 +179,9 @@ def stable_post():
     model.scheduler = DPMSolverMultistepScheduler.from_config(model.scheduler.config)
     model.to("cuda")
     print(model)
-  elif pre_kind != kind and kind == 'F':
+  elif pre_kind != 'F':
     print('model is begun define')
-    from diffusers import StableDiffusionPipeline
-    import torch
+    
     model = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=access_tokens)
     model.to('cuda')
 
