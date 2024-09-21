@@ -69,6 +69,7 @@
 
   //alert('table');
   let words = [];
+  let Words = [];
   //let params = [1,1900];
   let params_origin = window.location.search;
   let params = params_origin.split('=')[1].split('_');
@@ -89,11 +90,11 @@
           .then(data => {
             //alert('get');
             
-            words = data.split('\n').map((k) => {
+            Words = data.split('\n').map((k) => {
               let k_k = k.split(/(:|\/)/)
               return [k_k[0],k_k[2],k_k.slice(4)]
             });
-            words = words.slice(parseInt(params[0])-1,parseInt(params[1]));
+            words = Words.slice(parseInt(params[0])-1,parseInt(params[1]));
             //alert(words);
             len = words.length;
             ind_origin = Array.from({length: len}, (v, k) => k);
@@ -201,18 +202,9 @@
   function up(ind_k0){
     //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
-    alert(ind_k-1);
-    alert(until_num[ind_k-1]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
-    alert(until_num[ind_k-1]);
-    alert('ind:'+String(ind_k0));
     let element_k = document.getElementsByClassName('Word')[ind_k0];
-    alert(words);
-    alert(ind_k);
-    alert(words[ind_k]);
-    alert(element_k.innerHTML);
-    
-    element_k.innerHTML = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
+    element_k.innerHTML = words_list[ind_k0][0]+':'+until_num[ind_k-1]+'回';
     
     //element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     //element_k.style.color = '#20b2aa';
@@ -223,7 +215,7 @@
     let ind_k = parseInt(words_list[ind_k0][0]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])-1);
     let element_k = document.getElementsByClassName('Word')[ind_k0];
-    element_k.innerHTML = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
+    element_k.innerHTML = words_list[ind_k0][0]+':'+until_num[ind_k-1]+'回';
     //element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     //element_k.style.color = '#20b2aa';
     localStorage.setItem('English_Words',until_num.join(','));
