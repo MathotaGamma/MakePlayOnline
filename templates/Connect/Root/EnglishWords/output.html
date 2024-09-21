@@ -199,12 +199,14 @@
   function up(ind_k0){
     //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
+    alert(ind_k-1);
     alert(until_num[ind_k-1]);
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
-    
+    alert(until_num[ind_k-1]);
+    alert('ind:'+String(ind_k0));
     let element_k = document.getElementsByClassName('Word')[ind_k0];
     
-    element_k.innerHTML = words[ind_k-1][0]+':'+String(until_num[ind_k-1])+'回';
+    element_k.innerHTML = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
     
     //element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
     //element_k.style.color = '#20b2aa';
