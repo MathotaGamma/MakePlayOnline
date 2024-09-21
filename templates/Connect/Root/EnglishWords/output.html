@@ -205,6 +205,8 @@
     alert(until_num[ind_k-1]);
     alert('ind:'+String(ind_k0));
     let element_k = document.getElementsByClassName('Word')[ind_k0];
+    alert(element_k);
+    alert(element_k.innerHTML);
     
     element_k.innerHTML = words[ind_k-1][0]+':'+until_num[ind_k-1]+'回';
     
@@ -227,12 +229,16 @@
     let ind_k = parseInt(words_list[ind_k0][0]);
     let element_k = document.getElementsByClassName('inc')[ind_k0];
     inc[ind_k-1] = 1-inc[ind_k-1];
+    try{
     if(inc[ind_k-1] == 0){
       element_k.style.color = "black";
       down(ind_k0);
     } else {
       element_k.style.color = "red";
       up(ind_k0);
+    }
+    } catch(e_k) {
+      alert(e_k);
     }
   }
 
