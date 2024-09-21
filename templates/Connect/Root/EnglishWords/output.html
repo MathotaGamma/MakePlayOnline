@@ -59,9 +59,9 @@
     if(confirm('本当にRESETしますか？(この操作は取り消せません。)')){
       until_num = new Array(1900).fill("0");
       localStorage.setItem('English_Words',until_num.join(','));
-      let element_k = document.getElementsByClassName('Ans_area');
+      let element_k = document.getElementsByClassName('Word');
       for(let k = 0; k < parseInt(params[2]); k++){
-        element_k[k].textContent = String(words_list[k][0])+':0';
+        element_k[k].innerHTML = String(words_list[k][0])+':0回';
         element_k[k].style.color = 'black';
       }
     }
@@ -142,9 +142,9 @@
                   delete words[k1];
                   
                 }
-                alert(words);
+                
                 words = words.filter(v0 => v0);
-                alert(words);
+                
               }
             }
            
@@ -154,11 +154,40 @@
               //alert('start');
               let pre_list = [];
               inc = new Array(parseInt(params[2])).fill(0);
-            for(let k = 0; k < parseInt(params[2]); k++){
-              let k1 = Math.floor((len-k0)*Math.random());
-              words_list.push(words[k1]);
-              pre_list.push(words[k1][0]);
-              k0 += 1;
+              for(let k = 0; k < parseInt(params[2]); k++){
+                let k1 = parseInt(words[Math.floor((len-k0)*Math.random())][0])-1;
+                words_list.push(words[k1]);
+              
+                k0 += 1;
+                  
+                //alert(k1);
+                //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
+                let tr = document.createElement("tr");
+                let td0 = document.createElement("td");
+                  td0.textContent = String(k0);
+                  let td1 = document.createElement("td");
+                  td1.textContent = words[k1][0]+':'+String(until_num[k1])+'回';
+                  td1.classList.add('Word');
+                  //alert(words[k1]);
+                  let td2 = document.createElement("td");
+                  td2.setAttribute('onclick', 'INC('+String(k0-1)+');');
+                  td2.classList.add('inc');
+                  td2.textContent = words[k1][1];
+                  td2.style.color = "black";
+                  
+                  
+                  let td3 = document.createElement("td");
+                  td3.classList.add('Ans_area');
+                  td3.textContent = "";
+                  td3.setAttribute('onclick', 'ANS_one('+String(k0-1)+');');
+                  tr.appendChild(td0);
+                  tr.appendChild(td1);
+                  tr.appendChild(td2);
+                  tr.appendChild(td3);
+                  table.appendChild(tr);
+                  delete words[k1];
+              //pre_list.push(words[k1][0]);
+              /*k0 += 1;
               //alert(k1);
               //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
               let tr = document.createElement("tr");
@@ -180,7 +209,7 @@
               tr.appendChild(td1);
               tr.appendChild(td2);
               tr.appendChild(td3);
-              table.appendChild(tr);
+              table.appendChild(tr);*/
               delete words[k1];
               words = words.filter(v0 => v0);
             }
