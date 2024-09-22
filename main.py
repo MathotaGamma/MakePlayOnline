@@ -35,6 +35,11 @@ def handle_all_error(e):
   return render_template('/error.html',Error=e)
 
 
+@app.route("/sitemap.xml")
+def sitemap():
+  return app.send_static_file("sitemap.xml")
+
+
 @app.route('/Notify/pushcode_sw.js',methods=['GET'])
 @app.route('/Notify/pushcode_sw.js')
 def Notify_pushcode_sw():
