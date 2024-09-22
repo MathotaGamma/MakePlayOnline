@@ -234,15 +234,17 @@
     //element_k.style.color = '#20b2aa';
     localStorage.setItem('English_Words',until_num.join(','));
   }
-
+ 
   function INC(ind_k0){
     alert(ind_k0);
     let ind_k = parseInt(words_list[ind_k0][0]);
     alert(ind_k);
     let element_k = document.getElementsByClassName('inc')[ind_k0];
-    inc[ind_k-1] = 1-inc[ind_k-1];
+    //inc[ind_k-1] = 1-inc[ind_k-1];
+    inc[ind_k0] = 1-inc[ind_k0];
+    alert(inc);
     try{
-    if(inc[ind_k-1] == 0){
+    if(inc[ind_k0] == 0){
       element_k.style.color = "black";
       down(ind_k0);
     } else {
