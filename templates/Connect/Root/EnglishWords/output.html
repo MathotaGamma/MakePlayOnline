@@ -215,6 +215,7 @@
   function up(ind_k0){
     //ind_k0はボタンのindex
     let ind_k = parseInt(words_list[ind_k0][0]);
+    
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])+1);
     let element_k = document.getElementsByClassName('Word')[ind_k0];
     element_k.innerHTML = words_list[ind_k0][0]+':'+until_num[ind_k-1]+'回';
@@ -235,7 +236,9 @@
   }
 
   function INC(ind_k0){
+    alert(ind_k0);
     let ind_k = parseInt(words_list[ind_k0][0]);
+    alert(ind_k);
     let element_k = document.getElementsByClassName('inc')[ind_k0];
     inc[ind_k-1] = 1-inc[ind_k-1];
     try{
