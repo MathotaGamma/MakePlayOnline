@@ -160,6 +160,7 @@
               inc = new Array(parseInt(params[2])).fill(0);
               try{
                 for(let k = 0; k < parseInt(params[2]); k++){
+                  alert(len-k0);
                   let k1 = parseInt(words[Math.floor((len-k0)*Math.random())][0])-1;
                   words_list.push(words[k1]);
               
@@ -191,8 +192,8 @@
                   tr.appendChild(td3);
                   table.appendChild(tr);
                   delete words[k1];
+                  words = words.filter(v0 => v0);
                 }
-                words = words.filter(v0 => v0);
               } catch(e_k) {
                 alert(e_k);
               }
