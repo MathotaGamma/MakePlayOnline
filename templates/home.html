@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="google-site-verification" content="WHX3xVHU1jUXu3VxjVJUAvzEFgt_G5W32NO-gPv5ELw" />
+    <meta charset="utf-8">
+    <link rel="icon" href="{{url_for('static',filename='favicon.ico')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static',filename='apple-touch-icon.png')}}">
+    <style>
+      h1 {
+        position: relative;
+        padding: 5px 5px 5px 42px;
+        background: #ffaf58;
+        font-size: 30px;
+        color: #fff;
+        margin-left: -33px;
+        line-height: 1.3;
+        z-index:-1;
+      }
+
+      h1::before {
+        position: absolute;
+        content: '';
+        left: -2px;
+        top: -2px;
+        border: none;
+        border-left: solid 40px #fff;
+        border-bottom: solid 79px transparent;
+        z-index:-2
+      }
+
+      a {
+        color: #fff;
+      }
+      
+      ul {
+        padding: 0;
+      }
+
+      li {
+        font-size: 20px;
+      }
+
+      ul li {
+        position: relative;
+        list-style-type: none;
+        padding: 0.5em 0.5em 0.5em 2em; 
+        margin-bottom: 5px;
+        line-height: 1.5;
+        background: #aaa;
+        vertical-align: middle;
+        color: #fff;
+        border-radius: 20px 0 0 20px;
+      }
+
+      ul li::before {
+        position: absolute;
+        left: 0.7em;
+        top: 0.75em;
+        content: '';
+        width: 1em;
+        height: 1em;
+        background: #fff;
+        border-radius: 50%;
+      }
+    </style>
+    <title>Make&PlayGame in World</title>
+  </head>
+  <center><h1>Make&PlayGame in Worldにようこそ!</h1></center>
+  <body>
+    <header>
+      <span></span>
+      <span><a href="./Connect/homepage">contents</a></span>
+      <span><a href="https://mathotagamma.github.io/homepage">offline</a></span>
+    </header>
+    <script>
+      function btn(let k){
+        window.location.href=k;
+      }
+    </script>
+  </body>
+</html>
