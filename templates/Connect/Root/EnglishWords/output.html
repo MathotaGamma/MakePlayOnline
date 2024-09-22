@@ -197,7 +197,7 @@
               } catch(e_k) {
                 alert(e_k);
               }
-              localStorage.setItem('English_preWords',words_list.join(','));
+              localStorage.setItem('English_preWords',words_list.map((k_k) => {return k_k[0]}).join(','));
             }
             
             
