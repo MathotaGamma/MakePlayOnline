@@ -49,6 +49,8 @@
   alert('var:1.01.02');
   let table = document.getElementById('table');
   let until_num = localStorage.getItem('English_Words');
+  //間違えた単語
+  let inc = [];
   if(until_num == null){
     until_num = new Array(1900).fill("0");
     localStorage.setItem('English_Words',until_num.join(','));
@@ -60,9 +62,12 @@
       until_num = new Array(1900).fill("0");
       localStorage.setItem('English_Words',until_num.join(','));
       let element_k = document.getElementsByClassName('Word');
+      let element_k0 = document.getElementsByClassName('inc');
       for(let k = 0; k < parseInt(params[2]); k++){
         element_k[k].innerHTML = String(words_list[k][0])+':0回';
         element_k[k].style.color = 'black';
+        element_k0[k].style.color = 'black';
+        inc[k] = 0;
       }
     }
   }
@@ -77,8 +82,7 @@
   let ind_origin = [];
   let state = 0;
   let words_list = [];
-  //間違えた単語
-  let inc = [];
+  
 
   try{
     const filePath = "/Static/EnglishWords/words_data.txt";
