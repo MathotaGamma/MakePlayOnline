@@ -220,37 +220,35 @@
     let element_k = document.getElementsByClassName('Word')[ind_k0];
     element_k.innerHTML = words_list[ind_k0][0]+':'+until_num[ind_k-1]+'回';
     
-    //element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
-    //element_k.style.color = '#20b2aa';
     localStorage.setItem('English_Words',until_num.join(','));
   }
   function down(ind_k0){
     //ind_k0はボタンのindex+1
     let ind_k = parseInt(words_list[ind_k0][0]);
+   
     until_num[ind_k-1] = String(parseInt(until_num[ind_k-1])-1);
     let element_k = document.getElementsByClassName('Word')[ind_k0];
     element_k.innerHTML = words_list[ind_k0][0]+':'+until_num[ind_k-1]+'回';
-    //element_k.textContent = until_num[ind_k-1]+':'+String(ind_k);
-    //element_k.style.color = '#20b2aa';
+    
     localStorage.setItem('English_Words',until_num.join(','));
   }
  
   function INC(ind_k0){
-    alert(ind_k0);
+    
     let ind_k = parseInt(words_list[ind_k0][0]);
-    alert(ind_k);
+    
     let element_k = document.getElementsByClassName('inc')[ind_k0];
     //inc[ind_k-1] = 1-inc[ind_k-1];
     inc[ind_k0] = 1-inc[ind_k0];
-    alert(inc);
+    
     try{
-    if(inc[ind_k0] == 0){
-      element_k.style.color = "black";
-      down(ind_k0);
-    } else {
-      element_k.style.color = "red";
-      up(ind_k0);
-    }
+      if(inc[ind_k0] == 0){
+        element_k.style.color = "black";
+        down(ind_k0);
+      } else {
+        element_k.style.color = "red";
+        up(ind_k0);
+      }
     } catch(e_k) {
       alert(e_k);
     }
