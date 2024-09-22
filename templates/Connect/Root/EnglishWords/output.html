@@ -158,16 +158,17 @@
               //alert('start');
               
               inc = new Array(parseInt(params[2])).fill(0);
-              for(let k = 0; k < parseInt(params[2]); k++){
-                let k1 = parseInt(words[Math.floor((len-k0)*Math.random())][0])-1;
-                words_list.push(words[k1]);
+              try{
+                for(let k = 0; k < parseInt(params[2]); k++){
+                  let k1 = parseInt(words[Math.floor((len-k0)*Math.random())][0])-1;
+                  words_list.push(words[k1]);
               
-                k0 += 1;
+                  k0 += 1;
                   
-                //alert(k1);
-                //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
-                let tr = document.createElement("tr");
-                let td0 = document.createElement("td");
+                  //alert(k1);
+                  //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
+                  let tr = document.createElement("tr");
+                  let td0 = document.createElement("td");
                   td0.textContent = String(k0);
                   let td1 = document.createElement("td");
                   td1.textContent = words[k1][0]+':'+String(until_num[k1])+'回';
@@ -190,34 +191,12 @@
                   tr.appendChild(td3);
                   table.appendChild(tr);
                   delete words[k1];
-              //pre_list.push(words[k1][0]);
-              /*k0 += 1;
-              //alert(k1);
-              //table.appendChild('<tr><tb>'+k0+'</td><td>'+words[k1]+'</td><td></td></tr>');
-              let tr = document.createElement("tr");
-              let td1 = document.createElement("td");
-              td1.classList.add('Word');
-              let but = document.createElement("button");
-              but.textContent = until_num[parseInt(words[k1][0])-1]+':'+words[k1][0];
-              but.setAttribute('onclick', 'up('+String(k0-1)+');');
-              but.classList.add('but');
-              but.style.color = "black";
-              td1.appendChild(but);
-              //td1.textContent = words[k1][0];
-              //alert(words[k1]);
-              let td2 = document.createElement("td");
-              td2.textContent = words[k1][1];
-              let td3 = document.createElement("td");
-              td3.classList.add('Ans_area');
-              td3.textContent = "";
-              tr.appendChild(td1);
-              tr.appendChild(td2);
-              tr.appendChild(td3);
-              table.appendChild(tr);*/
-              delete words[k1];
-              words = words.filter(v0 => v0);
-            }
-            localStorage.setItem('English_preWords',pre_list.join(','));
+                }
+                words = words.filter(v0 => v0);
+              } catch(e_k) {
+                alert(e_k);
+              }
+              localStorage.setItem('English_preWords',pre_list.join(','));
             }
             
             
