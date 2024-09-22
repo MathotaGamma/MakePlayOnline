@@ -100,17 +100,21 @@
       <div><center><a href="https://mathotagamma.github.io/homepage">OFFLINE</a></center></div>
     </header>
     <script>
-      let icon_style = document.getElementById('icon').style;
-      let header = document.getElementById('header');
-      let r = icon_style.width/icon_style.height;
-      let h = Math.floor(4*header_height.style.height/5);
-      alert(h);
-      icon_style.height = h;
-      icon_style.width = Math.floor(r*h);
-      let a = header.getElementsByTagName('a');
-      a.forEach((k) => {
-        k.fontSize = h;
-      });
+      try{
+        let icon_style = document.getElementById('icon').style;
+        let header = document.getElementById('header');
+        let r = icon_style.width/icon_style.height;
+        let h = Math.floor(4*header..style.height/5);
+        alert(h);
+        icon_style.height = h;
+        icon_style.width = Math.floor(r*h);
+        let a = header.getElementsByTagName('a');
+        a.forEach((k) => {
+          k.fontSize = h;
+        });
+      } catch(k) {
+        alert(k);
+      }
     </script>
   </body>
 </html>
