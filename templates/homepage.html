@@ -109,9 +109,13 @@
         icon_style.height = h;
         icon_style.width = Math.floor(r*h);
         let a = header.getElementsByTagName('a');
-        a.forEach((k) => {
+        //alert(a);
+        /*a.forEach((k) => {
           k.fontSize = h;
-        });
+        });*/
+        for(let k of a){
+          k.fontSize = h;
+        }
       } catch(k) {
         alert(k);
       }
