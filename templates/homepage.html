@@ -94,18 +94,18 @@
   </head>
   <!--<center><h1>Make&PlayGame in Worldにようこそ!</h1></center>-->
   <body>
-    <header id="header">
-      <div><img src="/Static/icon_long.jpeg" id="icon" onclick="window.location.href='/';"></div>
+    <header id="Header">
+      <img src="/Static/icon_long.jpeg" id="icon" onclick="window.location.href='/';">
       <a href="./Connect/homepage">CONTENTS</a>
       <a href="https://mathotagamma.github.io/homepage">OFFLINE</a>
     </header>
     <script>
       try{
         let icon_style = document.getElementById('icon').style;
-        let header = document.getElementById('header');
+        let header = document.getElementById('Header');
         let r = icon_style.width/icon_style.height;
         let h = Math.floor(4*header.style.height/5);
-        alert(h);
+        alert(header.style.height);
         icon_style.height = h;
         icon_style.width = Math.floor(r*h);
         let a = header.getElementsByTagName('a');
