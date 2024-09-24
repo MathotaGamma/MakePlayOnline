@@ -83,7 +83,16 @@ function ok(){
 
   let zip = new JSZip();
   zip.file(text_id.value.split('\n')[0].slice(6)+'.tja',blob)
-  zip.file('music.ogg',file_id.files[0]);
+  let wave = "";
+  text_id.value.split('\n').forEach((k) => {
+    if(k.length >= 5){
+      if(k.slice(0,5) == 'WAVE:'){
+        wave += k.slice(5,k.length);
+      }
+    }
+    
+  });
+  zip.file(wave,file_id.files[0]);
   
   zip
     .generateAsync({type: 'blob'})
