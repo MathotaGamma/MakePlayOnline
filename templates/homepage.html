@@ -107,8 +107,8 @@
         let h = Math.floor(4*header.offsetHeight/5);
         //alert(header);
         //alert(header.offsetHeight);
-        icon.style.height = String(h)+'px';
-        icon.style.width = String(Math.floor(r*h))+'px';
+        icon.offsetHeight = String(h)+'px';
+        icon.offsetWidth = String(Math.floor(r*h))+'px';
         //alert(icon.offsetHeight);
         let a = header.getElementsByTagName('a');
         //alert(a);
@@ -116,7 +116,7 @@
           k.fontSize = h;
         });*/
         for(let k of a){
-          k.fontSize = String(2*h)+'px';
+          k.style.fontSize = String(2*h)+'px';
           //alert(k.fontSize);
         }
       } catch(k) {
