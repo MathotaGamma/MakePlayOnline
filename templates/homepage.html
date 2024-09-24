@@ -101,21 +101,21 @@
     </header>
     <script>
       try{
-        let icon_style = document.getElementById('icon').style;
+        let icon = document.getElementById('icon');
         let header = document.getElementById('Header');
-        let r = icon_style.width/icon_style.height;
-        let h = Math.floor(4*header.style.height/5);
+        let r = icon.offsetWidth/icon.offsetHeight;
+        let h = Math.floor(4*header.offsetHeight/5);
         alert(header);
-        alert(header.style.height);
-        icon_style.height = h;
-        icon_style.width = Math.floor(r*h);
+        alert(header.offsetHeight);
+        icon.style.height = String(h)+'px';
+        icon.style.width = String(Math.floor(r*h))+'px';
         let a = header.getElementsByTagName('a');
         //alert(a);
         /*a.forEach((k) => {
           k.fontSize = h;
         });*/
         for(let k of a){
-          k.fontSize = h;
+          k.fontSize = String(h)+'px';
         }
       } catch(k) {
         alert(k);
