@@ -96,14 +96,14 @@
     <title>Make&PlayGame in World</title>
   </head>
   <!--<center><h1>Make&PlayGame in Worldにようこそ!</h1></center>-->
-  <body>
+  <body onload="main();">
     <header id="Header">
       <img src="/Static/icon_long.jpeg" id="icon" onclick="window.location.href='/';">
       <a href="./Connect/homepage">CONTENTS</a>
       <a href="https://mathotagamma.github.io/homepage">OFFLINE</a>
     </header>
     <script>
-      try{
+      function main(){
         let icon = document.getElementById('icon');
         let header = document.getElementById('Header');
         let r = icon.offsetWidth/icon.offsetHeight;
@@ -122,8 +122,6 @@
           k.style.fontSize = String(h)+'px';
           //alert(k.fontSize);
         }
-      } catch(k) {
-        alert(k);
       }
     </script>
   </body>
