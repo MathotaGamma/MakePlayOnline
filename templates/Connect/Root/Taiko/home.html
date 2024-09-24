@@ -85,7 +85,7 @@ function ok(){
   zip.file(text_id.value.split('\n')[0].slice(6)+'.tja',blob)
   let wave = "";
   text_id.value.split('\n').forEach((k) => {
-    if(k.length >= 5){
+    if(k.length >= 6){
       if(k.slice(0,5) == 'WAVE:'){
         wave += k.slice(5,k.length);
       }
