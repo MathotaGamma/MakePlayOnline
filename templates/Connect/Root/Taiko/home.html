@@ -35,8 +35,71 @@
   </head>
   <body>
     <button type="button" onclick="ok();">FINISH</button><input class="inp" id="file" type="file" />
+    <br><label id="L_label">長さ:060秒</label><input type="range();" id="L" value="60" min="1" max="300" step="1" />
+    <label for="Select">選択してください</label>
+    <select id="Select">
+      <option value="user" selected>User</option>
+      <option value="Silent">無音ファイル</option>
+    </select>
     <textarea id="text" class="text"></textarea>
     <script>
+      
+      document.getElementById('generate').addEventListener('click', generateSilentMp3);
+      let L = document.getElementById('L');
+      L.addEventListener('input',() => {
+        document.getElementById('L_label').innerText = '長さ:'+L.value.padStart(3,'0')+'秒';
+      });
+
+      async function generateSilentMp3() {
+
+            
+        // 1. Web Audio APIで無音の音声を生成
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const sampleRate = 44100; // サンプルレート
+        const duration = parseInt(L.value); // 秒
+        const numOfChannels = 1; // モノラル
+        const frameCount = sampleRate * duration;
+
+        // 無音のオーディオバッファを作成
+        const silentBuffer = audioContext.createBuffer(numOfChannels, frameCount, sampleRate);
+
+        // 2. オーディオバッファをWAVデータに変換
+        const buffer = silentBuffer.getChannelData(0);
+        const mp3Encoder = new lamejs.Mp3Encoder(numOfChannels, sampleRate, 128); // 128 kbps MP3 エンコーディング
+
+        const mp3Data = [];
+        const maxSamples = 1152;
+
+        for (let i = 0; i < buffer.length; i += maxSamples) {
+          const samples = buffer.subarray(i, i + maxSamples);
+          const mp3buf = mp3Encoder.encodeBuffer(samples);
+          if (mp3buf.length > 0) {
+            mp3Data.push(mp3buf);
+          }
+        }
+
+        const endBuf = mp3Encoder.flush();
+        if (endBuf.length > 0) {
+          mp3Data.push(endBuf);
+        }
+
+        // 3. バッファをMP3 Blobに変換
+        const blob = new Blob(mp3Data, { type: 'audio/mp3' });
+        alert(blob);
+        return blob
+        
+        /*
+        const url = URL.createObjectURL(blob);
+        
+        // 4. ダウンロードリンクを作成してクリック
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'silent.mp3';
+        link.click();
+        */
+      }
+
+      
       const text_id = document.getElementById('text');
 
 text_id.value = `TITLE:??
@@ -73,9 +136,16 @@ text_id.addEventListener('input',()=>{
   localStorage.setItem('text',text_id.value);
 });
 
-
-
 function ok(){
+  let select_k = document.getElementById('Select').value;
+  if(select_k == 'user'){
+    user();
+  } else {
+    silent();
+  }
+}
+
+function user(){
   //1. Blobオブジェクトを作成する
   const blob = new Blob([text_id.value],{type:"tja/plain"});
 
@@ -92,6 +162,7 @@ function ok(){
     }
     
   });
+  
   zip.file(wave,file_id.files[0]);
   
   zip
@@ -114,6 +185,53 @@ function ok(){
   //5. a要素をクリックする処理を行う
   link.click();
 };
+
+
+
+      
+function silent(){
+  //1. Blobオブジェクトを作成する
+  const blob = new Blob([text_id.value],{type:"tja/plain"});
+  const file = generateSilentMp3();
+
+  //let file_id = document.getElementById('file');
+
+  let zip = new JSZip();
+  zip.file(text_id.value.split('\n')[0].slice(6)+'.tja',blob);
+  let wave = "";
+  text_id.value.split('\n').forEach((k) => {
+    if(k.length >= 6){
+      if(k.slice(0,5) == 'WAVE:'){
+        wave += k.slice(5,k.length);
+      }
+    }
+    
+  });
+  
+  
+  
+  zip.file(wave,file);
+  
+  zip
+    .generateAsync({type: 'blob'})
+    .then((content) => saveAs(content,text_id.value.split('\n')[0].slice(6)+'.zip'));
+
+  //alert(zip)
+  
+
+  //2. HTMLのa要素を生成
+  const link = document.createElement('a');
+
+  //3. BlobオブジェクトをURLに変換
+  link.href = URL.createObjectURL(zip);
+  
+  
+  //4. ファイル名を指定する
+  link.download = text_id.value.split('\n')[0].slice(6)+'.tja';
+
+  //5. a要素をクリックする処理を行う
+  link.click();
+}
     </script>
   </body>
 </html>
