@@ -95,7 +95,8 @@
       });
 
       function start(){
-        if(Object.keys(user_list.length) >= 2){
+        alert(Object.keys(user_list));
+        if(Object.keys(user_list).length >= 2){
           socket.emit('cs_signal',{path:'Bomb_Online',name:name,id:id,room:room,kind:'start'})
         } else {
           alert('2人以上が必要です。');
