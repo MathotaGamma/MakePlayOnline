@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Bomb Online</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.0/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
+    <style>
+      /** {
+        
+      }*/
+      * {
+        /*display: block;*/
+        position: absolute;
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+      }
+
+
+      html,body,canvas{
+        -webkit-touch-callout:none;
+        -webkit-user-select:none;
+        overflow:hidden;
+        padding:0;
+        width:100%;
+        height:100%;
+        margin:0;
+      }
+
+      input {
+        margin: 100px 50px;
+        width: 120px;
+        height: 50px;
+        font-size: 32px;
+        z-index: 99;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="button" id="start" onclick="start();" value="start" disabled>
+    <script>
+      document.addEventListener("gesturestart", (e) => {
+        e.preventDefault();
+      });
+      var socket = io();
+
+      
+      const w = innerWidth;
+      const h = innerHeight;
+
+      let name = localStorage.getItem('name');
+      let id = localStorage.getItem('id');
+      let room = localStorage.getItem('room');
+
+      let tf = 'false';
+
+      let user_list = {};
+
+      
+      
+      if(name == null || id == null || room == null){
+        
+        location.href = '/login';
+      }
+
+
+      socket.on('connect',function(){
+        socket.emit('cs_signal',{path:'Bomb_Online',name:name,id:id,room:room,kind:'join'})
+        setInterval(function(){
+          socket.emit('cs_signal',{path:'Bomb_Online',name:name,id:id,room:room,kind:'alive'});
+          for(let k in user_list){
+            if(user_list[k] <= Date.now()-3000){
+              delete user_list[k];
+              alert(k+'is disconnected');
+            }
+          }
+        },500)
+      });
+
+      
+      socket.on('sc_signal',function (data_k){
+        
+        if(data_k.path == 'Bomb_Online' && data_k.room == room){
+          if(data_k.kind == 'join'){
+            alert(data_k.name+'が参加しました。');
+            document.getElementById('start').disabled = false;
+          } else if(data_k.kind == 'alive'){
+            user_list[data_k.id] = Date.now();
+          } else if(data_k.kind == 'start'){
+            document.getElementById('start').style.display = 'none';
+            tf = 'true';
+          }
+        }
+      });
+
+      function start(){
+        if(user_list.length >= 2){
+          socket.emit('cs_signal',{path:'Bomb_Online',name:name,id:id,room:room,kind:'start'})
+        } else {
+          alert('2人以上が必要です。');
+        }
+      }
+
+      function setup(){
+        createCanvas(w,h);
+        background(0);
+      }
+      function draw(){
+        if(tf == 'start'){
+          
+        }
+      }
+
+    </script>
+  </body>
+</html>
