@@ -5,12 +5,15 @@
   let name = {{name | tojson}};
   let password = {{password | tojson}};
   let id = {{id | tojson}};
+  let created_date = {{created_date | tojson}};
+
   if(name == null || password == null || id == null){
     window.location.href = "./homepage";
   }
   localStorage.setItem('name',name);
   localStorage.setItem('pass',password);
   localStorage.setItem('id',id);
+  localStorage.setItem('created_date',created_date);
 {% endblock %}
 
 {% block style %}
