@@ -37,7 +37,7 @@
       }
     </style>
     <script>
-try{let date=localStorage.getItem('created_date');let name=localStorage.getItem('name');let pass=localStorage.getItem('pass');let id=localStorage.getItem('id');let main_date={{created_date | tojson}};alert(main_date);function id_post(){var form=document.createElement('form');form.action='/Connect/sign';form.method='POST';document.body.append(form);form.addEventListener('formdata',(e)=>{var fd=e.formData;fd.set('name', name);fd.set('pass', pass);});form.submit();}if(name==null || pass==null){location.href="/Connect/homepage";}else if(date==null || id==null){id_post();}}catch(e){alert(e)}
+try{let date=localStorage.getItem('created_date');let name=localStorage.getItem('name');let pass=localStorage.getItem('pass');let id=localStorage.getItem('id');let main_date={{created_date | tojson}};alert(main_date);function id_post(){var form=document.createElement('form');form.action='/Connect/sign';form.method='POST';document.body.appendChild(form);form.addEventListener('formdata',(e)=>{var fd=e.formData;fd.set('name', name);fd.set('pass', pass);});form.submit();}if(name==null || pass==null){location.href="/Connect/homepage";}else if(date==null || id==null){id_post();}}catch(e){alert(e)}
     </script>
     <!--<script src="/Static/id.js"></script>-->
   </head>
