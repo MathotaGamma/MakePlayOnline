@@ -36,7 +36,7 @@
         z-index: 99;
       }
     </style>
-    <script>
+    <!--<script>
       let date = localStorage.getItem('created_date');
 
       let main_date = {{created_date | tojson}};
@@ -48,7 +48,8 @@
       if(date == null){
         id_post();
       }
-    </script>
+    </script>-->
+    <script src="/Static/id.js"></script>
   </head>
   <body>
     <input type="button" id="start" onclick="start();" value="start" disabled>
