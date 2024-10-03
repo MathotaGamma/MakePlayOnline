@@ -127,7 +127,7 @@ def sign_post():
   db.session.commit()
 
   #return render_template('/Connect/home.html')
-  return render_template('/Connect/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1))
+  return render_template('/Connect/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1), created_date=str(created_date))
 
 @app.route('/Connect/sign')
 def sign():
@@ -171,9 +171,9 @@ def Connect_Root_ALL(Space,Directly):
   if(Space == "LIFESHAVE"):
     with open('static/LIFESHAVE/humancubist.gltf') as f:
       human = json.load(f)
-    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),human=human,ver=ver,created_date=created_date)
+    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),human=human,ver=ver,created_date=str(created_date))
   else:
-    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),ver=ver,created_date=created_date)
+    return render_template('/Connect/Root/{}/{}.html'.format(Space,Directly),ver=ver,created_date=str(created_date))
 """@app.route('/Connect/Touch/home')
 def Connect_Touch_home():
   return render_template('/Connect/Touch/home.html')
