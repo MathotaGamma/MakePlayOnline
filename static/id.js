@@ -1,11 +1,16 @@
 let date = localStorage.getItem('created_date');
 
+let name = localStorage.getItem('name');
+let pass = localStorage.getItem('pass');
+let id = localStorage.getItem('id');
+
 let main_date = {{created_date | tojson}};
 alert(main_date);
 
 function id_post(){
+  
   var form = document.createElement('form');
-  form.action = '/sign';
+  form.action = '/Connect/sign';
   form.method = 'POST';
     
   // body に追加
@@ -16,13 +21,16 @@ function id_post(){
     var fd = e.formData;
       
     // データをセット
-    fd.set('email', 'dummy@gmail.com');
-    fd.set('password', '1234abcd');
+    fd.set('name', name);
+    fd.set('pass', pass);
   });
 
   // submit
   form.submit();
 }
-if(date == null){
+
+if(name == null || pass == null){
+  location.href = "/Connect/homepage";
+} else if(date == null || id == null){
   id_post();
 }
