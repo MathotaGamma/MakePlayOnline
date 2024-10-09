@@ -100,6 +100,9 @@
       .dropdown-random:hover .random-content {
         display: block;
       }
+      .dropdown-random:hover .dropdown-tja {
+        display: none;
+      }
       .dropdown-tja:hover .tja-content {
         display: block;
       }
@@ -145,7 +148,7 @@
           </div>
         </div>
         <div class="dropdown-tja">
-          <button>TJAの中身を確認</button>
+          <button style="z-index: 2;">TJAの中身を確認</button>
           <div class="tja-content">
             <input id="tja" id="file" type="file" />
           </div>
