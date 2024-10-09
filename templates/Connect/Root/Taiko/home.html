@@ -143,7 +143,7 @@
           </div>
           <div class="dropdown-tja">
             <div class="tja-content">
-              <input id="tja" onchange="fileChanged(this)" id="file" type="file" />
+              <input id="tja" id="file" type="file" />
             </div>
           </div>
         </div>
@@ -180,9 +180,29 @@
 
       }
 
-      function fileChanged(k){
-        alert(k.result);
-      }
+      document.getElementById('tja').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            // ファイルをUTF-8で読み込む
+            reader.readAsText(file, 'UTF-8');
+
+            // 読み込み完了後に実行される
+            reader.onload = function() {
+                const fileContent = reader.result;
+                alert(fileContent); // ファイルの内容をalertで表示
+            };
+
+            // 読み込みエラー処理
+            reader.onerror = function() {
+                alert('ファイルの読み込み中にエラーが発生しました');
+            };
+        } else {
+            alert('ファイルが選択されていません');
+        }
+      });
 
       async function generateSilentMp3() {
 
