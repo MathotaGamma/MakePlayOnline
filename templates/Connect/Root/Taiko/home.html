@@ -145,7 +145,7 @@
           </div>
           <div class="dropdown-tja">
             <div class="tja-content">
-              <input class="tja" id="file" type="file" />
+              <input id="tja" onchange="fileChanged(this)" id="file" type="file" />
             </div>
           </div>
         </div>
@@ -180,6 +180,10 @@
 
         alert(t_k);
 
+      }
+
+      function fileChanged(k){
+        alert(k.files[0]);
       }
 
       async function generateSilentMp3() {
