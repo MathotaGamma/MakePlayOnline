@@ -64,13 +64,15 @@
         padding: 0;
         display: block;
       }
+
+
+      /*その他の設定*/
       .dropdown {
         position: relative;
         display: inline-block;
         width: 100%;
         height: auto;
       }
-      
       .dropdown:hover .dropdown-random {
         display: block;
       }
@@ -78,7 +80,8 @@
         display: block;
       }
       
-      
+
+      /*第二層目*/
       .dropdown-random {
         display: none;
         position: absolute;
@@ -93,13 +96,17 @@
         height: auto;
         z-index: 2;
       }
-      /*.dropdown-content:hover .dropdown-random {
+
+      .dropdown-random:hover .random-content {
         display: block;
       }
-      .dropdown-content:hover .dropdown-tja {
+      .dropdown-tja:hover .tja-content {
         display: block;
-      }*/
-      /*.random-content {
+      }
+
+
+      /*第三層目*/
+      .random-content {
         display: none;
         position: absolute;
         background-color: #f9f9f9;
@@ -107,15 +114,7 @@
         height: auto;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 3;
-      }*/
-      
-
-
-      /*.dropdown-random:hover .random-content {
-        display: block;
-      }*/
-
-      /*
+      }
       .tja-content {
         display: none;
         position: absolute;
@@ -125,9 +124,7 @@
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 3;
       }
-      .dropdown-tja:hover .tja-content {
-        display: block;
-      }*/
+      
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
