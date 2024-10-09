@@ -59,6 +59,22 @@
         padding: 0;
         display: block;
       }
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
@@ -66,10 +82,18 @@
   </head>
   <body>
     <button type="button" onclick="ok();">FINISH</button><input class="inp" id="file" type="file" />
-    <br><label id="L_label">長さ:060秒</label><input type="range" id="L" value="60" min="1" max="300" step="1" />
-    <br><input type="text" id="Random" placeholder="小節の分割数,小節数" value="16,4">
-    <input type="button" onclick="Random();" id="Random_but" value="Random生成">
-    <br><label for="Select">選択してください</label>
+    <br>
+    <div class="dropdown">
+      <button>Random生成の設定</button>
+      <div class="dropdown-content">
+        <label id="L_label">長さ:060秒</label><input type="range" id="L" value="60" min="1" max="300" step="1" />
+        <br><input type="text" id="Random" placeholder="小節の分割数,小節数" value="16,4">
+        <br><input type="button" onclick="Random();" id="Random_but" value="Random生成">
+      </div>
+    </div>
+    <br>
+    <br>
+    <label for="Select">選択してください</label>
     <select id="Select">
       <option value="user" selected>User</option>
       <option value="Silent">無音ファイル</option>
