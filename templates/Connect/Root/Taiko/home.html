@@ -70,20 +70,14 @@
         width: 100%;
         height: auto;
       }
-
-      .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        height: auto;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-      }
       
-      .dropdown:hover .dropdown-content {
+      .dropdown:hover .dropdown-random {
         display: block;
       }
+      .dropdown:hover .dropdown-tja {
+        display: block;
+      }
+      
       
       .dropdown-random {
         display: none;
@@ -99,12 +93,12 @@
         height: auto;
         z-index: 2;
       }
-      .dropdown-content:hover .dropdown-random {
+      /*.dropdown-content:hover .dropdown-random {
         display: block;
       }
       .dropdown-content:hover .dropdown-tja {
         display: block;
-      }
+      }*/
       /*.random-content {
         display: none;
         position: absolute;
@@ -145,19 +139,18 @@
       <div class="fin_inp"><button type="button" onclick="ok();">FINISH</button></div>
       <div class="dropdown">
         <button>その他のツール</button>
-        <div class="dropdown-content">
-          <button>複数</button>
-          <div class="dropdown-random">
-            <div class="random-content">
-              <label id="L_label">長さ:060秒</label><input type="range" id="L" value="60" min="1" max="300" step="1" />
-              <br><input type="text" id="Random" placeholder="小節の分割数,小節数" value="16,4">
-              <br><input type="button" onclick="Random();" id="Random_but" value="Random生成">
-            </div>
+        <div class="dropdown-random">
+          <button>Random生成の設定</button>
+          <div class="random-content">
+            <label id="L_label">長さ:060秒</label><input type="range" id="L" value="60" min="1" max="300" step="1" />
+            <br><input type="text" id="Random" placeholder="小節の分割数,小節数" value="16,4">
+            <br><input type="button" onclick="Random();" id="Random_but" value="Random生成">
           </div>
-          <div class="dropdown-tja">
-            <div class="tja-content">
-              <input id="tja" id="file" type="file" />
-            </div>
+        </div>
+        <div class="dropdown-tja">
+          <button>TJAの中身を確認</button>
+          <div class="tja-content">
+            <input id="tja" id="file" type="file" />
           </div>
         </div>
       </div>
