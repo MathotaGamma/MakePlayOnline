@@ -549,6 +549,9 @@
                 let pos = [];
                 if(Date.now() < all_data.t[k]){
                     let k_ratio = (all_data.t[k]-all_data.get_t[k])*(Date.now()-all_data.get_t[k]);
+                    if(1 < k_ratio){
+                        alert([k_ratio,all_data.t[k],all_data.get_t[k],Date.now()]);
+                    }
                     pos = [w/2+r*k_ratio*(all_data.pos[k][0]-all_data.get_pos[k][0])+r*all_data.get_pos[k][0]-r*me_size/2,h/2-(r*k_ratio*(all_data.pos[k][1]-all_data.get_pos[k][1])+r*all_data.get_pos[k][1])-r*me_size/2];
                 } else {
                     pos = [w/2+r*all_data.pos[k][0]-r*me_size/2,h/2-r*all_data.pos[k][1]-r*me_size/2];
