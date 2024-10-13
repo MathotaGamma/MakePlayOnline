@@ -548,7 +548,7 @@
                 //let k_data = all_data.pos[k];
                 let pos = [];
                 if(Date.now() < all_data.t[k]){
-                    let k_ratio = (all_data.t[k]-all_data.get_t[k])*(Date.now()-all_data.get_t[k]);
+                    let k_ratio = (Date.now()-all_data.get_t[k])/(all_data.t[k]-all_data.get_t[k]);
                     if(1 < k_ratio){
                         alert([k_ratio,all_data.t[k],all_data.get_t[k],Date.now()]);
                     }
