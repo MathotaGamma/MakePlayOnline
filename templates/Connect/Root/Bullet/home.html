@@ -41,6 +41,7 @@
     <button id="start" onclick="socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:id,room:room,kind:'start'})" disabled>Start</button>
     <div id="telop">This is Telop</div>
     <script>
+        //テロップを表示する関数
         function showTelop(message, duration = 2000) {
             // テロップ要素を取得
             const telop = document.getElementById('telop');
