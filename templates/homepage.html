@@ -32,7 +32,7 @@
 
       header a {
         color: #000;
-        font-size: clamp(10px, 80%, 100rem);;
+        font-size: clamp(10px, 80%, 100rem);
         vertical-align: middle;
         text-align: center;
         text-decoration:none;
@@ -51,48 +51,12 @@
         align-items: center;
       }
 
-      /*header > d {
-        width: 100%;
-        height: 100%;
-      }*/
-
       img {
         margin: auto;
         vertical-align: middle;
         text-align: center;
         height: 50px;
       }
-      
-      /*ul {
-        padding: 0;
-      }
-
-      li {
-        font-size: 20px;
-      }
-
-      ul li {
-        position: relative;
-        list-style-type: none;
-        padding: 0.5em 0.5em 0.5em 2em; 
-        margin-bottom: 5px;
-        line-height: 1.5;
-        background: #aaa;
-        vertical-align: middle;
-        color: #fff;
-        border-radius: 20px 0 0 20px;
-      }
-
-      ul li::before {
-        position: absolute;
-        left: 0.7em;
-        top: 0.75em;
-        content: '';
-        width: 1em;
-        height: 1em;
-        background: #fff;
-        border-radius: 50%;
-      }*/
     </style>
     <title>Make&PlayGame in World</title>
   </head>
@@ -114,17 +78,8 @@
         //alert(header.offsetHeight);
         icon.offsetHeight = String(h)+'px';
         icon.offsetWidth = String(Math.floor(w))+'px';
-        //alert(icon.offsetHeight);
-        //let a = header.getElementsByTagName('a');
-        //alert(a);
-        /*a.forEach((k) => {
-          k.fontSize = h;
-        });*/
-        /*h = Math.floor(4*h/5);
-        for(let k of a){
-          k.style.fontSize = '0.8em';
-          //alert(k.fontSize);
-        }*/
+        //alert(icon.offsetHeight)
+        alert(document.getElementsByTagName('a')[0].fontSize);
       }
     </script>
   </body>
