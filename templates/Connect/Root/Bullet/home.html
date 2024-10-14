@@ -215,6 +215,8 @@
 
         let me_data = {id:id,name:name,pos:[me_x,me_y],theta:me_theta,v:me_v,t:Date.now()+rag};
 
+        let first_data = {};
+
         let host = false;
 
         let user_num = 0;
@@ -307,6 +309,8 @@
                         me_data.pos = [me_x,me_y];
                         me_data.theta = me_theta;
                         me_data.t = Date.now()+rag;
+                        first_data.pos = [me_x,me_y];
+                        first_data.theta = me_theta;
                         socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:id,room:room,kind:'send_data/data',data:me_data,state:state});
                     }
                 } else if(data_k.kind == 'send_data/bullet'){ //bullet
@@ -673,9 +677,12 @@
                         fill(0,255,255);
                     }
                 }
-                //rectでやる時は、posを全て-r*me_size/2して
-                //rect(pos[0],pos[1],r*me_size,r*me_size);
-                circle(pos[0],pos[1],r*me_size);
+                if(all_data.state[k] != 'die'){
+                    //rectでやる時は、posを全て-r*me_size/2して
+                    //rect(pos[0],pos[1],r*me_size,r*me_size);
+                    circle(pos[0],pos[1],r*me_size);
+                }
+                
             }
 
             //ボタン
@@ -832,11 +839,15 @@
                     button_func();
                     if(state == 'resurrection' && state_time >= Date.now()){
                         state = 'true';
+                        socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:id,room:room,kind:'send_data/data',data:me_data,state:state});
                     }
                 } else {
                     if(state_time >= Date.now()){
                         state = 'resurrection';
                         state_time = Date.now()+resurrection_time;
+                        me_data.pos = first_data.pos.concat();
+                        me_data.theta = first_data.theta;
+                        socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:id,room:room,kind:'send_data/data',data:me_data,state:state});
                     }
                 }
             }
