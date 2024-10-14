@@ -28,10 +28,11 @@
         border-bottom: solid 79px transparent;
         z-index:-2
       }*/
+      
 
       header a {
         color: #000;
-        font-size: 100%;
+        font-size: clamp(10px, 80%, 100rem);;
         vertical-align: middle;
         text-align: center;
         text-decoration:none;
@@ -47,9 +48,7 @@
         margin: 0px;
         position: fixed;
         grid-template-columns: 1fr 1fr 1fr;
-      }
-      img {
-        margin: auto;
+        align-items: center;
       }
 
       /*header > d {
@@ -58,6 +57,7 @@
       }*/
 
       img {
+        margin: auto;
         vertical-align: middle;
         text-align: center;
         height: 50px;
