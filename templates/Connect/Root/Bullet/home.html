@@ -41,7 +41,7 @@
 <body>
     <button id="start" onclick="socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:localStorage.getItem('id'),room:room,kind:'start',time:Date.now()});" disabled>Start</button>
     <div id="telop">This is Telop</div>
-    <div id="text" style="position: absolute;></div>
+    <div id="text" style="position: absolute;"></div>
     <script>
         function showTelop(message, duration = 2000) {
             // テロップ要素を取得
