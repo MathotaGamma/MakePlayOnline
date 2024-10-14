@@ -579,6 +579,7 @@
                         showTelop('You were killed by '+String(k.name)+'.',1000);
                         state = "die";
                         state_time = Date.now()+die_time;
+                        me_data.t = Date.now()+rag;
                         socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:id,room:room,kind:'send_data/died',killer_id:k.id,killer_name:k.name,died_id:id,died_name:name});
                     }
                 }
@@ -839,6 +840,9 @@
                     button_func();
                     if(state == 'resurrection' && state_time >= Date.now()){
                         state = 'true';
+                        me_data.pos = [me_x,me_y];
+                        me_data.theta = me_theta;
+                        me_data.t = Date.now()+rag;
                         socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:id,room:room,kind:'send_data/data',data:me_data,state:state});
                     }
                 } else {
@@ -847,6 +851,7 @@
                         state_time = Date.now()+resurrection_time;
                         me_data.pos = first_data.pos.concat();
                         me_data.theta = first_data.theta;
+                        me_data.t = Date.now()+rag;
                         socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:id,room:room,kind:'send_data/data',data:me_data,state:state});
                     }
                 }
