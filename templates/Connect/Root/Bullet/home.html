@@ -41,6 +41,7 @@
 <body>
     <button id="start" onclick="socket.emit('cs_signal',{path:'Bullet_Online',name:name,id:localStorage.getItem('id'),room:room,kind:'start',time:Date.now()});" disabled>Start</button>
     <div id="telop">This is Telop</div>
+    <div id="text" style="position: absolute;></div>
     <script>
         function showTelop(message, duration = 2000) {
             // テロップ要素を取得
@@ -197,7 +198,7 @@
         let button_r = 50;
         let button_area = 200;
 
-        const rag = 200; //わざと遅らせる(ms)
+        const rag = 250; //わざと遅らせる(ms)
 
         let track_tf = false;
 
@@ -311,6 +312,7 @@
                         showTelop(String(data_k.died_name)+' was killed by '+String(data_k.killer_name)+'.',800);
                     }
                 } else if(data_k.kind == 'send_data/data') {
+                    document.getElementById('text').innerText = String(Date.now()-data_k.data.t+rag);
                     if(Object.keys(all_data.t).includes(String(data_k.id))){
                         if(all_data.t[`${data_k.id}`] <= data_k.data.t){
                             all_data.get_pos[`${data_k.id}`] = all_data.pos[`${data_k.id}`];
