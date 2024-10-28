@@ -261,7 +261,9 @@ def gemini_api(data):
     text = text.replace('•', '  *')
     return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))"""
 
-  genai.configure(api_key="AIzaSyBYTftYNc7eGvEUlJJlE4U2iVu8MQ2UQhM")
+  socketio.emit('sc_gemini_api',data)
+
+  """genai.configure(api_key="AIzaSyBYTftYNc7eGvEUlJJlE4U2iVu8MQ2UQhM")
   # モデルを準備
   model = genai.GenerativeModel('gemini-pro')
 
@@ -269,7 +271,7 @@ def gemini_api(data):
   gen = gemini_response.text.replace('・','  *');
   #to_markdown(gemini_response.text)
   data['gen'] = gen
-  socketio.emit('sc_gemini_api',data)
+  socketio.emit('sc_gemini_api',data)"""
 
 
 
