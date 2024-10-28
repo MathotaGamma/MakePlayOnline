@@ -6,7 +6,16 @@
     <title>AI/gemini_api</title>
   </head>
   <body>
+    <textarea id="textarea"></textarea>
+    <input type="button" onclick="Click();">
     <script>
+      let socket = io();
+      socket.on('disconnect', function() { // 退出時に呼ばれるコールバック
+        //socket.on('to_room_enter',function(msg) {
+          //enter_list = msg.msg;
+        //});
+        socket.emit('disconnect_fighters',{data:'leave'});
+      });
     </scipt>
   </body>
 </html>
