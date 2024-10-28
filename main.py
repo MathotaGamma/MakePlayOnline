@@ -7,6 +7,12 @@ import pytz
 import os
 import json
 import re
+import pathlib
+import textwrap
+import google.generativeai as genai
+from google.colab import userdata
+from IPython.display import display
+from IPython.display import Markdown
 
 
 
@@ -248,6 +254,22 @@ def fighters_state(msg):
 def finish_fighters(msg):
   socketio.emit('to_finish_fighters',msg)
   #print(msg)
+
+@socketio.on('cs_gemini_api')
+def gemini_api(data):
+  """def to_markdown(text):
+    text = text.replace('•', '  *')
+    return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))"""
+
+  genai.configure(api_key="AIzaSyBYTftYNc7eGvEUlJJlE4U2iVu8MQ2UQhM")
+  # モデルを準備
+  model = genai.GenerativeModel('gemini-pro')
+
+  gemini_response = model.generate_content(data.text)
+  gen = gemini_response.text.replace('・','  *');
+  #to_markdown(gemini_response.text)
+  data['gen'] = gen
+  socketio.emit('sc_gemini_api',data)
 
 
 
