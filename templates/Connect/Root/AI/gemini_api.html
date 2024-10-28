@@ -6,16 +6,25 @@
     <title>AI/gemini_api</title>
   </head>
   <body>
-    <textarea id="textarea"></textarea>
+    <textarea id="textarea">Hello</textarea>
     <input type="button" onclick="Click();">
     <script>
-      let socket = io();
-      socket.on('disconnect', function() { // 退出時に呼ばれるコールバック
+      var socket = io();
+      let room = localStorage.getItem('room');
+      let id = localStorage.getItem('id');
+      socket.on('sc_gemini_api', function(data) {
+        alert(data);
+        if(data.room == room && data.id == id){
+          alert(data.gen);
+        }
         //socket.on('to_room_enter',function(msg) {
           //enter_list = msg.msg;
         //});
-        socket.emit('disconnect_fighters',{data:'leave'});
+        //socket.emit('disconnect_fighters',{data:'leave'});
       });
+      function Click(){
+        socket.emit('cs_gemini_api',{room:room,id:id,text:document.getElementById('textarea').value});
+      }
     </scipt>
   </body>
 </html>
