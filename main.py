@@ -65,8 +65,7 @@ def Notify_manifest():
 
 @app.route('/')
 def homepage():
-  now_str = datetime.datetime.now(pytz.timezone('Asia/Tokyo')).strftime('%Y-%m/%d-%H:%M:%S')
-  return render_template('/homepage.html',created_day_db=now_str)
+  return render_template('/homepage.html')
 
 """@app.route('/add', methods=['POST'])
 def add():
@@ -154,11 +153,11 @@ def show():
 
 @app.route('/Connect/home',methods=['POST','GET'])
 def Connect_home_post():
-  return render_template('/Connect/home.html')
+  return render_template('/Connect/home.html',ver=ver,created_date=str(created_date))
 
 @app.route('/Connect/home')
 def Connect_home():
-  return render_template('/Connect/home.html')
+  return render_template('/Connect/home.html',ver=ver,created_date=str(created_date))
 
 @app.route('/Connect/stay')
 def Connect_stay():
