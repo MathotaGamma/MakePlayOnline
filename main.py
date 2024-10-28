@@ -267,10 +267,10 @@ def gemini_api(data):
   # モデルを準備
   model = genai.GenerativeModel('gemini-pro')
 
-  """gemini_response = model.generate_content(data.text)
+  gemini_response = model.generate_content(data['text'])
   gen = gemini_response.text.replace('・','  *');
-  #to_markdown(gemini_response.text)"""
-  data.gen = 'Text'
+  #to_markdown(gemini_response.text)
+  data['gen'] = gen
   socketio.emit('sc_gemini_api',data)
 
 
