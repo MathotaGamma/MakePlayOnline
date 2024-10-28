@@ -10,9 +10,9 @@ import re
 import pathlib
 import textwrap
 import google.generativeai as genai
-from google.colab import userdata
+"""from google.colab import userdata
 from IPython.display import display
-from IPython.display import Markdown
+from IPython.display import Markdown"""
 
 
 
