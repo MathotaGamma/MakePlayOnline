@@ -7,13 +7,12 @@
   </head>
   <body>
     <textarea id="textarea">Hello</textarea>
-    <input type="button" onclick="Click();alert(room);" value="Send">
+    <input type="button" onclick="Click();" value="Send">
     <script>
       var socket = io();
       let room = localStorage.getItem('room');
       let id = localStorage.getItem('id');
       socket.on('sc_gemini_api', function(data) {
-        alert(data);
         if(data.room == room && data.id == id){
           alert(data.gen);
         }
@@ -23,7 +22,6 @@
         //socket.emit('disconnect_fighters',{data:'leave'});
       });
       function Click(){
-        alert('emit');
         socket.emit('cs_gemini_api',{room:room,id:id,text:document.getElementById('textarea').value});
       }
     </script>
