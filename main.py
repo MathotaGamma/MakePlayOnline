@@ -65,7 +65,8 @@ def Notify_manifest():
 
 @app.route('/')
 def homepage():
-  return render_template('/homepage.html')
+  now_str = datetime.datetime.now(pytz.timezone('Asia/Tokyo')).strftime('%Y-%m/%d-%H:%M:%S')
+  return render_template('/homepage.html',created_day_db=now_str)
 
 """@app.route('/add', methods=['POST'])
 def add():
