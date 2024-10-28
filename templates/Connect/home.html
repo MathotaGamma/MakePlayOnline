@@ -42,6 +42,7 @@
   }
 {% endblock %}
 {% block body %}
+  <script>try{let date=localStorage.getItem('created_date');let name=localStorage.getItem('name');let pass=localStorage.getItem('pass');let id=localStorage.getItem('id');let main_date={{created_date | tojson}};function id_post(){var form=document.createElement('form');form.action='/Connect/sign';form.method='POST';document.body.appendChild(form);form.addEventListener('formdata',(e)=>{var fd=e.formData;fd.set('name', name);fd.set('pass', pass);alert('サーバーが更新されたため、IDを再度設定します。');});form.submit();}if(name==null || pass==null){location.href="/Connect/homepage";}else if(date==null || date!=main_date || id==null){id_post();}}catch(e){alert(e)}</script>
   <div id="container">
       <input type="submit" onclick="logout();" style="height: 80px; font-size: 30px;" value="Logout" />
     
