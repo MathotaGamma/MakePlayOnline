@@ -35,7 +35,7 @@
         width: 90%;
         height: 90%;
       }
-      input {
+      .send {
         grid-row: 1/2;
         grid-column: 3/4;
         width: 90%;
@@ -56,7 +56,7 @@
     <div class="toggle">
       <label for="check">AUTO:<input type="checkbox" name="check" id="check" /></label>
     </div>
-    <input type="button" onclick="em();" value="Send">
+    <input type="button" onclick="em();" class="send" value="Send">
     <script>
       var socket = io();
       let room = localStorage.getItem('room');
@@ -67,7 +67,7 @@
       let check_id = document.getElementById('check');
       let emit_tf = false;
       let num = 0;
-      let auto_tf = true;
+      let auto_tf = false;
 
       setInterval(() => {
         let k_t = textarea.value;
@@ -97,7 +97,7 @@
       });
 
       check_id.addEventListener('change',() => {
-        auto_tf = this.checked;
+        auto_tf = check_id.checked;
       });
 
       
