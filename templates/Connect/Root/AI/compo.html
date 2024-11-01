@@ -78,7 +78,7 @@
       
       socket.on('sc_gemini_api', function(data) {
         if(data.room == room && data.id == id){
-          comment.innerText = String(num)+':'+data.gen;
+          comment.innerText = data.gen;
         }
         //socket.on('to_room_enter',function(msg) {
           //enter_list = msg.msg;
@@ -86,7 +86,6 @@
         //socket.emit('disconnect_fighters',{data:'leave'});
       });
       function em(){
-        num += 1;
         emit_tf = false;
         socket.emit('cs_gemini_api',{room:room,id:id,text:document.getElementById('textarea').value});
       }
@@ -97,7 +96,9 @@
       });
 
       check_id.addEventListener('change',() => {
+        alert(check_id.checked);
         auto_tf = check_id.checked;
+        alert(auto_tf);
       });
 
       
