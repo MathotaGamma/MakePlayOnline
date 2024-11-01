@@ -28,12 +28,33 @@ db = SQLAlchemy(app)
 
 created_date = datetime.datetime.now()
 
+
+
 class Post(db.Model):
+  __tablename__ = 'info'
   name_db = db.Column(db.String(30), nullable=False)
   pass_db = db.Column(db.String(30), primary_key=True)
   id_db = db.Column(db.String(20), unique=True, primary_key=True)
   #created_day_db = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))
   created_day_db = db.Column(db.String(30), nullable=False)
+
+  def __repr__(self):
+    return f"<Post(name={self.name_db}, id={self.id_db})>"
+
+class Chat(db.Model):
+  __tablename__ = 'chats'
+
+  id = db.Column(db.Integer, primary_key=True)  # 自動インクリメントのID
+  chatroom = db.Column(db.String(50), nullable=False)  # チャットルーム名
+  user_id = db.Column(db.String(20), nullable=False)  # ユーザーID
+  message = db.Column(db.Text, nullable=False)  # チャットメッセージ
+  timestamp = db.Column(db.DateTime, nullable=False, default=func.now())  # メッセージ送信時刻
+
+  def __repr__(self):
+    return f"<Chat(chatroom={self.chatroom}, user_id={self.user_id}, message={self.message})>"
+
+
+  
 
 
 @app.errorhandler(Exception)
@@ -218,6 +239,15 @@ def cs_room_connect(data):
 
 @socketio.on('cs_signal')
 def signal(data):
+  chatroom = data.get('chatroom')
+  user_id = data.get('id')
+  message = data.get('message')
+
+  # データベースに保存
+  new_chat = Chat(chatroom=chatroom, user_id=user_id, message=message)
+  db.session.add(new_chat)
+  db.session.commit()
+	
   socketio.emit('sc_signal',data)
 
 @socketio.on('cs_join_lifeshave')
