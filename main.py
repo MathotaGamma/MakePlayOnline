@@ -255,7 +255,7 @@ def db_get(data):
 
     else:
       socket.emit('sc_db_get',{state:'failed',id:data.id,kind:data.get('kind'),value:'not found:kind'})
-  except(k_e):
+  Exception as k_e:
     socket.emit('sc_db_get',{state:'failed',id:data.id,kind:data.get('kind'),value:'something error'})
   
   
