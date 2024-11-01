@@ -7,8 +7,8 @@
       html {
         margin: 0px;
         padding: 0px;
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 90%;
       }
       body {
         display: grid;
@@ -17,91 +17,36 @@
         grid-template-columns: 2fr 1fr 1fr;
         margin: 0px;
         padding: 0px;
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 90%;
       }
       #textarea {
         grid-row: 1/3;
         grid-column: 1/2;
         margin: 0px;
         border_radius: 0px;
-        left: 5%;
-        top: 0px;
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 90%;
       }
       div {
         grid-row: 2/3;
         grid-column: 2/4;
         border: 1px solid;
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 90%;
       }
       input {
         grid-row: 1/2;
         grid-column: 3/4;
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 90%;
       }
-      
-.toggle {
-  grid-row: 1/2;
-  grid-column: 2/3;
-  position: relative;
-  width: 78px;
-  height: 48px;
-  margin: 40px 60px;
-  border-radius: 50px;
-  overflow: hidden;
-  cursor: pointer;
-}
-.toggle input[type=checkbox] {
-  display: none;
-}
-.toggle:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  background: #f45e55;
-  -webkit-transition: 0.2s ease-out;
-  transition: 0.2s ease-out;
-}
-.toggle:after {
-  content: "OFF";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 42px;
-  height: 42px;
-  display: block;
-  border-radius: 50px;
-  background: #fff;
-  box-shadow: 0 9px 28px -6px rgba(0, 0, 0, 0.3);
-  -webkit-transition: 0.2s ease-out;
-  transition: 0.2s ease-out;
-  text-align: center;
-  padding: 14px 0 0;
-  line-height: 1;
-  font-size: 14px;
-  font-weight: bold;
-  color: #df4c43;
-  letter-spacing: .5px;
-  box-sizing: border-box;
-}
-.toggle.checked:before {
-  background: #24e89c;
-}
-.toggle.checked:after {
-  content: "ON";
-  left: 33px;
-  box-shadow: 0 9px 28px -6px rgba(0, 0, 0, 0.5);
-  color: #16d088;
-  padding: 14px 0 0 1px;
-}
+      .toggle {
+        grid-row: 1/2;
+        grid-column: 2/3;
+        width: 90%;
+        height: 90%;
+      }
     </style>
     <title>AI/gemini_api</title>
   </head>
@@ -109,7 +54,7 @@
     <textarea id="textarea">Hello</textarea>
     <div id="comment"></div>
     <div class="toggle">
-      <input type="checkbox" name="check" />
+      <label for="check">AUTO:<input type="checkbox" name="check" id="check" /></label>
     </div>
     <input type="button" onclick="em();" value="Send">
     <script>
@@ -119,12 +64,14 @@
       let time = Date.now();
       let textarea = document.getElementById('textarea');
       let comment = document.getElementById('comment');
+      let check_id = document.getElementById('check');
       let emit_tf = false;
       let num = 0;
+      let auto_tf = true;
 
       setInterval(() => {
         let k_t = textarea.value;
-        if(k_t != '' && Date.now()-time >= 2000 && emit_tf){
+        if(k_t != '' && Date.now()-time >= 2000 && emit_tf && auto_tf){
           em();
         }
       },100);
@@ -148,6 +95,12 @@
         emit_tf = true;
         time = Date.now();
       });
+
+      check_id.addEventListener('change',() => {
+        auto_tf = this.checked;
+      });
+
+      
     </script>
   </body>
 </html>
