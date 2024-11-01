@@ -39,6 +39,7 @@
       }
 
       socket.on('sc_db_get',(data) => {
+        alert('socket');
         if(data.id == id){
           alert(data.state);
           alert(data.value);
@@ -53,6 +54,7 @@
         } else if(name_k.includes(',')){
           alert('「,」を含めないでください。');
         } else {
+          alert('socket');
           socket.emit('cs_db_get',{id:id,kind:'list_get',value:'chatname'});
         }
       }
