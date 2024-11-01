@@ -78,7 +78,10 @@
       
       socket.on('sc_gemini_api', function(data) {
         if(data.room == room && data.id == id){
-          comment.innerTex = data.gen.replace('*','-');
+          let k_gen = data.gen;
+          k_gen = k_gen.replace(/\*\*(.*?)\*\*/g, '<h1>$1</h1>');
+          // *で囲まれた部分を<h2></h2>に変換
+          comment.innerHTML = k_gen.replace(/\*(.*?)\*/g, '<h2>$1</h2>');
           
         }
         //socket.on('to_room_enter',function(msg) {
