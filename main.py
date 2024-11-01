@@ -46,6 +46,7 @@ class Chat(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)  # 自動インクリメントのID
   chatroom = db.Column(db.String(50), nullable=False)  # チャットルーム名
+  chatpass = db.Column(db.String(10), nullable=False)  # チャットルームのpass
   user_id = db.Column(db.String(20), nullable=False)  # ユーザーID
   message = db.Column(db.Text, nullable=False)  # チャットメッセージ
   timestamp = db.Column(db.DateTime, nullable=False, default=func.now())  # メッセージ送信時刻
@@ -239,14 +240,16 @@ def cs_room_connect(data):
 
 @socketio.on('cs_signal')
 def signal(data):
-  chatroom = data.get('chatroom')
-  user_id = data.get('id')
-  message = data.get('message')
+  if(data.get('path') == 'Chat'):
+    chatroom = data.get('chatroom')
+    chatpass = data.get('chatpass')
+    user_id = data.get('id')
+    message = data.get('message')
 
-  # データベースに保存
-  new_chat = Chat(chatroom=chatroom, user_id=user_id, message=message)
-  db.session.add(new_chat)
-  db.session.commit()
+    # データベースに保存
+    new_chat = Chat(chatroom=chatroom, user_id=user_id, message=message)
+    db.session.add(new_chat)
+    db.session.commit()
 	
   socketio.emit('sc_signal',data)
 
