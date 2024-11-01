@@ -247,7 +247,7 @@ def db_get(data):
   try:
     chats = Chat.query.all()
     print(f"Received cs_db_get request: {chats}")
-    #socket.emit('sc_db_get',{come:come})
+    socket.emit('sc_db_get',{'come':'come'})
     if(data.get('kind') == 'list_get'):
       k_list = []
       k_key = data.get('value')
