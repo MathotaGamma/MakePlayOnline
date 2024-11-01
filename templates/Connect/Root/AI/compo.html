@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <style>
+      html, body{
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+      }
+      #textarea {
+        margin: 0px;
+        border_radius: 0px;
+        width: 50%;
+        height: 100%;
+      }
+    </style>
+    <title>AI/gemini_api</title>
+  </head>
+  <body>
+    <textarea id="textarea">Hello</textarea>
+    <div id="comment"></div>
+    <input type="button" onclick="em();" value="Send">
+    <script>
+      var socket = io();
+      let room = localStorage.getItem('room');
+      let id = localStorage.getItem('id');
+      let time = Date.now();
+      let textarea = document.getElementById('textarea');
+      let comment = document.getElementById('comment');
+
+      setInterval(() => {
+        let k_t = textarea.value;
+        if(k_t != '' && Date.now()-time >= 2000){
+          em();
+        }
+      },100);
+      
+      socket.on('sc_gemini_api', function(data) {
+        if(data.room == room && data.id == id){
+          comment.innerText = data.gen;
+        }
+        //socket.on('to_room_enter',function(msg) {
+          //enter_list = msg.msg;
+        //});
+        //socket.emit('disconnect_fighters',{data:'leave'});
+      });
+      function em(){
+        socket.emit('cs_gemini_api',{room:room,id:id,text:document.getElementById('textarea').value});
+      }
+
+      textarea.addEventListener('input',() => {
+        time = Date.now();
+      });
+    </script>
+  </body>
+</html>
