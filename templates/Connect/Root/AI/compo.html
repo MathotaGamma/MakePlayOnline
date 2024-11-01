@@ -30,10 +30,12 @@
       let time = Date.now();
       let textarea = document.getElementById('textarea');
       let comment = document.getElementById('comment');
+      let emit_tf = false;
 
       setInterval(() => {
         let k_t = textarea.value;
-        if(k_t != '' && Date.now()-time >= 2000){
+        if(k_t != '' && Date.now()-time >= 2000 && emit_tf){
+          emit_tf = false;
           em();
         }
       },100);
@@ -52,6 +54,7 @@
       }
 
       textarea.addEventListener('input',() => {
+        emit_tf = true;
         time = Date.now();
       });
     </script>
