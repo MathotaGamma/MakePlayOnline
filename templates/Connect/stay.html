@@ -6,6 +6,42 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{url_for('static',filename='apple-touch-icon.png')}}">
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <title>MPGinW:Battle/Stay</title>
+    <style>
+      body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      color: #333;
+    }
+    h1 {
+      font-size: 24px;
+      color: #005f99;
+    }
+    #text, #id, #name_list {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    /* ul要素を複数列に分ける */
+    ul#Root {
+      list-style-type: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* 120px以上の幅で列を自動調整 */
+      gap: 10px; /* リストアイテム間の隙間 */
+    }
+    ul#Root li a {
+      text-decoration: none;
+      color: #0073e6;
+      padding: 5px;
+      display: block;
+      background: #f0f0f0;
+      border-radius: 4px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    ul#Root li a:hover {
+      background: #d9eaff;
+    }
+    </style>
   </head>
   <body>
     ver:1.01.01
