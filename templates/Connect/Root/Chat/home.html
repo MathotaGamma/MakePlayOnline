@@ -18,7 +18,6 @@
       let id = localStorage.getItem('id');
       let roomlist_id = document.getElementById('roomlist');
 
-      
 
       function add_li(){
         if(chat_room != null){
@@ -39,8 +38,23 @@
         }
       }
 
+      socket.on('sc_db_get',(data) => {
+        if(data.id == id){
+          alert(data.state);
+          alert(data.value);
+        }
+      });
+
       function make_room(){
         let name_k = prompt('チャットルーム名:','');
+        
+        if(name_k == null || name_k == ''){
+          alert('cancelしました。');
+        } else if(name_k.includes(',')){
+          alert('「,」を含めないでください。');
+        } else {
+          socket.emit('cs_db_get',{id:id,kind:'list_get',value:'chatname'});
+        }
       }
     </script>
   </body>
