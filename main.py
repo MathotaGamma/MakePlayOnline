@@ -168,7 +168,10 @@ def show():
   user_list = []
   for k in users:
     user_list.append([k.name_db,k.pass_db,k.id_db,k.created_day_db])
-  
+
+  chats = Post.query.all()
+  for k in chats:
+    user_list.append(['chat',k.id,k.chatroom,k.chatpass,k.user_id,k.message,k.timestamp])
 
   # テンプレートにユーザー情報を渡す
   return render_template('/show.html', users=user_list)
