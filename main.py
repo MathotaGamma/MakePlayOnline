@@ -238,6 +238,23 @@ def exist_room(data):
 def cs_room_connect(data):
   socketio.emit('sc_room_connect',data)
 
+
+@socketio.on('cs_db_get')
+def db_get(data):
+  chats = Chat.query.all()
+  if(data.get('kind') == 'list_get'):
+    k_list = []
+    k_key = data.get('value')
+    for k in chats:
+      k_list.append(k[k_key])
+    socket.emit('sc_db_get',{state:'success',id:data.id,value:",".join(k_list)})
+
+  else:
+    socket.emit('sc_db_get',{state:'failed',id:data.id,value:'not found:kind'})
+  
+  
+  
+
 @socketio.on('cs_signal')
 def signal(data):
   if(data.get('path') == 'Chat'):
