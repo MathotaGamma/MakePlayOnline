@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.0/socket.io.js"></script>
     <script>try{let date=localStorage.getItem('created_date');let name=localStorage.getItem('name');let pass=localStorage.getItem('pass');let id=localStorage.getItem('id');let main_date={{created_date | tojson}};function id_post(){var form=document.createElement('form');form.action='/Connect/sign';form.method='POST';document.body.appendChild(form);form.addEventListener('formdata',(e)=>{var fd=e.formData;fd.set('name', name);fd.set('pass', pass);alert('サーバーが更新されたため、IDを再度設定します。');});form.submit();}if(name==null || pass==null){location.href="/Connect/homepage";}else if(date==null || date!=main_date || id==null){id_post();}}catch(e){alert(e)}</script>
   </head>
   <body>
@@ -10,11 +11,13 @@
     <ul id="roomlist"></ul>
     チャットルーム名:<input type="text" placeholder="名前">
     <script>
+      var socket = io();
       let chat_room = localStorage.getItem('Chat/chat_room');
       let room = localStorage.getItem('room');
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
       let roomlist_id = document.getElementById('roomlist');
+
       
 
       function add_li(){
