@@ -49,7 +49,7 @@ class Chat(db.Model):
   chatpass = db.Column(db.String(10), nullable=False)  # チャットルームのpass
   user_id = db.Column(db.String(20), nullable=False)  # ユーザーID
   message = db.Column(db.Text, nullable=False)  # チャットメッセージ
-  timestamp = db.Column(db.DateTime, nullable=False, default=func.now())  # メッセージ送信時刻
+  timestamp = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(pytz.timezone('Asia/Tokyo')))  # メッセージ送信時刻
 
   def __repr__(self):
     return f"<Chat(chatroom={self.chatroom}, user_id={self.user_id}, message={self.message})>"
