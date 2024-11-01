@@ -3,107 +3,176 @@
 {% block title %}Connect/home{% endblock %}
 
 {% block style %}
-  html,body{
-    heiht: 100%;
-    width: 100%;
-  }
-  #container {
+  html, body {
     height: 100%;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
+    margin: 0; /* 余白をなくす */
+    font-family: Arial, sans-serif; /* フォントを統一 */
   }
+
+  #container {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* 行の自動調整 */
+    height: 100%;
+    padding: 20px; /* パディングを追加 */
+    box-sizing: border-box; /* パディングを計算に含める */
+  }
+
   #Text {
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: monospace;
     height: 60px;
-    width: 100%;
     background-color: #dff;
     font-size: 30px;
+    border-radius: 8px; /* 角を丸くする */
+    margin-bottom: 20px; /* 下部にマージン */
   }
+
   #GoRoom {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
     height: 50px;
     background-color: #7fffd4;
-    border: 2px;
-    padding: auto;
+    border: 2px solid #4caf50; /* ボーダーを明確に */
+    border-radius: 8px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに */
+    transition: background-color 0.3s; /* ホバー時の変化 */
   }
+
+  #GoRoom:hover {
+    background-color: #66d3b5; /* ホバー時の色 */
+  }
+
   #InputRoom {
     width: 100%;
-    height: 80px;
     margin: 30px 0;
     background-color: #ffc;
-    font-size: 25px;
+    border-radius: 8px; /* 角を丸くする */
+    padding: 20px; /* パディングを追加 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 影を追加 */
+  }
+
+  label {
+    display: block; /* ラベルをブロック要素に */
+    margin-bottom: 10px; /* 下部にマージン */
+  }
+
+  input[type="num"] {
+    height: 25px;
+    width: 150px;
+    font-size: 15px;
+    padding: 5px; /* 内側の余白 */
+    border-radius: 5px; /* 角を丸くする */
+    border: 1px solid #ccc; /* ボーダー */
+  }
+
+  input[type="button"], input[type="submit"] {
+    height: 80px;
+    font-size: 30px;
+    background-color: #4caf50; /* ボタンの背景色 */
+    color: white; /* 文字色 */
+    border: none; /* ボーダーをなくす */
+    border-radius: 5px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインターに */
+    transition: background-color 0.3s; /* ホバー時の変化 */
+  }
+
+  input[type="button"]:hover, input[type="submit"]:hover {
+    background-color: #45a049; /* ホバー時の色 */
+  }
+
+  #span {
+    margin-top: 10px; /* 上部にマージン */
+    color: #d9534f; /* エラーメッセージの色 */
+    font-size: 18px; /* エラーメッセージのフォントサイズ */
   }
 {% endblock %}
+
 {% block body %}
-  <script>try{let date=localStorage.getItem('created_date');let name=localStorage.getItem('name');let pass=localStorage.getItem('pass');let id=localStorage.getItem('id');let main_date={{created_date | tojson}};function id_post(){var form=document.createElement('form');form.action='/Connect/sign';form.method='POST';document.body.appendChild(form);form.addEventListener('formdata',(e)=>{var fd=e.formData;fd.set('name', name);fd.set('pass', pass);alert('サーバーが更新されたため、IDを再度設定します。');});form.submit();}if(name==null || pass==null){location.href="/Connect/homepage";}else if(date==null || date!=main_date || id==null){id_post();}}catch(e){alert(e)}</script>
+  <script>
+    try {
+      let date = localStorage.getItem('created_date');
+      let name = localStorage.getItem('name');
+      let pass = localStorage.getItem('pass');
+      let id = localStorage.getItem('id');
+      let main_date = {{ created_date | tojson }};
+
+      function id_post() {
+        var form = document.createElement('form');
+        form.action = '/Connect/sign';
+        form.method = 'POST';
+        document.body.appendChild(form);
+        form.addEventListener('formdata', (e) => {
+          var fd = e.formData;
+          fd.set('name', name);
+          fd.set('pass', pass);
+          alert('サーバーが更新されたため、IDを再度設定します。');
+        });
+        form.submit();
+      }
+
+      if (name == null || pass == null) {
+        location.href = "/Connect/homepage";
+      } else if (date == null || date != main_date || id == null) {
+        id_post();
+      }
+    } catch (e) {
+      alert(e);
+    }
+  </script>
+
   <div id="container">
-      <input type="submit" onclick="logout();" style="height: 80px; font-size: 30px;" value="Logout" />
-    
-      <div id="Text"></div>
-    
-      <div id="InputRoom">
-        <div>
-          <label>Room番号(4桁の数字)</label>
-          <input type="num" style="height: 25px; width: 150px; font-size: 15px;" id="room" value="1111" min="1000" max="9999" placeholder="ROOM" />
-          <input type="button" value="決定" onclick="Click();" />
-        </div>
-    
-        <div>
-          Room:<span id="room_num">1111</span>
-        </div>
+    <input type="submit" onclick="logout();" value="Logout" />
 
+    <div id="Text"></div>
+
+    <div id="InputRoom">
+      <label>Room番号(4桁の数字)</label>
+      <input type="num" id="room" value="1111" min="1000" max="9999" placeholder="ROOM" />
+      <input type="button" value="決定" onclick="Click();" />
+      <div>Room:<span id="room_num">1111</span></div>
       <span id="span"></span>
-
-      <div id="GoRoom">
-        <a href="./stay" style="font-size: 20px;">ROOMに入る</a>
-      </div>
     </div>
 
+    <div id="GoRoom">
+      <a href="./stay" style="font-size: 20px; text-decoration: none; color: black;">ROOMに入る</a>
+    </div>
+  </div>
 
-    
-    
-    <script>
-      if(localStorage.getItem('room') != null){
-        document.getElementById('room').value = localStorage.getItem('room');
-        document.getElementById('room_num').innerText = localStorage.getItem('room');
-      } else {
-        localStorage.setItem('room','1111');
-      }
-      function Click(){
-        let room = document.getElementById('room').value;
-        let room_num = parseInt(room);
-        if(room != null && !Number.isNaN(room_num)) {
-          if(1000 <= room_num && room_num <= 9999){
-            localStorage.setItem('room',String(room_num));
-            document.getElementById('room_num').innerText = String(room_num);
-            document.getElementById('span').innerText = "Room番号を保存しました。";
-          } else {
-            document.getElementById('span').innerText = "1000~9999までの数値を入れてください。";
-          }
+  <script>
+    if (localStorage.getItem('room') != null) {
+      document.getElementById('room').value = localStorage.getItem('room');
+      document.getElementById('room_num').innerText = localStorage.getItem('room');
+    } else {
+      localStorage.setItem('room', '1111');
+    }
+
+    function Click() {
+      let room = document.getElementById('room').value;
+      let room_num = parseInt(room);
+      if (room != null && !Number.isNaN(room_num)) {
+        if (1000 <= room_num && room_num <= 9999) {
+          localStorage.setItem('room', String(room_num));
+          document.getElementById('room_num').innerText = String(room_num);
+          document.getElementById('span').innerText = "Room番号を保存しました。";
         } else {
           document.getElementById('span').innerText = "1000~9999までの数値を入れてください。";
         }
+      } else {
+        document.getElementById('span').innerText = "1000~9999までの数値を入れてください。";
       }
-      
-      function logout(){
-        localStorage.removeItem('name');
-        localStorage.removeItem('pass');
-        window.location.href = "./homepage";
-      }
-      let name0 = localStorage.getItem('name');
-      /*let pass = localStorage.getItem('pass');
-      let id = localStorage.getItem('id');
-      if(name == null || pass == null || id == null){
-        window.location.href="./homepage";
-      }*/
-      document.getElementById('Text').innerText = name0+"さんこんにちは！";
-    </script>
-    
+    }
+
+    function logout() {
+      localStorage.removeItem('name');
+      localStorage.removeItem('pass');
+      window.location.href = "./homepage";
+    }
+
+    let name0 = localStorage.getItem('name');
+    document.getElementById('Text').innerText = name0 + "さんこんにちは！";
+  </script>
 {% endblock %}
