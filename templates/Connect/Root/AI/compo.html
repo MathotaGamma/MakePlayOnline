@@ -25,7 +25,7 @@
         grid-row: 1/2;
         grid-column: 1/2;
         margin: 0px;
-        border_radius: 0px;
+        border: 1px solid;
         width: 90%;
         height: 90%;
       }
@@ -58,6 +58,7 @@
       .toggle {
         grid-row: 1/2;
         grid-column: 2/3;
+        border: 1px solid;
         width: 90%;
         height: 90%;
       }
@@ -66,7 +67,7 @@
   </head>
   <body>
     <div class="set">
-      <label>文字サイズ:<input type="range" value="16" min="1" max="50" step="1" id="size" /></label>
+      <label id="size_text" for="size">文字サイズ:</label><input type="range" value="16" min="1" max="50" step="1" id="size" />
     </div>
     <textarea id="textarea">Hello</textarea>
     <div id="comment"></div>
@@ -87,9 +88,11 @@
       let auto_tf = false;
 
       let size_id = document.getElementById('size');
+      let size_text_id = document.getElementById('size_text');
       size_id.addEventlistener('input',() => {
-        textarea.style.fontSize = String(size_id.value) + 'px';
-
+        alert(size_id.value);
+        size_text_id.innerText = size_id.value+':';
+        textarea.style.fontSize = size_id.value + 'px';
       });
 
 
