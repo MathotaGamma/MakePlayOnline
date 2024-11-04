@@ -89,8 +89,8 @@
 
       let size_id = document.getElementById('size');
       let size_text_id = document.getElementById('size_text');
-      size_id.addEventlistener('input',() => {
-        alert(size_id.value);
+      size_id.addEventListener('input',() => {
+        //alert(size_id.value);
         size_text_id.innerText = size_id.value+':';
         textarea.style.fontSize = size_id.value + 'px';
       });
