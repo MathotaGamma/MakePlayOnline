@@ -10,6 +10,8 @@ import re
 import pathlib
 import textwrap
 import google.generativeai as genai
+import logging
+
 """from google.colab import userdata
 from IPython.display import display
 from IPython.display import Markdown"""
@@ -20,6 +22,17 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mpginw.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'Gamma'
+
+# ロガーの設定
+handler = logging.FileHandler('log.txt', encoding='utf-8')  # 出力先のファイルを指定
+handler.setLevel(logging.INFO)  # ログレベルをINFOに設定
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+# Flaskのロガーにハンドラを追加
+app.logger.addHandler(handler)
+app.logger.setLevel(logging.INFO)  # Flaskのログレベルを設定
+
 socketio = SocketIO(app)
 
 ver = "1.01.01";
