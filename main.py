@@ -265,7 +265,7 @@ def db_get(data):
 
 @socketio.on('cs_signal')
 def signal(data):
-  socketio.emit('sc_signal',data)
+  #socketio.emit('sc_signal',data)
   if(data.get('path') == 'Chat'):
     chatroom = data.get('chatroom')
     chatpass = data.get('chatpass')
