@@ -40,6 +40,9 @@
 
       socket.on('sc_db_get',(data) => {
         alert('socket');
+        alert(data);
+        alert(Object.keys(data));
+        alert(data.id);
         if(data.id == id){
           alert(data.state);
           alert(data.value);
