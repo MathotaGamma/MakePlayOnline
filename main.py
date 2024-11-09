@@ -253,12 +253,12 @@ def db_get(data):
       k_key = data.get('value')
       for k in chats:
         k_list.append(k[k_key])
-      socketio.emit('sc_db_get',{'state':'success','id':data.id,'kind':'list_get','value':",".join(k_list)})
+      socketio.emit('sc_db_get',{'state':'success','id':data.get('id'),'kind':'list_get','value':",".join(k_list)})
 
     else:
-      socketio.emit('sc_db_get',{'state':'failed','id':data.id,'kind':data.get('kind'),'value':'not found:kind'})
+      socketio.emit('sc_db_get',{'state':'failed','id':data.get('id'),'kind':data.get('kind'),'value':'not found:kind'})
   except Exception as k_e:
-    socketio.emit('sc_db_get',{'state':'failed','id':data.id,'kind':data.get('kind'),'value':'something error'})
+    socketio.emit('sc_db_get',{'state':'failed','id':data.get('id'),'kind':data.get('kind'),'value':'something error'})
   
   
   
