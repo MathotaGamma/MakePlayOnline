@@ -247,18 +247,18 @@ def db_get(data):
   try:
     chats = Chat.query.all()
     print(f"Received cs_db_get request: {chats}")
-    socket.emit('sc_db_get',{'come':'come'})
+    socketio.emit('sc_db_get',{'come':'come'})
     if(data.get('kind') == 'list_get'):
       k_list = []
       k_key = data.get('value')
       for k in chats:
         k_list.append(k[k_key])
-      socket.emit('sc_db_get',{'state':'success','id':data.id,'kind':'list_get','value':",".join(k_list)})
+      socketio.emit('sc_db_get',{'state':'success','id':data.id,'kind':'list_get','value':",".join(k_list)})
 
     else:
-      socket.emit('sc_db_get',{'state':'failed','id':data.id,'kind':data.get('kind'),'value':'not found:kind'})
+      socketio.emit('sc_db_get',{'state':'failed','id':data.id,'kind':data.get('kind'),'value':'not found:kind'})
   except Exception as k_e:
-    socket.emit('sc_db_get',{'state':'failed','id':data.id,'kind':data.get('kind'),'value':'something error'})
+    socketio.emit('sc_db_get',{'state':'failed','id':data.id,'kind':data.get('kind'),'value':'something error'})
   
   
   
