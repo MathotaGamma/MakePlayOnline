@@ -41,6 +41,8 @@ db = SQLAlchemy(app)
 
 created_date = datetime.datetime.now()
 
+app.logger.info('作成日時:'+created_date.strftime('%Y-%m-%d=%H:%M:%S'))
+
 
 
 class Post(db.Model):
