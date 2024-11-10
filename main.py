@@ -285,7 +285,7 @@ def db_get(data):
       k_num = 0
       for k in chats:
         if k['user_id'] == k_id:
-	  if not k_num == 0:
+	  if k_num != 0:
 	    k_str += ':'
 	  k_num += 1
 	  k_str += k['chatroom']+','+k['user_id']
