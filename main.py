@@ -70,12 +70,21 @@ class Chat(db.Model):
     return f"<Chat(chatroom={self.chatroom}, user_id={self.user_id}, message={self.message})>"
 
 
-  
+
+def get_id(k_id):
+  k_posts = Post.query.all()
+  for k in k_posts:
+    if k['id_db'] == k_id:
+      return 
 
 
 @app.errorhandler(Exception)
 def handle_all_error(e):
   return render_template('/error.html',Error=e)
+
+@app.route("/log")
+def log():
+  return render_template('log.txt')
 
 
 @app.route("/sitemap.xml")
@@ -262,13 +271,23 @@ def db_get(data):
   try:
     chats = Chat.query.all()
     print(f"Received cs_db_get request: {chats}")
-    if(data.get('kind') == 'list_get'):
+    if data.get('kind') == 'list_get':
       k_list = []
       k_key = data.get('value')
       for k in chats:
         k_list.append(k[k_key])
       socketio.emit('sc_db_get',{'state':'success','id':data.get('id'),'kind':'list_get','value':",".join(k_list)})
 
+    elif data.get('kind') == 'join_get': #参加しているグループを送信し、そのグループに参加している人を送る。
+      k_str = ''
+      k_id = data.get('id')
+      k_num = 0
+      for k in chats:
+        if k['user_id'] == k_id:
+	  if not k_num == 0:
+	    k_str += ':'
+	  k_num += 1
+	  k_str += k['chatroom']+','+k['
     else:
       socketio.emit('sc_db_get',{'state':'failed','id':data.get('id'),'kind':data.get('kind'),'value':'not found:kind'})
   except Exception as k_e:
