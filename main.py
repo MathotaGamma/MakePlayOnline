@@ -88,7 +88,7 @@ def log():
   return render_template('log.txt')
 
 @app.route("/db")
-def db():
+def db_data():
   return render_template("mpginw.db")
 
 @app.route("/sitemap.xml")
