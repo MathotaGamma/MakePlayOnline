@@ -81,6 +81,7 @@ def get_id(k_id):
 
 @app.errorhandler(Exception)
 def handle_all_error(e):
+  app.logger.error(str(e))
   return render_template('/error.html',Error=e)
 
 @app.route("/log")
@@ -89,7 +90,9 @@ def log():
 
 @app.route("/db")
 def db_data():
-  return render_template("mpginw.db")
+  with open('mpginw.db','r') as k_f:
+    k = k_f.read()
+  return k
 
 @app.route("/sitemap.xml")
 def sitemap():
