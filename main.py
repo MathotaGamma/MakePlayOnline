@@ -288,7 +288,7 @@ def db_get(data):
 	  if not k_num == 0:
 	    k_str += ':'
 	  k_num += 1
-	  k_str += k['chatroom']+','+k['
+	  k_str += k['chatroom']+','+k['user_id']
     else:
       socketio.emit('sc_db_get',{'state':'failed','id':data.get('id'),'kind':data.get('kind'),'value':'not found:kind'})
   except Exception as k_e:
