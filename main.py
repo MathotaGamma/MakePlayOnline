@@ -90,7 +90,7 @@ def log():
 
 @app.route("/db")
 def db_data():
-  with open('mpginw.db','r') as k_f:
+  with open('mpginw.db','rb') as k_f:
     k = k_f.read()
   return k
 
