@@ -87,6 +87,9 @@ def handle_all_error(e):
 def log():
   return render_template('log.txt')
 
+@app.route("/db")
+def db():
+  return render_template("mpginw.db")
 
 @app.route("/sitemap.xml")
 def sitemap():
