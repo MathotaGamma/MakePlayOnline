@@ -64,27 +64,71 @@
       margin-top: 10px;
       color: #2e7d32;
     }
+
+    .range-inputs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .range-inputs input {
+      width: 80px;
+      padding: 5px;
+      font-size: 1rem;
+    }
+
+    #mode-selector {
+      margin-top: 1rem;
+    }
+
+    #language-selector {
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
   <h1>4択テスト</h1>
+
+  <div class="range-inputs">
+    <label>開始番号: <input type="number" id="under" min="1" value="1"></label>
+    <label>終了番号: <input type="number" id="roof" min="1" value="10"></label>
+    <button onclick="startTest()">テスト開始</button>
+  </div>
+
+  <div id="mode-selector">
+    <label>
+      <input type="radio" name="mode" id="normal-mode" checked> 通常モード
+    </label>
+    <label>
+      <input type="radio" name="mode" id="training-mode"> 苦手特訓モード
+    </label>
+  </div>
+
+  <div id="language-selector">
+    <label>
+      <input type="radio" name="language" id="english-to-japanese" checked> 英語 → 日本語
+    </label>
+    <label>
+      <input type="radio" name="language" id="japanese-to-english"> 日本語 → 英語
+    </label>
+  </div>
+
   <div id="question">問題を読み込んでいます...</div>
   <div id="choices"></div>
   <div id="feedback"></div>
   <button class="next-button" onclick="generateQuestion()">次の問題</button>
-  
+
   <script>
     const filePath = "/Static/EnglishWords/words_data.txt";
     let words = [];
     let rangeStart = 0;
     let rangeEnd = 0;
-
-    // URLパラメータからnumを取得
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('num')) {
-      const [under, roof] = params.get('num').split('_').map(Number);
-      rangeStart = under;
-      rangeEnd = roof;
+    let until_num = localStorage.getItem('English_Words');
+    if (until_num == null) {
+      until_num = new Array(1900).fill("0");
+      localStorage.setItem('English_Words', until_num.join(','));
+    } else {
+      until_num = until_num.split(',');
     }
 
     fetch(filePath)
@@ -94,26 +138,35 @@
           const [word, meaning] = line.split('/');
           return { word: word.trim(), meaning: meaning.trim() };
         });
-        generateQuestion();
       })
       .catch(error => {
         console.error('Error:', error);
       });
 
-    function generateQuestion() {
-      if (words.length === 0) return;
+    function startTest() {
+      rangeStart = parseInt(document.getElementById('under').value) - 1;
+      rangeEnd = parseInt(document.getElementById('roof').value);
 
-      // フィードバックメッセージをクリア
+      if (rangeStart < 0 || rangeEnd > words.length || rangeStart >= rangeEnd) {
+        document.getElementById('feedback').textContent = '無効な範囲です。';
+        document.getElementById('feedback').style.color = '#d32f2f';
+        return;
+      }
+
+      document.getElementById('feedback').textContent = '';
+      generateQuestion();
+    }
+
+    function generateQuestion() {
+      if (words.length === 0 || rangeStart < 0 || rangeEnd > words.length || rangeStart >= rangeEnd) return;
+
       document.getElementById('feedback').textContent = '';
 
-      // 範囲内の単語リストを取得
-      const limitedWords = words.slice(rangeStart - 1, rangeEnd);
+      const limitedWords = words.slice(rangeStart, rangeEnd);
 
-      // 正解を範囲内からランダムに選択
       const correctIndex = Math.floor(Math.random() * limitedWords.length);
       const correctWord = limitedWords[correctIndex];
 
-      // 3つの誤答を範囲内からランダムに取得
       const choices = [correctWord];
       while (choices.length < 4) {
         const randomChoice = limitedWords[Math.floor(Math.random() * limitedWords.length)];
@@ -122,25 +175,53 @@
         }
       }
 
-      // 選択肢をシャッフル
       choices.sort(() => Math.random() - 0.5);
 
-      // 問題と選択肢を表示
-      document.getElementById('question').textContent = `「${correctWord.word}」の意味はどれですか？`;
+      const questionType = document.getElementById('english-to-japanese').checked ? 'word' : 'meaning';
+      const questionText = questionType === 'word' ? `「${correctWord.word}」の意味はどれですか？` : `「${correctWord.meaning}」の単語はどれですか？`;
+
+      document.getElementById('question').textContent = questionText;
       const choicesDiv = document.getElementById('choices');
       choicesDiv.innerHTML = '';
       choices.forEach(choice => {
         const button = document.createElement('button');
-        button.textContent = choice.meaning;
-        button.onclick = () => showFeedback(choice.meaning === correctWord.meaning);
+        button.textContent = questionType === 'word' ? choice.meaning : choice.word;
+        button.onclick = () => showFeedback(choice.meaning === correctWord.meaning, correctWord);
         choicesDiv.appendChild(button);
       });
+
+      updateErrorCount();
     }
 
-    function showFeedback(isCorrect) {
+    function showFeedback(isCorrect, correctWord) {
       const feedback = document.getElementById('feedback');
-      feedback.textContent = isCorrect ? '正解！' : '不正解、もう一度挑戦してください。';
-      feedback.style.color = isCorrect ? '#2e7d32' : '#d32f2f';
+      if (isCorrect) {
+        feedback.textContent = '正解！';
+        feedback.style.color = '#2e7d32';
+        updateErrorCount(correctWord, true);
+      } else {
+        feedback.textContent = '不正解、もう一度挑戦してください。';
+        feedback.style.color = '#d32f2f';
+        updateErrorCount(correctWord, false);
+      }
+    }
+
+    function updateErrorCount(correctWord = null, isCorrect = true) {
+      if (correctWord) {
+        const wordIndex = words.findIndex(word => word.word === correctWord.word || word.meaning === correctWord.meaning);
+        if (wordIndex !== -1) {
+          let count = parseInt(until_num[wordIndex]);
+          if (isCorrect) {
+            until_num[wordIndex] = Math.max(count - 1, 0);
+          } else {
+            until_num[wordIndex] = count + 1;
+          }
+          localStorage.setItem('English_Words', until_num.join(','));
+        }
+      }
+
+      const errorCounts = until_num.slice(rangeStart, rangeEnd).map(num => parseInt(num)).join(', ');
+      document.getElementById('feedback').textContent += ` (間違えた回数: ${errorCounts})`;
     }
   </script>
 </body>
