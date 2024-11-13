@@ -81,12 +81,12 @@
       font-size: 1rem;
     }
 
-    #mode-selector, #language-selector {
+    #mode-selector {
       margin-top: 1rem;
     }
 
-    .hidden {
-      display: none;
+    #language-selector {
+      margin-top: 1rem;
     }
   </style>
 </head>
@@ -96,7 +96,7 @@
   <div class="range-inputs">
     <label>開始番号: <input type="number" id="under" min="1" value="1"></label>
     <label>終了番号: <input type="number" id="roof" min="1" value="10"></label>
-    <button id="test-button" onclick="toggleTest()">テスト開始</button>
+    <button onclick="startTest()">テスト開始</button>
   </div>
 
   <div id="mode-selector">
@@ -127,8 +127,8 @@
     let words = [];
     let rangeStart = 0;
     let rangeEnd = 0;
-    let answeredQuestions = new Set();
-    let currentQuestion = null;
+    let answeredQuestions = new Set(); // 出題済み問題の追跡
+    let currentQuestion = null; // 現在の問題情報
 
     let until_num = localStorage.getItem('English_Words');
     if (until_num == null) {
@@ -151,24 +151,6 @@
         console.error('Error:', error);
       });
 
-    function toggleTest() {
-      const testButton = document.getElementById('test-button');
-      const modeSelector = document.getElementById('mode-selector');
-      const languageSelector = document.getElementById('language-selector');
-
-      if (testButton.textContent === 'テスト開始') {
-        startTest();
-        testButton.textContent = 'テスト終了';
-        modeSelector.classList.add('hidden');
-        languageSelector.classList.add('hidden');
-      } else {
-        endTest();
-        testButton.textContent = 'テスト開始';
-        modeSelector.classList.remove('hidden');
-        languageSelector.classList.remove('hidden');
-      }
-    }
-
     function startTest() {
       rangeStart = parseInt(document.getElementById('under').value) - 1;
       rangeEnd = parseInt(document.getElementById('roof').value);
@@ -183,20 +165,28 @@
       generateQuestion();
     }
 
-    function endTest() {
-      document.getElementById('question').textContent = 'テストを終了しました。';
-      document.getElementById('choices').innerHTML = '';
-      document.getElementById('feedback').textContent = '';
-      answeredQuestions.clear();
-    }
-
     function generateQuestion() {
       if (words.length === 0 || rangeStart < 0 || rangeEnd > words.length || rangeStart >= rangeEnd) return;
 
       document.getElementById('feedback').textContent = '';
-      const limitedWords = words.slice(rangeStart, rangeEnd);
-      const unansweredQuestions = limitedWords.filter((word, index) => !answeredQuestions.has(index + rangeStart));
 
+      const limitedWords = words.slice(rangeStart, rangeEnd);
+
+      // 苦手特訓モードの場合、間違えた回数が多い問題を優先的に出題
+      const mode = document.querySelector('input[name="mode"]:checked').id;
+      let questionPool = limitedWords;
+
+      if (mode === 'training-mode') {
+        // 苦手特訓モードでは、間違えた回数が多い単語を高確率で出題
+        questionPool = limitedWords.sort((a, b) => {
+          const countA = parseInt(until_num[words.indexOf(a)]);
+          const countB = parseInt(until_num[words.indexOf(b)]);
+          return countB - countA; // 回数が多い順に並べる
+        });
+      }
+
+      // 出題されていない問題をフィルタリング
+      const unansweredQuestions = questionPool.filter((word, index) => !answeredQuestions.has(index + rangeStart));
       if (unansweredQuestions.length === 0) {
         document.getElementById('feedback').textContent = '全ての問題が終了しました。';
         return;
@@ -204,18 +194,19 @@
 
       const correctIndex = Math.floor(Math.random() * unansweredQuestions.length);
       const correctWord = unansweredQuestions[correctIndex];
-      const choices = [correctWord];
 
+      const choices = [correctWord];
       while (choices.length < 4) {
-        const randomChoice = limitedWords[Math.floor(Math.random() * limitedWords.length)];
+        const randomChoice = questionPool[Math.floor(Math.random() * questionPool.length)];
         if (!choices.some(choice => choice.meaning === randomChoice.meaning)) {
           choices.push(randomChoice);
         }
       }
 
       choices.sort(() => Math.random() - 0.5);
+
       const questionType = document.getElementById('english-to-japanese').checked ? 'word' : 'meaning';
-      const questionText = questionType === 'word' ? `「${correctWord.word}」の意味はどれですか？` : `「${correctWord.meaning}」の単語はどれですか？`;
+      const questionText = questionType === 'word' ? `${correctWord.word} の意味はどれですか？` : `${correctWord.meaning} の単語はどれですか？`;
 
       document.getElementById('question').textContent = questionText;
       const choicesDiv = document.getElementById('choices');
@@ -227,8 +218,12 @@
         choicesDiv.appendChild(button);
       });
 
+      // 出題済み問題として追加
       answeredQuestions.add(limitedWords.indexOf(correctWord) + rangeStart);
+
+      // 現在の問題を保持
       currentQuestion = correctWord;
+
       updateErrorCount();
     }
 
@@ -248,14 +243,8 @@
     function updateErrorCount(correctWord = currentQuestion, isCorrect = false) {
       const index = words.indexOf(correctWord);
       const count = until_num[index];
-
-      if (!isCorrect) {
-        document.getElementById('feedback').textContent += `（間違えた回数: ${count+1}）`;
-      } else {
-        document.getElementById('feedback').textContent += `（間違えた回数: ${count}）`;
-      }
-
-      until_num[index] = isCorrect ? parseInt(count) : parseInt(count) + 1;
+      const newCount = isCorrect ? count : parseInt(count) + 1;
+      until_num[index] = newCount.toString();
       localStorage.setItem('English_Words', until_num.join(','));
     }
   </script>
