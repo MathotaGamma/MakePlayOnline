@@ -26,12 +26,6 @@
       font-size: 1.2rem;
       margin-bottom: 1rem;
       color: #2e7d32;
-      display: flex;
-      align-items: center;
-    }
-
-    #question-text {
-      margin-right: 10px;
     }
 
     #choices {
@@ -123,10 +117,7 @@
     </label>
   </div>
 
-  <div id="question">
-    <span id="question-text">問題を読み込んでいます...</span>
-    <span id="error-count">（間違えた回数: 0 回）</span>
-  </div>
+  <div id="question">問題を読み込んでいます...</div>
   <div id="choices"></div>
   <div id="feedback"></div>
   <button class="next-button" onclick="generateQuestion()">次の問題</button>
@@ -160,7 +151,6 @@
       });
 
     function startTest() {
-      alert('Push');
       rangeStart = parseInt(document.getElementById('under').value) - 1;
       rangeEnd = parseInt(document.getElementById('roof').value);
 
@@ -203,15 +193,15 @@
       choices.sort(() => Math.random() - 0.5);
 
       const questionType = document.getElementById('english-to-japanese').checked ? 'word' : 'meaning';
-      const questionText = questionType === 'word' ? 「${correctWord.word}」の意味はどれですか？ : 「${correctWord.meaning}」の単語はどれですか？;
+      const questionText = questionType === 'word' ? `「${correctWord.word}」の意味はどれですか？` : `「${correctWord.meaning}」の単語はどれですか？`;
 
-      document.getElementById('question-text').textContent = questionText;
+      document.getElementById('question').textContent = questionText;
       const choicesDiv = document.getElementById('choices');
       choicesDiv.innerHTML = '';
       choices.forEach(choice => {
         const button = document.createElement('button');
         button.textContent = questionType === 'word' ? choice.meaning : choice.word;
-        button.onclick = () => showFeedback(choice.meaning === correctWord.meaning, correctWord, choice);
+        button.onclick = () => showFeedback(choice.meaning === correctWord.meaning, correctWord);
         choicesDiv.appendChild(button);
       });
 
@@ -226,17 +216,19 @@
 
     function wordSimilarity(word1, word2) {
       // ここでは単純に意味が似ているかどうかで比較
+      // 例えば、文字列が部分一致するか、同じ意味を持つか
+      // 実際のアプリケーションではより複雑なロジックを使うことができる
       return word1.meaning.includes(word2.meaning) || word2.meaning.includes(word1.meaning);
     }
 
-    function showFeedback(isCorrect, correctWord, selectedChoice) {
+    function showFeedback(isCorrect, correctWord) {
       const feedback = document.getElementById('feedback');
       if (isCorrect) {
         feedback.textContent = '正解！';
         feedback.style.color = '#2e7d32';
         updateErrorCount(correctWord, true);
       } else {
-        feedback.textContent = 不正解、正解は「${correctWord.meaning}」です。;
+        feedback.textContent = '不正解、もう一度挑戦してください。';
         feedback.style.color = '#d32f2f';
         updateErrorCount(correctWord);
       }
@@ -245,7 +237,7 @@
     function updateErrorCount(correctWord = currentQuestion, isCorrect = false) {
       const index = words.indexOf(correctWord);
       const count = until_num[index];
-      document.getElementById('error-count').textContent = （間違えた回数: ${count} 回）;
+      document.getElementById('feedback').textContent += `（間違えた回数: ${count} 回）`;
       if (!isCorrect) {
         until_num[index] = (parseInt(count) + 1).toString();
         localStorage.setItem('English_Words', until_num.join(','));
