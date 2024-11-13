@@ -143,6 +143,7 @@
       .then(data => {
         words = data.split('\n').map(line => {
           const [word, meaning] = line.split('/');
+          document.getElementById('question').textContent = '読み込みが完了しました。';
           return { word: word.trim(), meaning: meaning.trim() };
         });
       })
@@ -183,8 +184,8 @@
 
       const choices = [correctWord];
       while (choices.length < 4) {
-        const similarChoices = limitedWords.filter(word => wordSimilarity(correctWord, word));
-        const randomChoice = similarChoices[Math.floor(Math.random() * similarChoices.length)];
+        //const similarChoices = limitedWords.filter(word => wordSimilarity(correctWord, word));
+        const randomChoice = limitedWords[Math.floor(Math.random() * limitedWords.length)];
         if (!choices.some(choice => choice.meaning === randomChoice.meaning)) {
           choices.push(randomChoice);
         }
