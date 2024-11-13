@@ -173,7 +173,7 @@
       const limitedWords = words.slice(rangeStart, rangeEnd);
 
       // 出題されていない問題をフィルタリング
-      const unansweredQuestions = limitedWords.filter((word, index) => !answeredQuestions.has(index + rangeStart));
+      const unansweredQuestions = limitedWords.filter((_, index) => !answeredQuestions.has(index + rangeStart));
       if (unansweredQuestions.length === 0) {
         document.getElementById('feedback').textContent = '全ての問題が終了しました。';
         return;
@@ -184,7 +184,6 @@
 
       const choices = [correctWord];
       while (choices.length < 4) {
-        //const similarChoices = limitedWords.filter(word => wordSimilarity(correctWord, word));
         const randomChoice = limitedWords[Math.floor(Math.random() * limitedWords.length)];
         if (!choices.some(choice => choice.meaning === randomChoice.meaning)) {
           choices.push(randomChoice);
@@ -207,13 +206,15 @@
       });
 
       // 出題済み問題として追加
-      answeredQuestions.add(limitedWords.indexOf(correctWord) + rangeStart);
+      const absoluteIndex = words.indexOf(correctWord);
+      answeredQuestions.add(absoluteIndex);
 
       // 現在の問題を保持
       currentQuestion = correctWord;
 
       updateErrorCount();
     }
+
 
     function wordSimilarity(word1, word2) {
       // ここでは単純に意味が似ているかどうかで比較
@@ -238,8 +239,9 @@
     function updateErrorCount(correctWord = currentQuestion, isCorrect = false) {
       const index = words.indexOf(correctWord);
       const count = until_num[index];
-      document.getElementById('feedback').textContent += `（間違えた回数: ${count} 回）`;
+      
       if (!isCorrect) {
+        document.getElementById('feedback').textContent += `（間違えた回数: ${count} 回）`;
         until_num[index] = (parseInt(count) + 1).toString();
         localStorage.setItem('English_Words', until_num.join(','));
       }
