@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4択クイズ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    h1 {
+      color: #2e7d32; /* 深めの緑 */
+      margin-bottom: 1rem;
+    }
+
+    #question {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #2e7d32;
+    }
+
+    #choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      background-color: #66bb6a; /* 明るい緑 */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #388e3c; /* 少し濃い緑 */
+    }
+
+    button:active {
+      background-color: #1b5e20;
+    }
+
+    .next-button {
+      margin-top: 1rem;
+      background-color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <h1>4択クイズ</h1>
+  <div id="question">問題を読み込んでいます...</div>
+  <div id="choices"></div>
+  <button class="next-button" onclick="generateQuestion()">次の問題</button>
+  
+  <script>
+    const filePath = "/Static/EnglishWords/words_data.txt";
+    let words = [];
+    
+    fetch(filePath)
+      .then(response => response.text())
+      .then(data => {
+        words = data.split('\n').map(line => {
+          const [word, meaning] = line.split('/');
+          return { word: word.trim(), meaning: meaning.trim() };
+        });
+        generateQuestion();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+    function generateQuestion() {
+      const correctAnswerIndex = Math.floor(Math.random() * words.length);
+      const correctWord = words[correctAnswerIndex];
+
+      const choices = [correctWord];
+      while (choices.length < 4) {
+        const randomChoice = words[Math.floor(Math.random() * words.length)];
+        if (!choices.some(choice => choice.meaning === randomChoice.meaning)) {
+          choices.push(randomChoice);
+        }
+      }
+      choices.sort(() => Math.random() - 0.5);
+
+      document.getElementById('question').textContent = `「${correctWord.word}」の意味はどれですか？`;
+      const choicesDiv = document.getElementById('choices');
+      choicesDiv.innerHTML = '';
+      choices.forEach(choice => {
+        const button = document.createElement('button');
+        button.textContent = choice.meaning;
+        button.onclick = () => alert(choice.meaning === correctWord.meaning ? '正解！' : '不正解');
+        choicesDiv.appendChild(button);
+      });
+    }
+  </script>
+</body>
+</html>
