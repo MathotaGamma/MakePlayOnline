@@ -72,7 +72,7 @@
     #feedback {
       font-size: 1.1rem;
       margin-top: 10px;
-      color: #2e7d32;
+      color: #2e7d2f;
     }
 
     .range-inputs {
@@ -112,6 +112,9 @@
     <label>
       <input type="radio" name="mode" id="training-mode"> 苦手特訓モード
     </label>
+    <label>
+      <input type="radio" name="mode" id="pvp-mode"> 通信対戦モード
+    </label>
   </div>
 
   <div id="language-selector">
@@ -131,7 +134,9 @@
   <div id="feedback"></div>
   <button class="next-button" onclick="generateQuestion()">次の問題</button>
 
+  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
   <script>
+    const socket = io();  // Socket.IOの初期化
     const filePath = "/Static/EnglishWords/words_data.txt";
     let words = [];
     let rangeStart = 0;
@@ -202,7 +207,7 @@
       choices.sort(() => Math.random() - 0.5);
 
       const questionType = document.getElementById('english-to-japanese').checked ? 'word' : 'meaning';
-      const questionText = questionType === 'word' ? `「${correctWord.word}」の意味はどれですか？` : `「${correctWord.meaning}」の単語はどれですか？`;
+      const questionText = questionType === 'word' ? 「${correctWord.word}」の意味はどれですか？ : 「${correctWord.meaning}」の単語はどれですか？;
 
       document.getElementById('question-text').textContent = questionText;
       const choicesDiv = document.getElementById('choices');
@@ -235,20 +240,20 @@
         feedback.style.color = '#2e7d32';
         updateErrorCount(correctWord, true);
       } else {
-        feedback.textContent = `不正解、正解は「${correctWord.meaning}」です。`;
+        feedback.textContent = 不正解、正解は「${correctWord.meaning}」です。;
         feedback.style.color = '#d32f2f';
         updateErrorCount(correctWord);
       }
+
+      //socket.emit('cs_signal', { word: selectedChoice.word, meaning: selectedChoice.meaning, correct: isCorrect, room: 'default' });
     }
 
-    function updateErrorCount(correctWord = currentQuestion, isCorrect = false) {
-      const index = words.indexOf(correctWord);
-      const count = until_num[index];
-      document.getElementById('error-count').textContent = `（間違えた回数: ${count} 回）`;
-      if (!isCorrect) {
-        until_num[index] = (parseInt(count) + 1).toString();
-        localStorage.setItem('English_Words', until_num.join(','));
+    function updateErrorCount(correctWord, correct = false) {
+      const currentErrorCount = parseInt(localStorage.getItem('errorCount')) || 0;
+      if (!correct) {
+        localStorage.setItem('errorCount', currentErrorCount + 1);
       }
+      document.getElementById('error-count').textContent = （間違えた回数: ${localStorage.getItem('errorCount')} 回）;
     }
   </script>
 </body>
