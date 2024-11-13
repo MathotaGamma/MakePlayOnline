@@ -136,6 +136,7 @@
 
   <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
   <script>
+    try{
     const socket = io();  // Socket.IOの初期化
     const filePath = "/Static/EnglishWords/words_data.txt";
     let words = [];
@@ -254,6 +255,9 @@
         localStorage.setItem('errorCount', currentErrorCount + 1);
       }
       document.getElementById('error-count').textContent = （間違えた回数: ${localStorage.getItem('errorCount')} 回）;
+    }
+    } catch(e) {
+      alert(e);
     }
   </script>
 </body>
