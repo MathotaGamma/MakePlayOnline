@@ -246,8 +246,8 @@
       const newCount = isCorrect ? count : parseInt(count) + 1;
       until_num[index] = newCount.toString();
       localStorage.setItem('English_Words', until_num.join(','));
-      alert(newCount);
-      alert(index);
+      feedback.textContent += '不正解:'+String(count)+'回目';
+      
     }
   </script>
 </body>
