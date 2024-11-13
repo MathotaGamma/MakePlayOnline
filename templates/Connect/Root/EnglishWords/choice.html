@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>範囲指定テスト</title>
+  <title>4択テスト</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -29,10 +29,10 @@
     }
 
     #choices {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 1rem;
     }
 
     button {
@@ -58,12 +58,19 @@
       margin-top: 1rem;
       background-color: #2e7d32;
     }
+
+    #feedback {
+      font-size: 1.1rem;
+      margin-top: 10px;
+      color: #2e7d32;
+    }
   </style>
 </head>
 <body>
-  <h1>範囲指定テスト</h1>
+  <h1>4択テスト</h1>
   <div id="question">問題を読み込んでいます...</div>
   <div id="choices"></div>
+  <div id="feedback"></div>
   <button class="next-button" onclick="generateQuestion()">次の問題</button>
   
   <script>
@@ -96,6 +103,9 @@
     function generateQuestion() {
       if (words.length === 0) return;
 
+      // フィードバックメッセージをクリア
+      document.getElementById('feedback').textContent = '';
+
       // 範囲内の単語リストを取得
       const limitedWords = words.slice(rangeStart - 1, rangeEnd);
 
@@ -122,9 +132,15 @@
       choices.forEach(choice => {
         const button = document.createElement('button');
         button.textContent = choice.meaning;
-        button.onclick = () => alert(choice.meaning === correctWord.meaning ? '正解！' : '不正解');
+        button.onclick = () => showFeedback(choice.meaning === correctWord.meaning);
         choicesDiv.appendChild(button);
       });
+    }
+
+    function showFeedback(isCorrect) {
+      const feedback = document.getElementById('feedback');
+      feedback.textContent = isCorrect ? '正解！' : '不正解、もう一度挑戦してください。';
+      feedback.style.color = isCorrect ? '#2e7d32' : '#d32f2f';
     }
   </script>
 </body>
