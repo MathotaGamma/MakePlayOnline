@@ -255,7 +255,7 @@
         document.getElementById('feedback').textContent += `（間違えた回数: ${count}）`;
       }
 
-      until_num[index] = isCorrect ? Math.max(count - 1, 0) : parseInt(count) + 1;
+      until_num[index] = isCorrect ? parseInt(count) : parseInt(count) + 1;
       localStorage.setItem('English_Words', until_num.join(','));
     }
   </script>
