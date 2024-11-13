@@ -213,7 +213,7 @@ def Connect_home_post():
 
 @app.route('/Connect/home')
 def Connect_home():
-  return render_template('/Connect/home.html',ver=ver,created_date=str(created_date))
+  return render_template('/Connect/home.html',ver=ver,created_date=created_date.strftime('%Y-%m-%d=%H:%M:%S'))
 
 @app.route('/Connect/stay')
 def Connect_stay():
