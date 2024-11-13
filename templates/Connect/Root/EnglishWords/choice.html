@@ -26,6 +26,12 @@
       font-size: 1.2rem;
       margin-bottom: 1rem;
       color: #2e7d32;
+      display: flex;
+      align-items: center;
+    }
+
+    #question-text {
+      margin-right: 10px;
     }
 
     #choices {
@@ -33,17 +39,21 @@
       grid-template-columns: 1fr 1fr;
       gap: 15px;
       margin-bottom: 1rem;
+      width: 80%;
+      max-width: 500px;
     }
 
     button {
       background-color: #66bb6a;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 20px;
       font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     button:hover {
@@ -76,27 +86,66 @@
       padding: 5px;
       font-size: 1rem;
     }
+
+    #mode-selector {
+      margin-top: 1rem;
+    }
+
+    #language-selector {
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
   <h1>4択テスト</h1>
-  
+
   <div class="range-inputs">
     <label>開始番号: <input type="number" id="under" min="1" value="1"></label>
     <label>終了番号: <input type="number" id="roof" min="1" value="10"></label>
     <button onclick="startTest()">テスト開始</button>
   </div>
 
-  <div id="question">問題を読み込んでいます...</div>
+  <div id="mode-selector">
+    <label>
+      <input type="radio" name="mode" id="normal-mode" checked> 通常モード
+    </label>
+    <label>
+      <input type="radio" name="mode" id="training-mode"> 苦手特訓モード
+    </label>
+  </div>
+
+  <div id="language-selector">
+    <label>
+      <input type="radio" name="language" id="english-to-japanese" checked> 英語 → 日本語
+    </label>
+    <label>
+      <input type="radio" name="language" id="japanese-to-english"> 日本語 → 英語
+    </label>
+  </div>
+
+  <div id="question">
+    <span id="question-text">問題を読み込んでいます...</span>
+    <span id="error-count">（間違えた回数: 0 回）</span>
+  </div>
   <div id="choices"></div>
   <div id="feedback"></div>
   <button class="next-button" onclick="generateQuestion()">次の問題</button>
-  
+
   <script>
     const filePath = "/Static/EnglishWords/words_data.txt";
     let words = [];
     let rangeStart = 0;
     let rangeEnd = 0;
+    let answeredQuestions = new Set(); // 出題済み問題の追跡
+    let currentQuestion = null; // 現在の問題情報
+
+    let until_num = localStorage.getItem('English_Words');
+    if (until_num == null) {
+      until_num = new Array(1900).fill("0");
+      localStorage.setItem('English_Words', until_num.join(','));
+    } else {
+      until_num = until_num.split(',');
+    }
 
     fetch(filePath)
       .then(response => response.text())
@@ -111,11 +160,10 @@
       });
 
     function startTest() {
-      // 入力された範囲を取得
+      alert('Push');
       rangeStart = parseInt(document.getElementById('under').value) - 1;
       rangeEnd = parseInt(document.getElementById('roof').value);
 
-      // 入力値が正しいか確認
       if (rangeStart < 0 || rangeEnd > words.length || rangeStart >= rangeEnd) {
         document.getElementById('feedback').textContent = '無効な範囲です。';
         document.getElementById('feedback').style.color = '#d32f2f';
@@ -129,44 +177,79 @@
     function generateQuestion() {
       if (words.length === 0 || rangeStart < 0 || rangeEnd > words.length || rangeStart >= rangeEnd) return;
 
-      // フィードバックメッセージをクリア
       document.getElementById('feedback').textContent = '';
 
-      // 範囲内の単語リストを取得
       const limitedWords = words.slice(rangeStart, rangeEnd);
 
-      // 正解を範囲内からランダムに選択
-      const correctIndex = Math.floor(Math.random() * limitedWords.length);
-      const correctWord = limitedWords[correctIndex];
+      // 出題されていない問題をフィルタリング
+      const unansweredQuestions = limitedWords.filter((word, index) => !answeredQuestions.has(index + rangeStart));
+      if (unansweredQuestions.length === 0) {
+        document.getElementById('feedback').textContent = '全ての問題が終了しました。';
+        return;
+      }
 
-      // 3つの誤答を範囲内からランダムに取得
+      const correctIndex = Math.floor(Math.random() * unansweredQuestions.length);
+      const correctWord = unansweredQuestions[correctIndex];
+
       const choices = [correctWord];
       while (choices.length < 4) {
-        const randomChoice = limitedWords[Math.floor(Math.random() * limitedWords.length)];
+        const similarChoices = limitedWords.filter(word => wordSimilarity(correctWord, word));
+        const randomChoice = similarChoices[Math.floor(Math.random() * similarChoices.length)];
         if (!choices.some(choice => choice.meaning === randomChoice.meaning)) {
           choices.push(randomChoice);
         }
       }
 
-      // 選択肢をシャッフル
       choices.sort(() => Math.random() - 0.5);
 
-      // 問題と選択肢を表示
-      document.getElementById('question').textContent = 「${correctWord.word}」の意味はどれですか？;
+      const questionType = document.getElementById('english-to-japanese').checked ? 'word' : 'meaning';
+      const questionText = questionType === 'word' ? 「${correctWord.word}」の意味はどれですか？ : 「${correctWord.meaning}」の単語はどれですか？;
+
+      document.getElementById('question-text').textContent = questionText;
       const choicesDiv = document.getElementById('choices');
       choicesDiv.innerHTML = '';
       choices.forEach(choice => {
         const button = document.createElement('button');
-        button.textContent = choice.meaning;
-        button.onclick = () => showFeedback(choice.meaning === correctWord.meaning);
+        button.textContent = questionType === 'word' ? choice.meaning : choice.word;
+        button.onclick = () => showFeedback(choice.meaning === correctWord.meaning, correctWord, choice);
         choicesDiv.appendChild(button);
       });
+
+      // 出題済み問題として追加
+      answeredQuestions.add(limitedWords.indexOf(correctWord) + rangeStart);
+
+      // 現在の問題を保持
+      currentQuestion = correctWord;
+
+      updateErrorCount();
     }
 
-    function showFeedback(isCorrect) {
+    function wordSimilarity(word1, word2) {
+      // ここでは単純に意味が似ているかどうかで比較
+      return word1.meaning.includes(word2.meaning) || word2.meaning.includes(word1.meaning);
+    }
+
+    function showFeedback(isCorrect, correctWord, selectedChoice) {
       const feedback = document.getElementById('feedback');
-      feedback.textContent = isCorrect ? '正解！' : '不正解、もう一度挑戦してください。';
-      feedback.style.color = isCorrect ? '#2e7d32' : '#d32f2f';
+      if (isCorrect) {
+        feedback.textContent = '正解！';
+        feedback.style.color = '#2e7d32';
+        updateErrorCount(correctWord, true);
+      } else {
+        feedback.textContent = 不正解、正解は「${correctWord.meaning}」です。;
+        feedback.style.color = '#d32f2f';
+        updateErrorCount(correctWord);
+      }
+    }
+
+    function updateErrorCount(correctWord = currentQuestion, isCorrect = false) {
+      const index = words.indexOf(correctWord);
+      const count = until_num[index];
+      document.getElementById('error-count').textContent = （間違えた回数: ${count} 回）;
+      if (!isCorrect) {
+        until_num[index] = (parseInt(count) + 1).toString();
+        localStorage.setItem('English_Words', until_num.join(','));
+      }
     }
   </script>
 </body>
