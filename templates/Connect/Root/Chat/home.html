@@ -13,6 +13,11 @@
     <script>
       var socket = io();
       let chat_room = localStorage.getItem('Chat/chat_room');
+      if(chat_room != null){
+        chat_room = chat_room.split(',');
+      } else {
+        chat_room = [];
+      }
       let room = localStorage.getItem('room');
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
@@ -21,8 +26,8 @@
 
 
       function add_li(){
-        if(chat_room != null){
-          chat_room = chat_room.split(',');
+        if(chat_room.length >= 1){
+          
           for(let k of chat_room){
             let k_li = document.createElement('li');
             let k_a  = document.createElement("a");
@@ -36,7 +41,7 @@
           let k_li = document.createElement('li');
           k_li.textContent = 'どのチャットルームにも所属していません。';
           roomlist_id.appendChild(k_li);
-          chat_room = [];
+          
         }
       }
       add_li();
