@@ -82,6 +82,7 @@
         const room = localStorage.getItem('room');
         const id = localStorage.getItem('id');
         const name = localStorage.getItem('name');
+        const message_room = localStorage.getItem('message_room');
 
         if (!room || !id || !name) {
             alert("Please log in first");
@@ -94,7 +95,7 @@
 
         socket.on('sc_signal', (data) => {
             // roomが一致する場合のみメッセージを表示
-            if (data.room === room) {
+            if (data.room == room && data.message_room == message_room) {
                 const messageElement = document.createElement('div');
                 messageElement.className = `message ${data.id === id ? 'user' : 'other'}`;
                 messageElement.textContent = `[${data.name}] ${data.message}`;
@@ -114,7 +115,8 @@
                     id: id,
                     name: name,
                     message: message,
-                    time: Date.now()
+                    time: Date.now(),
+                    message_room: message_room
                 });
                 input.value = '';
             }
