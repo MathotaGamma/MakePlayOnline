@@ -29,11 +29,12 @@
           
           for(let k of chat_room){
             let k_li = document.createElement('li');
-            let k_a  = document.createElement("a");
-            k_a.text = k;
-            localStorage.setItem('Chat/message_room',k);
-            k_a.href = "./play;
-            k_li.appendChild(k_a);
+            let k_input  = document.createElement("input");
+            k_input.value = k;
+            k_input.setAttribute('onclick', 'localStorage.setItem("Chat/message_room,"'+k+');k_input.href = "./play"');
+            
+            
+            k_li.appendChild(k_input);
             //k_li.textContent = k;
             roomlist_id.appendChild(k_li);
           }
