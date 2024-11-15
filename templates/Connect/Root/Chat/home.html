@@ -31,7 +31,8 @@
             let k_li = document.createElement('li');
             let k_a  = document.createElement("a");
             k_a.text = k;
-            k_a.href = "./room?chatname="+k;
+            localStorage.setItem('Chat/message_room',k);
+            k_a.href = "./play;
             k_li.appendChild(k_a);
             //k_li.textContent = k;
             roomlist_id.appendChild(k_li);
