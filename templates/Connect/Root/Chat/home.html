@@ -36,18 +36,22 @@
           let k_li = document.createElement('li');
           k_li.textContent = 'どのチャットルームにも所属していません。';
           roomlist_id.appendChild(k_li);
+          chat_room = [];
         }
       }
       add_li();
 
       socket.on('sc_db_get',(data) => {
         if(data.id == id){
+          try{
           alert(data.state);
           localStorage.setItem('Chat/message_room',message_room);
           chat_room = chat_room.push(message_room);
           localStorage.setItem('Chat/chat_room',chat_room.join(','));
           location.href="./play";
-          
+          } catch(e) {
+            alert('error'+String(e));
+          }
         }
       });
 
