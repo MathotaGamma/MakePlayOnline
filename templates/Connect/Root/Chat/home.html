@@ -51,6 +51,8 @@
           alert(data.state);
           localStorage.setItem('Chat/message_room',message_room);
           chat_room = chat_room.push(message_room);
+          alert(chat_room);
+          alert(typeof chat_room);
           localStorage.setItem('Chat/chat_room',chat_room.join(','));
           location.href="./play";
           } catch(e) {
