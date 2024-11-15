@@ -17,7 +17,7 @@
       let name = localStorage.getItem('name');
       let id = localStorage.getItem('id');
       let roomlist_id = document.getElementById('roomlist');
-      let message_list = '';
+      let message_room = '';
 
 
       function add_li(){
@@ -42,18 +42,18 @@
       socket.on('sc_db_get',(data) => {
         if(data.id == id){
           alert(data.state);
-          localStorage.setItem('message_list',message_list);
+          localStorage.setItem('message_room',message_room);
           location.href="./play";
           
         }
       });
 
       function make_room(){
-        message_list = prompt('チャットルーム名:','');
+        message_room = prompt('チャットルーム名:','');
         
-        if(message_list == null || message_list == ''){
+        if(message_room == null || message_room == ''){
           alert('cancelしました。');
-        } else if(message_list.includes(',')){
+        } else if(message_room.includes(',')){
           alert('「,」を含めないでください。');
         } else {
           socket.emit('cs_db_get',{id:id,kind:'list_get',value:'chatname'});
