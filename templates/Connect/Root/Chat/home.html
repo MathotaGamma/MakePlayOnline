@@ -32,7 +32,7 @@
             let k_input  = document.createElement("input");
             k_input.value = k;
             k_input.type = "button";
-            k_input.setAttribute('onclick', 'localStorage.setItem("Chat/message_room,"'+k+');k_input.href = "./play"');
+            k_input.setAttribute('onclick', 'localStorage.setItem("Chat/message_room,"'+k+');location.href = "./play"');
             
             
             k_li.appendChild(k_input);
