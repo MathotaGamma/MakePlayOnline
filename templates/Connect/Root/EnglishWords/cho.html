@@ -26,6 +26,21 @@
     <script>
       let len = 0;
       let Words = '';
+
+      function start_click(){
+        let k_elements = document.getElementsByName('fruit');
+        let mode = '';
+        for (let i = 0; i < k_elements.length; i++){
+          if (elements.item(i).checked){
+            mode = elements.item(i).value;
+            break;
+          }
+        }
+        if(mode == "normal"){
+          
+        }
+      }
+      
       fetch(filePath)
         .then(response => response.text())
          m:.then(data => {
