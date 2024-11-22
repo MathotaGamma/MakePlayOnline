@@ -51,11 +51,11 @@
       }
 
       function start_click(){
-        let k_elements = document.getElementsByName('fruit');
+        let k_elements = document.getElementsByName('mode');
         let mode = '';
         for (let i = 0; i < k_elements.length; i++){
-          if (elements.item(i).checked){
-            mode = elements.item(i).value;
+          if (k_elements.item(i).checked){
+            mode = k_elements.item(i).value;
             break;
           }
         }
