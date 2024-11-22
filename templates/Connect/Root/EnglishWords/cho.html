@@ -27,7 +27,8 @@
     <script>
       const filePath = "/Static/EnglishWords/words_data.txt";
       let len = 0;
-      let Words = '';
+      let Words = [];
+      let words = [];
 
       let state = "menu";
 
@@ -72,7 +73,7 @@
             let k_k = k.split(/(:|\/)/);
             return [k_k[0],k_k[2],k_k.slice(4)];
           });
-          words = Words.slice(0,Words.length);
+          words = structuredClone(Words.slice(0,Words.length));
           //words = Words.slice(parseInt(params[0])-1,parseInt(params[1]));
           
           //alert(words);
