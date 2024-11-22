@@ -9,7 +9,24 @@
     <input type="radio" name="mode" value="weak" checked>苦手特訓モード<br>
     <input type="button" value="開始">
     <script>
-      
+      let len = 0;
+      let Words = '';
+      fetch(filePath)
+        .then(response => response.text())
+         m:.then(data => {
+        //alert('get');
+            
+          Words = data.split('\n').map((k) => {
+            let k_k = k.split(/(:|\/)/);
+            return [k_k[0],k_k[2],k_k.slice(4)];
+          });
+          words = Words.slice(0,Words.length);
+          //words = Words.slice(parseInt(params[0])-1,parseInt(params[1]));
+          
+          //alert(words);
+          len = words.length;
+          
+        }
     </script>
   </body>
 </html>
