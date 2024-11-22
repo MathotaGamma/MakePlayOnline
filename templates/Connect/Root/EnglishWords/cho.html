@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    
+    <meta charset="utf-8">
+    <title>MPGinW/英単語</title>
+    <style>
+      *{
+        margin: 0px;
+      }
+
+    </style>
   </head>
   <body>
     <input type="number" min="1" max="1900" value="1">~<input type="number" min="1" max="190" value="1900"><br>
-    <input type="radio" name="mode" value="normal">通常
-    <input type="radio" name="mode" value="weak" checked>苦手特訓モード<br>
+    <input type="radio" name="mode" value="normal" checked>通常
+    <input type="radio" name="mode" value="weak">苦手特訓モード<br>
     <input type="button" value="開始">
+    <div id="answer_box">
+      <div id="box_1"></div>
+      <div id="box_2"></div>
+      <div id="box_3"></div>
+      <div id="box_4"></div>
+    </div>
+      
+    </div>
     <script>
       let len = 0;
       let Words = '';
@@ -25,7 +40,7 @@
           
           //alert(words);
           len = words.length;
-          
+          alert(words.join(','));
         }
     </script>
   </body>
