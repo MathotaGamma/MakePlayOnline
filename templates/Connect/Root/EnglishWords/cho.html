@@ -63,7 +63,7 @@
           }
         }
         if(mode == "normal"){
-          
+          console.log(1);
         }
       }
       
@@ -76,7 +76,7 @@
             let k_k = k.split(/(:|\/)/);
             return [k_k[0],k_k[2],k_k.slice(4)];
           });
-          words = structuredClone(Words.slice(0,Words.length));
+          words = Words.slice(0,Words.length);
           //words = Words.slice(parseInt(params[0])-1,parseInt(params[1]));
           
           //alert(words);
