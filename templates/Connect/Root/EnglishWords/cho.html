@@ -21,8 +21,7 @@
       <div id="box_3"></div>
       <div id="box_4"></div>
     </div>
-      
-    </div>
+    
     <script>
       let len = 0;
       let Words = '';
@@ -43,7 +42,7 @@
       
       fetch(filePath)
         .then(response => response.text())
-         m:.then(data => {
+        .then(data => {
         //alert('get');
             
           Words = data.split('\n').map((k) => {
