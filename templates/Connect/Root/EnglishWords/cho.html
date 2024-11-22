@@ -33,6 +33,8 @@
 
       const menu_id = document.getElementById('menu');
 
+      menu_id.style.display = 'none';
+
       let until_num = localStorage.getItem('English_Words');
       if (until_num == null) {
         until_num = new Array(1900).fill("0");
