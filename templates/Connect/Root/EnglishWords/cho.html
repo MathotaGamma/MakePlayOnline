@@ -11,10 +11,12 @@
     </style>
   </head>
   <body>
-    <input type="number" min="1" max="1900" value="1">~<input type="number" min="1" max="190" value="1900"><br>
-    <input type="radio" name="mode" value="normal" checked>通常
-    <input type="radio" name="mode" value="weak">苦手特訓モード<br>
-    <input type="button" value="開始">
+    <div id="menu">
+      <input type="number" min="1" max="1900" value="1">~<input type="number" min="1" max="190" value="1900"><br>
+      <input type="radio" name="mode" value="normal" checked>通常
+      <input type="radio" name="mode" value="weak">苦手特訓モード<br>
+      <input type="button" value="開始">
+    </div>
     <div id="answer_box">
       <div id="box_1"></div>
       <div id="box_2"></div>
@@ -26,6 +28,24 @@
       const filePath = "/Static/EnglishWords/words_data.txt";
       let len = 0;
       let Words = '';
+
+      let state = "menu";
+
+      const menu_id = document.getElementById('menu');
+
+      let until_num = localStorage.getItem('English_Words');
+      if (until_num == null) {
+        until_num = new Array(1900).fill("0");
+        localStorage.setItem('English_Words', until_num.join(','));
+      } else {
+        until_num = until_num.split(',');
+      }
+
+      function menu(){
+        if(state == "menu"){
+          console.log('1')
+        }
+      }
 
       function start_click(){
         let k_elements = document.getElementsByName('fruit');
