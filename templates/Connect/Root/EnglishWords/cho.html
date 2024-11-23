@@ -17,12 +17,17 @@
         width: 50px;
       }
 
-      #answer_box {
+      #play{
         position: absolute;
         bottom: 50px;
         left: 0px;
         width: 100%;
         height: 50%;
+      }
+
+      #answer_box {
+        width: 100%;
+        height: 100%;
         display: grid;
         grid-template: 1fr 1fr / 1fr 1fr;
       }
@@ -45,11 +50,14 @@
       <input type="radio" name="mode" value="weak">苦手特訓モード<br>
       <input type="button" id="start" value="開始" onclick="start_click();" disabled>
     </div>
-    <div id="answer_box">
-      <div class="box" id="box_1">1</div>
-      <div class="box" id="box_2">2</div>
-      <div class="box" id="box_3">3</div>
-      <div class="box" id="box_4">4</div>
+    <div id="play">
+      <div id="en_word"></div>
+      <div id="answer_box">
+        <div class="box" id="box_1">1</div>
+        <div class="box" id="box_2">2</div>
+        <div class="box" id="box_3">3</div>
+        <div class="box" id="box_4">4</div>
+      </div>
     </div>
     
     <script>
@@ -58,14 +66,21 @@
       let Words = [];
       let words = [];
 
+      let range_num = [];
+
       let state = "menu";
       
 
       const menu_id = document.getElementById('menu_par');
 
+      const play_id = document.getElementById('play');
       const answer_box = document.getElementById('answer_box');
 
       const start_button = document.getElementById('start');
+      const en_word = document.getElementById('en_word');
+
+      const min_num = document.getElementById('min');
+      const max_num = document.getElementById('max');
 
       
 
@@ -119,11 +134,13 @@
         return structuredClone(k_arr);
       }
 
-      setTimeout(() => {
-        alert(shuffle(Words));
-      },3000);
+      
 
       function start_click(){
+        if(isNaN(min_id.value) || isNaN(max_id.value)){
+          alert('範囲は数値を入れてください。');
+        }
+        range_num = [parseInt(min_id.value),parseInt(max_id.value)];
         let k_elements = document.getElementsByName('mode');
         let mode = '';
         for (let i = 0; i < k_elements.length; i++){
@@ -140,10 +157,11 @@
 
         if(state == "play"){
           menu_id.style.display = 'none';
-          answer_box.style.display = 'grid';
+          play_id.style.display = 'block';
+          en_word = 'English';
         } else {
           menu_id.style.display = 'block';
-          answer_box.style.display = 'none';
+          play_id.style.display = 'none';
         }
       
         
