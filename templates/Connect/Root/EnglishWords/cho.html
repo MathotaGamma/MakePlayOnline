@@ -43,7 +43,7 @@
       <input type="number" id="min" min="1" max="1900" value="1">~<input type="number" id="max" min="1" max="190" value="1900"><br>
       <input type="radio" name="mode" value="normal" checked>通常
       <input type="radio" name="mode" value="weak">苦手特訓モード<br>
-      <input type="button" value="開始" onclick="start_click();">
+      <input type="button" id="start" value="開始" onclick="start_click();" disabled>
     </div>
     <div id="answer_box">
       <div class="box" id="box_1">1</div>
@@ -64,6 +64,10 @@
       const menu_id = document.getElementById('menu_par');
 
       const answer_box = document.getElementById('answer_box');
+
+      const start_button = document.getElementById('start');
+
+      
 
       answer_box.style.display = 'none';
 
@@ -94,7 +98,8 @@
           
           //alert(words);
           len = words.length;
-          alert(words.join(','));
+          //alert(words.join(','));
+          start_button.disabled = 'false';
         })
 
       function menu(){
