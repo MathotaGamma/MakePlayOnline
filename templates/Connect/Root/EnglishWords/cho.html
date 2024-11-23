@@ -103,10 +103,13 @@
         }
       }
 
-      function shuffle(k){
+      function shuffle(k_get_arr){
+        let k = structuredClone(k_get_arr);
         let k_arr = [];
         for(let k_ind = 0; k_ind < k.length; k_ind++){
-          k_arr.push(k[Math.floor((k.length-k_ind)*Math.random())]);
+          let k_rand = Math.floor((k.length-k_ind)*Math.random());
+          k_arr.push(k[k_rand]);
+          k.slice(k_rand,k_rand);
         }
         return structuredClone(k_arr);
       }
