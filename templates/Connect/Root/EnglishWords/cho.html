@@ -77,11 +77,41 @@
         until_num = until_num.split(',');
       }
 
+
+
+      
+      fetch(filePath)
+        .then(response => response.text())
+        .then(data => {
+        //alert('get');
+            
+          Words = data.split('\n').map((k) => {
+            let k_k = k.split(/(:|\/)/);
+            return [k_k[0],k_k[2],k_k.slice(4)];
+          });
+          words = structuredClone(Words);
+          //words = Words.slice(parseInt(params[0])-1,parseInt(params[1]));
+          
+          //alert(words);
+          len = words.length;
+          alert(words.join(','));
+        })
+
       function menu(){
         if(state == "menu"){
           menu_id.style.display = 'none';
         }
       }
+
+      function shuffle(k){
+        let k_arr = [];
+        for(let k_ind = 0; k_ind < k.length; k_ind++){
+          k_arr.push(k[Math.floor((k.length-k_ind)*Math.random())]);
+        }
+        return structuredClone(k_arr);
+      }
+
+      alert(shuffle(Words));
 
       function start_click(){
         let k_elements = document.getElementsByName('mode');
@@ -109,22 +139,7 @@
         
       }
       
-      fetch(filePath)
-        .then(response => response.text())
-        .then(data => {
-        //alert('get');
-            
-          Words = data.split('\n').map((k) => {
-            let k_k = k.split(/(:|\/)/);
-            return [k_k[0],k_k[2],k_k.slice(4)];
-          });
-          words = Words.slice(0,Words.length);
-          //words = Words.slice(parseInt(params[0])-1,parseInt(params[1]));
-          
-          //alert(words);
-          len = words.length;
-          alert(words.join(','));
-        })
+      
     </script>
   </body>
 </html>
