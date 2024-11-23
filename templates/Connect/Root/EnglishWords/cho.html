@@ -8,7 +8,12 @@
         margin: 0px;
         padding: 5px;
       }
-      input {
+
+      #min {
+        width: 50px;
+      }
+
+      #max {
         width: 50px;
       }
 
@@ -35,7 +40,7 @@
   </head>
   <body>
     <div id="menu_par">
-      <input type="number" min="1" max="1900" value="1">~<input type="number" min="1" max="190" value="1900"><br>
+      <input type="number" id="min" min="1" max="1900" value="1">~<input type="number" id="max" min="1" max="190" value="1900"><br>
       <input type="radio" name="mode" value="normal" checked>通常
       <input type="radio" name="mode" value="weak">苦手特訓モード<br>
       <input type="button" value="開始" onclick="start_click();">
