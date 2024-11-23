@@ -61,6 +61,7 @@
     </div>
     
     <script>
+      alert('hey');
       const filePath = "/Static/EnglishWords/words_data.txt";
       let len = 0;
       let Words = [];
@@ -158,7 +159,7 @@
         if(state == "play"){
           menu_id.style.display = 'none';
           play_id.style.display = 'block';
-          en_word = 'English';
+          en_word.innerText = 'English';
         } else {
           menu_id.style.display = 'block';
           play_id.style.display = 'none';
