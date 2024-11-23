@@ -114,7 +114,9 @@
         return structuredClone(k_arr);
       }
 
-      alert(shuffle(Words));
+      setTimeout(() => {
+        alert(shuffle(Words));
+      },3000);
 
       function start_click(){
         let k_elements = document.getElementsByName('mode');
