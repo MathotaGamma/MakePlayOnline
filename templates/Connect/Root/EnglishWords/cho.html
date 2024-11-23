@@ -14,11 +14,11 @@
     </style>
   </head>
   <body>
-    <div id="menu">
-      <input type="number" min="1" max="1900" value="1">~<input type="number" min="1" max="190" value="1900"><br>
-      <input type="radio" name="mode" value="normal" checked>通常
-      <input type="radio" name="mode" value="weak">苦手特訓モード<br>
-      <input type="button" value="開始" onclick="start_click();">
+    <div id="menu_par">
+      <input type="number" class="menu" min="1" max="1900" value="1">~<input type="number" min="1" max="190" value="1900"><br>
+      <input type="radio" class="menu" name="mode" value="normal" checked>通常
+      <input type="radio" class="menu" name="mode" value="weak">苦手特訓モード<br>
+      <input type="button" class="menu" value="開始" onclick="start_click();">
     </div>
     <div id="answer_box">
       <div id="box_1"></div>
@@ -28,7 +28,6 @@
     </div>
     
     <script>
-      alert('f');
       const filePath = "/Static/EnglishWords/words_data.txt";
       let len = 0;
       let Words = [];
@@ -36,7 +35,9 @@
 
       let state = "menu";
 
-      const menu_id = document.getElementById('menu');
+      const menu_id = document.getElementById('menu_par');
+
+      const menu_items = document.getElementsByClassName('menu');
 
 
 
@@ -63,9 +64,23 @@
             break;
           }
         }
-        if(mode == "normal"){
-          console.log(1);
+        if(mode == "normal" || mode == "weak"){
+          mode = "play";
+        } else {
+          mode = "menu";
         }
+
+        if(mode == "play"){
+          for(let k = 0; k < menu_items.length; k++){
+            menu_items[k].style.display = 'none';
+          }
+        } else {
+          for(let k = 0; k < menu_items.length; k++){
+            menu_items[k].style.display = 'block';
+          }
+        }
+      
+        
       }
       
       fetch(filePath)
