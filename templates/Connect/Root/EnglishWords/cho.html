@@ -83,6 +83,11 @@
       const min_num = document.getElementById('min');
       const max_num = document.getElementById('max');
 
+      const box1 = document.getElementById('box_1');
+      const box2 = document.getElementById('box_2');
+      const box3 = document.getElementById('box_3');
+      const box4 = document.getElementById('box_4');
+
       
 
       answer_box.style.display = 'none';
@@ -138,6 +143,7 @@
       
 
       function start_click(){
+        alert('hey');
         if(isNaN(min_id.value) || isNaN(max_id.value)){
           alert('範囲は数値を入れてください。');
         }
