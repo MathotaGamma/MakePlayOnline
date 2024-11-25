@@ -61,6 +61,15 @@
     </div>
     
     <script>
+      window.onerror = (a, b, c, d, e) => {
+        alert(`message: ${a}`);
+        alert(`source: ${b}`);
+        alert(`lineno: ${c}`);
+        alert(`colno: ${d}`);
+        alert(`error: ${e}`);
+
+        return true;
+      };
       alert('hey');
       const filePath = "/Static/EnglishWords/words_data.txt";
       let len = 0;
