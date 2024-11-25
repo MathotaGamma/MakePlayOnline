@@ -207,7 +207,7 @@
           menu_id.style.display = 'none';
           play_id.style.display = 'block';
 
-          words = shuffle(structureCloned(Words).slice(parseInt(range_num[0])-1,parseInt(range_num[1])));
+          words = shuffle(structuredClone(Words).slice(parseInt(range_num[0])-1,parseInt(range_num[1])));
           alert(words);
           next();
         } else {
