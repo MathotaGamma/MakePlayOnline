@@ -118,7 +118,7 @@
 
       
 
-      answer_box.style.display = 'none';
+      //answer_box.style.display = 'none';
 
 
 
@@ -168,6 +168,18 @@
         return structuredClone(k_arr);
       }
 
+
+      function next(){
+        if(words.length == 0){
+          alert('終了しました。');
+          start_click();
+          return
+        }
+        //alert(word[0]);
+        en_word.innerText = words[0][0];
+        box1.innerText = words[0][1];
+      }
+
       
 
       function start_click(){
@@ -194,7 +206,10 @@
         if(state == "play"){
           menu_id.style.display = 'none';
           play_id.style.display = 'block';
-          en_word.innerText = 'English';
+
+          words = shuffle(structureCloned(Words).slice(parseInt(range_num[0])-1,parseInt(range_num[1])));
+          alert(words);
+          next();
         } else {
           menu_id.style.display = 'block';
           play_id.style.display = 'none';
