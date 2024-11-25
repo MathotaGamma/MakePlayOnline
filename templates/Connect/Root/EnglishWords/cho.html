@@ -61,12 +61,12 @@
     </div>
     
     <script>
-      window.onerror = (a, b, c, d, e) => {
-        alert(`message: ${a}`);
-        alert(`source: ${b}`);
-        alert(`lineno: ${c}`);
-        alert(`colno: ${d}`);
-        alert(`error: ${e}`);
+      window.onerror = (k_a, k_b, k_c, k_d, k_e) => {
+        alert(`message: ${k_a}`);
+        /*alert(`source: ${k_b}`);
+        alert(`lineno: ${k_c}`);
+        alert(`colno: ${k_d}`);
+        alert(`error: ${k_e}`);*/
 
         return true;
       };
@@ -89,8 +89,8 @@
       const start_button = document.getElementById('start');
       const en_word = document.getElementById('en_word');
 
-      const min_num = document.getElementById('min');
-      const max_num = document.getElementById('max');
+      const min_id = document.getElementById('min');
+      const max_id = document.getElementById('max');
 
       const box1 = document.getElementById('box_1');
       const box2 = document.getElementById('box_2');
