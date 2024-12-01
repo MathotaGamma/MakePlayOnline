@@ -36,6 +36,19 @@
       background-color: #333;
       padding: 10px;
     }
+    @media only screen and (max-width : 767px){
+      nav {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+      	grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "imgA imgA imgA"
+          "conB conC conD";
+        justify-content: space-evenly;
+        background-color: #333;
+        padding: 10px;
+      }
+    }
     nav a {
       display: flex;
       justify-content: center;
@@ -73,12 +86,12 @@
     <p>ゲームを作成して楽しもう！</p>
   </header>
   <nav>
-    <a href="#">
+    <a href="#" class="img">
       <img src="/Static/icon_long.jpeg" id="icon" alt="ロゴ">
     </a>
-    <a href="#">MAKE</a>
-    <a href="./Connect/homepage">CONTENTS</a>
-    <a href="https://mathotagamma.github.io/homepage">OFFLINE版</a>
+    <a href="#" class="con">MAKE</a>
+    <a href="./Connect/homepage" class="con">CONTENTS</a>
+    <a href="https://mathotagamma.github.io/homepage" class="con">OFFLINE版</a>
   </nav>
   <main>
     <h2>Welcome to Make & Play</h2>
