@@ -48,6 +48,18 @@
         background-color: #333;
         padding: 10px;
       }
+      #img {
+        grid-area: imgA;
+      }
+      #con1 {
+        grid-area: conB;
+      }
+      #con2 {
+        grid-area: conC;
+      }
+      #con3 {
+        grid-area: conD;
+      }
     }
     nav a {
       display: flex;
@@ -86,12 +98,12 @@
     <p>ゲームを作成して楽しもう！</p>
   </header>
   <nav>
-    <a href="#" class="img">
+    <a href="#" id="img">
       <img src="/Static/icon_long.jpeg" id="icon" alt="ロゴ">
     </a>
-    <a href="#" class="con">MAKE</a>
-    <a href="./Connect/homepage" class="con">CONTENTS</a>
-    <a href="https://mathotagamma.github.io/homepage" class="con">OFFLINE版</a>
+    <a href="#" id="con1">MAKE</a>
+    <a href="./Connect/homepage" id="con2">CONTENTS</a>
+    <a href="https://mathotagamma.github.io/homepage" id="con3">OFFLINE版</a>
   </nav>
   <main>
     <h2>Welcome to Make & Play</h2>
