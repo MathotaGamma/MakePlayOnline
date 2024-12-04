@@ -204,13 +204,19 @@
           start_click();
           return
         }
+
         
         en_word.innerText = words[0][0]+':'+words[0][1];
-        ans_ind = Math.floor(4*Math.random());
 
+        
         let box_list_k = [box1,box2,box3,box4];
         
-        box_list_k[ans_ind].innerText = words[0][2];
+        //解答番号
+        ans_ind = Math.floor(4*Math.random());
+
+        //答えの場所(0~3)をans_indに格納
+        let k_ans = words[0];
+        box_list_k[ans_ind].innerText = k_ans[2];
         box_list_k.splice(ans_ind,1);
 
         ans_list = [];
@@ -219,12 +225,15 @@
         k_Words.splice(parseInt(words[0][0])-1,1);
         for(let k = 0; k < 3; k++){
           let k_k = k_Words.splice(Math.floor((1899-k)*Math.random()),1)[0];
-          ans_list.push(k_k);
+          ans_list.push(structuredClone(k_k));
           //alert(k_k);
           box_list_k[0].innerText = k_k[2];
           box_list_k.shift();
         }
-        
+        ans_list.splice(ans_ind,0,structuredClone(k_ans));
+        alert(ans_list);
+        words.shift();
+        alert(words);
         touch_can_tf = true;
       }
 
@@ -238,7 +247,7 @@
           alert('不正解。正解は'+ans_list[ans_ind][2]+'です。');
         }
       
-      
+        next();
       }
 
       
