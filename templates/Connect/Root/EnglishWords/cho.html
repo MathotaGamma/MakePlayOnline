@@ -190,10 +190,11 @@
 
         let k_Words = structuredClone(Words);
         k_Words.splice(parseInt(words[0][0])-1,1);
-        let k_list = 
+        let k_list = [];
         for(let k = 0; k < 3; k++){
           k_list.push(k_Words.splice(Math.floor((1899-k)*Math.random())));
         }
+        alert(k_list);
       }
 
       
