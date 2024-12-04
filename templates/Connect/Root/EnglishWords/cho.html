@@ -108,7 +108,7 @@
         font-size: auto;
         justify-content: center;
         align-items: center;
-        background-color: rgb(255 0 0 / .5);
+        background-color: rgba(255,0,0,0.5);
       }
 
 
@@ -133,7 +133,7 @@
       </div>
       <div id="oper">
         <div id="exit">EXIT</div>
-        <div id="next"></div>
+        <div id="next">NEXT</div>
       </div>
     </div>
     
@@ -162,7 +162,7 @@
 
       const play_id = document.getElementById('play');
 
-      
+      const count_id = document.getElementById('count');
 
       const answer_box = document.getElementById('answer_box');
 
@@ -178,12 +178,18 @@
       const box3 = document.getElementById('box_3');
       const box4 = document.getElementById('box_4');
 
+      const exit_id = document.getElementById('exit');
+      const next_id = document.getElementById('next');
+
       let ans_ind = 0;
       let ans_list = [];
+
+      let count = 0;
 
       const box_list = [box1,box2,box3,box4];
 
       let touch_can_tf = false;
+      let next_tf = false;
 
       box1.addEventListener('touchstart', function(event) {
         if(!touch_can_tf) return;
@@ -266,6 +272,8 @@
           return
         }
 
+        count += 1;
+        count_id.innerText = String(count);
         
         en_word.innerText = words[0][0]+':'+words[0][1];
 
@@ -304,23 +312,35 @@
         touch_can_tf = false;
         if(k == ans_ind){
           text_id.innerText = '正解!';
-          alert('正解!');
+          //alert('正解!');
         } else {
           text_id.innerText = '不正解。正解は「'+ans_list[ans_ind][2]+'」です。';
-          alert('不正解。正解は「'+ans_list[ans_ind][2]+'」です。');
+          //alert('不正解。正解は「'+ans_list[ans_ind][2]+'」です。');
         }
-      
-        next();
+
+        next_tf = true;
+        next_id.disabled = false;
       }
+
+      next_id.addEventListener('touchstart', function(event) {
+        if(!next_tf) return;
+        next_tf = false;
+        next_id.disabled = true;
+        next();
+      }, false);
 
       
 
       function start_click(){
-        
         if(isNaN(min_id.value) || isNaN(max_id.value)){
           alert('範囲は数値を入れてください。');
         }
         range_num = [parseInt(min_id.value),parseInt(max_id.value)];
+
+        touch_can_tf = false;
+        next_tf = false;
+        next_id.disabled = true;
+        count = 0;
         
         let k_elements = document.getElementsByName('mode');
         let mode = '';
