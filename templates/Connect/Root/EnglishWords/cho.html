@@ -159,6 +159,8 @@
 
       function shuffle(k_get_arr){
         let k = structuredClone(k_get_arr);
+        alert('shuffle');
+        alert(k);
         let k_arr = [];
         for(let k_ind = 0; k_ind < k.length; k_ind++){
           let k_rand = Math.floor((k.length-k_ind)*Math.random());
@@ -215,6 +217,7 @@
           alert('範囲は数値を入れてください。');
         }
         range_num = [parseInt(min_id.value),parseInt(max_id.value)];
+        alert(range_num);
         let k_elements = document.getElementsByName('mode');
         let mode = '';
         for (let i = 0; i < k_elements.length; i++){
