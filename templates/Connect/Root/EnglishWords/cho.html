@@ -196,17 +196,7 @@
         return structuredClone(k_arr);
       }
 
-      function answer(k){
-        
-        touch_can_tf = false;
-        if(k == ans_ind){
-          alert('正解!');
-        } else {
-          alert('不正解。正解は'+ans_list[ans_ind][0][2]+'です。');
-        }
       
-      
-      }
 
       function next(){
         if(words.length == 0){
@@ -228,14 +218,27 @@
         let k_Words = structuredClone(Words);
         k_Words.splice(parseInt(words[0][0])-1,1);
         for(let k = 0; k < 3; k++){
-          let k_k = k_Words.splice(Math.floor((1899-k)*Math.random()),1);
+          let k_k = k_Words.splice(Math.floor((1899-k)*Math.random()),1)[0];
           ans_list.push(k_k);
-          alert(k_k);
-          box_list_k[0].innerText = k_k[0][2];
-          box_list_k.splice(0,1);
+          //alert(k_k);
+          box_list_k[0].innerText = k_k[2];
+          box_list_k.shift();
         }
         
         touch_can_tf = true;
+      }
+
+
+      function answer(k){
+        
+        touch_can_tf = false;
+        if(k == ans_ind){
+          alert('正解!');
+        } else {
+          alert('不正解。正解は'+ans_list[ans_ind][2]+'です。');
+        }
+      
+      
       }
 
       
