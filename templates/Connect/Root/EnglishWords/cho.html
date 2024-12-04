@@ -178,7 +178,12 @@
         
         en_word.innerText = words[0][0]+':'+words[0][1];
         let k_rand = Math.floor(4*Math.random());
-        if(k_rand == 0){
+        let box_list_k = [box1,box2,box3,box4];
+        
+        box_list_k[k_rand].innerText = words[0][2];
+        box_list_k.splice(k_rand,1);
+        
+        /*if(k_rand == 0){
           box1.innerText = words[0][2];
         } else if(k_rand == 1){
           box2.innerText = words[0][2];
@@ -186,15 +191,19 @@
           box3.innerText = words[0][2];
         } else {
           box4.innerText = words[0][2];
-        }
+        }*/
 
         alert(words[0]);
         let k_Words = structuredClone(Words);
         k_Words.splice(parseInt(words[0][0])-1,1);
         let k_list = [];
         for(let k = 0; k < 3; k++){
-          k_list.push(k_Words.splice(Math.floor((1899-k)*Math.random()),1));
+          let k_k = k_Words.splice(Math.floor((1899-k)*Math.random()),1);
+          k_list.push(k_k);
+          box_list_k[0].innerText = k_k[0][2];
+          box_list_k.splice(0,1);
         }
+        
         alert(k_list);
       }
 
