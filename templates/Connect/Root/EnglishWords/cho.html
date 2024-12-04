@@ -24,18 +24,30 @@
       #play{
         display: none;
         position: absolute;
-        bottom: 50px;
+        bottom: 0px;
         left: 0px;
         width: 100%;
-        height: calc(100% - 50px);
+        height: 100%;
         border: 1px solid;
         border-radius: 10px;
+      }
+
+      #count {
+        display: flex;
+        top: 0px;
+        left: 0px;
+        width: 50px;
+        height: 75px;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
       }
 
       #text {
         display: flex;
         top: 0px;
-        width: 100%;
+        left: 50px;
+        width: calc(100% - 50px);
         height: 75px;
         justify-content: center;
         align-items: center;
@@ -56,7 +68,7 @@
 
       #answer_box {
         width: 100%;
-        height: calc(100% - 150px);
+        height: calc(100% - 200px);
         display: grid;
         grid-template: 1fr 1fr / 1fr 1fr;
       }
@@ -70,6 +82,36 @@
         align-items: center;
       }
 
+      #oper {
+        display: grid;
+        grid-template: 1fr 1fr / 1fr;
+        width: 100%;
+        height: 50px;
+        bottom: 0px;
+      }
+
+      
+      #exit {
+        display: flex;
+        border: 1px solid black;
+        border-radius: 0px;
+        font-size: auto;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(0 0 0 / .5);
+      }
+
+      #next {
+        display: flex;
+        border: 1px solid black;
+        border-radius: 0px;
+        font-size: auto;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(255 0 0 / .5);
+      }
+
+
     </style>
   </head>
   <body>
@@ -80,6 +122,7 @@
       <input type="button" id="start" value="開始" onclick="start_click();" disabled>
     </div>
     <div id="play">
+      <div id="count">0個目</div>
       <div id="text"></div>
       <div id="en_word"></div>
       <div id="answer_box">
@@ -87,6 +130,10 @@
         <div class="box" id="box_2">2</div>
         <div class="box" id="box_3">3</div>
         <div class="box" id="box_4">4</div>
+      </div>
+      <div id="oper">
+        <div id="exit">EXIT</div>
+        <div id="next"></div>
       </div>
     </div>
     
@@ -114,6 +161,9 @@
       const menu_id = document.getElementById('menu_par');
 
       const play_id = document.getElementById('play');
+
+      
+
       const answer_box = document.getElementById('answer_box');
 
       const start_button = document.getElementById('start');
