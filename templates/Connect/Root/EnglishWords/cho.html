@@ -116,6 +116,9 @@
       const box3 = document.getElementById('box_3');
       const box4 = document.getElementById('box_4');
 
+      let ans_ind = 0;
+      let ans_list = [];
+
       const box_list = [box1,box2,box3,box4];
 
       let touch_can_tf = false;
@@ -194,9 +197,15 @@
       }
 
       function answer(k){
-        alert(k);
-        touch_can_tf = false;
         
+        touch_can_tf = false;
+        if(k == ans_ind){
+          alert('正解!');
+        } else {
+          alert('不正解。正解は'+ans_list[ans_ind][0][2]+'です。');
+        }
+      
+      
       }
 
       function next(){
@@ -207,20 +216,21 @@
         }
         
         en_word.innerText = words[0][0]+':'+words[0][1];
-        let k_ans_ind = Math.floor(4*Math.random());
+        ans_ind = Math.floor(4*Math.random());
 
         let box_list_k = [box1,box2,box3,box4];
         
-        box_list_k[k_ans_ind].innerText = words[0][2];
-        box_list_k.splice(k_ans_ind,1);
-        
+        box_list_k[ans_ind].innerText = words[0][2];
+        box_list_k.splice(ans_ind,1);
+
+        ans_list = [];
         
         let k_Words = structuredClone(Words);
         k_Words.splice(parseInt(words[0][0])-1,1);
-        let k_list = [];
         for(let k = 0; k < 3; k++){
           let k_k = k_Words.splice(Math.floor((1899-k)*Math.random()),1);
-          k_list.push(k_k);
+          ans_list.push(k_k);
+          alert(k_k);
           box_list_k[0].innerText = k_k[0][2];
           box_list_k.splice(0,1);
         }
@@ -236,7 +246,7 @@
           alert('範囲は数値を入れてください。');
         }
         range_num = [parseInt(min_id.value),parseInt(max_id.value)];
-        alert(range_num);
+        
         let k_elements = document.getElementsByName('mode');
         let mode = '';
         for (let i = 0; i < k_elements.length; i++){
@@ -257,7 +267,7 @@
           play_id.style.display = 'block';
 
           words = shuffle(structuredClone(Words).slice(parseInt(range_num[0])-1,parseInt(range_num[1])));
-          alert(words);
+          
           next();
         } else {
           menu_id.style.display = 'block';
