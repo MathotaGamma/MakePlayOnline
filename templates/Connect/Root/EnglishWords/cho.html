@@ -175,7 +175,7 @@
           start_click();
           return
         }
-        alert(word[0]);
+        
         en_word.innerText = words[0][0]+':'+words[0][1];
         let k_rand = Math.floor(4*Math.random());
         if(k_rand == 0){
@@ -188,6 +188,7 @@
           box4.innerText = words[0][2];
         }
 
+        alert(words[0]);
         let k_Words = structuredClone(Words);
         k_Words.splice(parseInt(words[0][0])-1,1);
         let k_list = [];
