@@ -275,8 +275,10 @@
           return
         }
 
+        text_id.innerText = '';
+        
         count += 1;
-        count_id.innerText = String(count);
+        count_id.innerText = String(count)+'回目';
         
         en_word.innerText = words[0][0]+':'+words[0][1];
 
