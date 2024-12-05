@@ -150,7 +150,7 @@ def Static_file(Path):
 
 @app.route('/Blog/home')
 def blog_home():
-  return renser_template('/Blog/home.html')
+  return render_template('/Blog/home.html')
 
 @app.route('/Blog/Contents/<path:Path>')
 def blog_contents(Path):
