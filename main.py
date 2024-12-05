@@ -148,6 +148,14 @@ def Static_file_post(Path):
 def Static_file(Path):
   return send_from_directory('static',Path)
 
+@app.route('/Blog/home')
+def blog_home():
+  return renser_template('/Blog/home.html')
+
+@app.route('/Blog/Contents/<path:Path>')
+def blog_contents(Path):
+  return render_template('/Blog/Contents/'+Path+'.html')
+
 
 
 @app.route('/Fighters/play')
