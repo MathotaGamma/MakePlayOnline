@@ -220,7 +220,7 @@
 
       let until_num = localStorage.getItem('English_Words');
       if (until_num == null) {
-        until_num = new Array(1900).fill("0");
+        until_num = new Array(1900).fill("0/0");
         localStorage.setItem('English_Words', until_num.join(','));
       } else {
         until_num = until_num.split(',');
@@ -275,7 +275,8 @@
           return
         }
 
-        text_id.innerText = '';
+        
+        
         
         count += 1;
         count_id.innerText = String(count)+'回目';
@@ -309,6 +310,7 @@
         words.shift();
         
         touch_can_tf = true;
+        text_id.innerText = until_num[ans_list[ans_ind][0]-1];
       }
 
 
