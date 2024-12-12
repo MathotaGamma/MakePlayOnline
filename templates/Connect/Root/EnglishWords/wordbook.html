@@ -26,6 +26,8 @@
       let words_num = 0;
       let words = [];
 
+      let count_id_list = [];
+
       function table_create(){
         if(words_count == null){
           words_count = new Array(words_num).fill(0);
@@ -38,6 +40,7 @@
           var tr_k = table_id.insertRow(-1);
           tr_k.id = String(ind_k);
           var td0_k = tr_k.insertCell(0);
+          count_id_list.push(td0_k);
           td0_k.textContent = String(words_count[ind_k]);
           let td1_k = tr_k.insertCell(1);
           td1_k.innerHTML = k[0];
