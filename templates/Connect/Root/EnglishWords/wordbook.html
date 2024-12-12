@@ -49,14 +49,16 @@
           td2_k.innerHTML = '<b>'+k[1]+'</b>';
           let td3_k = tr_k.insertCell(3);
           let k_k = k[2].split(/(；|\()/,3);
-          td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>';
           if(k_k.length == 3){
             if(k_k[1] == '；'){
-              td3_k.innerHTML += '；'+k_k[2];
+              td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>；'+k_k[2];
             } else if(k_k[1] == '('){
-              td3_k.innerHTML += '('+k_k[2];
+              td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>('+k_k[2];
             }
+          } else {
+            td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>';
           }
+          
         }
       }
 
