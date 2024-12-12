@@ -50,7 +50,7 @@
           td2_k.innerHTML = '<b>'+k[1]+'</b>';
           let td3_k = tr_k.insertCell(3);
           alert('1');
-          let k_k = k[2].split(/(；|\()/,3);
+          let k_k = k[2].split(/[；(]/,3);
           alert('2');
           if(k_k.length == 3){
             alert('3');
