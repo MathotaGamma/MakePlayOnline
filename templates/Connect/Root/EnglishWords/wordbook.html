@@ -5,6 +5,55 @@
     <title>WordBook</title>
   </head>
   <body>
-    Hello
+    <table border="1" id="wordlist">
+      <tr>
+        <th>正</th>
+        <th>番号</th>
+        <th>単語</th>
+        <th>日本語</th>
+      </tr>
+    </table>
+    <script>
+      window.addEventListener("error", (event) => {
+        alert(event.message);
+      });
+      
+      const wordlist_id = document.getElementById('wordlist');
+      
+      let english = '';
+      let words_num = 0;
+      let words = [];
+
+      function table_create(){
+        for(let k of words){
+          
+        }
+      }
+
+      //alert('hey');
+      const filePath = "/Static/EnglishWords/words_data.txt";
+      // 非同期でファイルを読み込む
+      fetch(filePath)
+        .then(response => response.text())
+        .then(data => {
+          //alert('get');
+          english = data;
+          words = english.split('\n');
+          
+          words_num = words.length;
+
+          table_create();
+    
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+
+
+      let name = localStorage.getItem('name');
+      let id = localStorage.getItem('id');
+      let room = localStorage.getItem('room');
+    </script>
   </body>
 </html>
