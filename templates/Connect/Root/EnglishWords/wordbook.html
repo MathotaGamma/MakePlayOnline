@@ -19,16 +19,25 @@
       });
       
       const table_id = document.getElementById('wordtable');
+
+      let words_count = localStorage.getItem('EnglishWords_wordbook_count');
       
       
       let words_num = 0;
       let words = [];
 
       function table_create(){
-        for(let k of words){
+        if(words_count == null){
+          words_count = new Array(words_num).fill(0);
+          localStorage.setItem('EnglishWords_wordbook_count',words_count);
+        } else {
+          words_count = words_count.split(',');
+        }
+        for(let ind_k = 0; ind_k < words_num; ind_k++){
+          let k = words[ind_k];
           var tr_k = table_id.insertRow(-1);
           var td0_k = tr_k.insertCell(0);
-          td0_k.textContent = "0"
+          td0_k.textContent = String(words_count[ind_k]);
           var td1_k = tr_k.insertCell(1);
           td1_k.textContent = k[0];
           let td2_k = tr_k.insertCell(2);
