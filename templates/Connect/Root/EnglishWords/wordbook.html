@@ -38,10 +38,13 @@
           var tr_k = table_id.insertRow(-1);
           var td0_k = tr_k.insertCell(0);
           td0_k.textContent = String(words_count[ind_k]);
-          var td1_k = tr_k.insertCell(1);
-          td1_k.textContent = k[0];
-          let td2_k = tr_k.insertCell(2);
-          td2_k.textContent = k[1];
+          let td1_k = tr_k.insertCell(2);
+          td1_k.innerHTML = '<b>'+k[0]+'</b>';
+          let k_k = k[1].split('；',1);
+          td2_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>';
+          if(k_k.length == 2){
+            td2_k.innerHTML += '；'+k_k[1];
+          }
           let td3_k = tr_k.insertCell(3);
           td3_k.textContent = k[2];
         }
