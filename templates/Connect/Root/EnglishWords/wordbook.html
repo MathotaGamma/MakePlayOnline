@@ -18,15 +18,23 @@
         alert(event.message);
       });
       
-      const wordlist_id = document.getElementById('wordlist');
+      const table_id = document.getElementById('wordlist');
       
-      let english = '';
+      
       let words_num = 0;
       let words = [];
 
       function table_create(){
         for(let k of words){
-          
+          var tr_k = table_id.insertRow(-1);
+          var td0_k = tr_k.insertCell(0);
+          td0_k.textContent = "0"
+          var td1_k = tr_k.insertCell(1);
+          td1_k.textContent = k[0];
+          let td2_k = tr_k.insertCell(2);
+          td2_k.textContent = k[1];
+          let td3_k = tr_k.insertCell(3);
+          td3_k.textContent = k[2];
         }
       }
 
@@ -37,8 +45,11 @@
         .then(response => response.text())
         .then(data => {
           //alert('get');
-          english = data;
-          words = english.split('\n');
+          //english = data;
+          words = data.split('\n').map((k) => {
+            let k_k = k.split(/(:|\/)/);
+            return [k_k[0],k_k[2],k_k.slice(4)];
+          });
           
           words_num = words.length;
 
