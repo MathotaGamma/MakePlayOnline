@@ -14,7 +14,6 @@
       </tr>
     </table>
     <script>
-      alert('c');
       window.addEventListener("error", (event) => {
         alert(event.message);
       });
@@ -40,7 +39,6 @@
           var td0_k = tr_k.insertCell(0);
           td0_k.textContent = String(words_count[ind_k]);
           tr_k.onclick = function() {
-            alert(ind_k);
             words_count[ind_k] = String(1+parseInt(words_count[ind_k]));
             td0_k.textContent = String(words_count[ind_k]);
           };
@@ -49,21 +47,16 @@
           let td2_k = tr_k.insertCell(2);
           td2_k.innerHTML = '<b>'+k[1]+'</b>';
           let td3_k = tr_k.insertCell(3);
-          alert('1');
           
           let k_k = k[2].split(/([；(])/,3);
-          alert(k[2]);
-          alert(k_k);
-          alert('2');
+          
           if(k_k.length == 3){
-            alert('3');
             if(k_k[1] == '；'){
               td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>；'+k_k[2];
             } else if(k_k[1] == '('){
               td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>('+k_k[2];
             }
           } else {
-            alert('3');
             td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>';
           }
           
