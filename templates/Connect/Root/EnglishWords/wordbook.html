@@ -51,7 +51,7 @@
           let td3_k = tr_k.insertCell(3);
           alert('1');
           if (typeof k[2] !== "string") {
-            alert("k[2] は文字列ではありません:", k[2]);
+            alert("k[2] は文字列ではありません:", k);
           }
           try{
             let k_k = k[2].split(/([；(])/,3);
@@ -83,8 +83,8 @@
           //alert('get');
           //english = data;
           words = data.split('\n').map((k) => {
-            let k_k = k.split(/(:|\/)/);
-            return [k_k[0],k_k[2],k_k.slice(4)];
+            let k_k = k.split(/[:\/]/);
+            return [k_k[0],k_k[2],k_k[4])];
           });
           
           words_num = words.length;
