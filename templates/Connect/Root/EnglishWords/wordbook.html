@@ -42,8 +42,9 @@
             words_count[ind_k] = String(1+parseInt(words_count[ind_k]));
             td0_k.textCintent = String(words_count[ind_k]);
           };
-          let td1_k = tr_k.insertCell(2);
+          let td1_k = tr_k.insertCell(1);
           td1_k.innerHTML = '<b>'+k[0]+'</b>';
+          let td2_k = tr_k.insertCell(2);
           let k_k = k[1].split('；',1);
           td2_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>';
           if(k_k.length == 2){
