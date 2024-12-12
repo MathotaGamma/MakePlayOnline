@@ -39,6 +39,7 @@
           var td0_k = tr_k.insertCell(0);
           td0_k.textContent = String(words_count[ind_k]);
           tr_k.onclick = function() {
+            alert(ind_k);
             words_count[ind_k] = String(1+parseInt(words_count[ind_k]));
             td0_k.textContent = String(words_count[ind_k]);
           };
