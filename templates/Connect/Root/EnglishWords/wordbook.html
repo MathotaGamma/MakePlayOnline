@@ -51,16 +51,16 @@
           let k_k = k[2].split(/(；|（(?=≒|⇔))/,3);
           //let k_k = k[2].split(/([；（])/,3);
           
-          if(k_k.length == 3){
+          if(k_k.length => 3){
             if(k_k[1] == '；'){
-              td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>；'+k_k[2];
+              td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>；'+k_k.slice(2);
             } else if(k_k[1] == '（'){
-              td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>（'+k_k[2];
+              td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>（'+k_k.slice(2);
             } else {
               alert(k_k[1]);
             }
           } else {
-            td3_k.innerHTML = '<b><font color="red">'+k_k[0]+'</font></b>';
+            td3_k.innerHTML = '<b><font color="red">'+k[2]+'</font></b>';
           }
           
         }
