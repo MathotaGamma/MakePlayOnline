@@ -47,8 +47,9 @@
           let td2_k = tr_k.insertCell(2);
           td2_k.innerHTML = '<b>'+k[1]+'</b>';
           let td3_k = tr_k.insertCell(3);
-          
-          let k_k = k[2].split(/([；（])/,3);
+          // /(\((?!≒|=>))/
+          let k_k = k[2].split(/(；|（(?=≒|⇔))/,3);
+          //let k_k = k[2].split(/([；（])/,3);
           
           if(k_k.length == 3){
             if(k_k[1] == '；'){
