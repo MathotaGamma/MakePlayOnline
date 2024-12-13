@@ -60,7 +60,7 @@
 
             // GLTF Model
             const loader = new GLTFLoader();
-            loader.load('Static/Car/car.glb', (gltf) => {
+            loader.load('Static/Car/car.gltf', (gltf) => {
                 model = gltf.scene;
                 model.scale.set(1, 1, 1);
                 scene.add(model);
