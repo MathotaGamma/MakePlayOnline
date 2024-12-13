@@ -9,7 +9,7 @@
         import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.module.js';
         import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/loaders/GLTFLoader.js';
         import * as CANNON from 'https://cdn.jsdelivr.net/npm/cannon-es/dist/cannon-es.js';
-
+        alert('hey');
         let scene, camera, renderer, world;
         let model, modelBody;
         let floorBody;
@@ -21,6 +21,7 @@
         animate();
 
         function init() {
+            alert('init');
             // Scene and Camera
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -58,9 +59,12 @@
             createWall(-10, 1, 0, -Math.PI / 2); // Right Wall
             createWall(0, 1, -10, Math.PI); // Back Wall
 
+            alert('pre');
+
             // GLTF Model
             const loader = new GLTFLoader();
             loader.load('/Static/Car/car.gltf', (gltf) => {
+                alert('loaded');
                 model = gltf.scene;
                 model.scale.set(1, 1, 1);
                 scene.add(model);
@@ -70,6 +74,7 @@
                 modelBody.addShape(shape);
                 modelBody.position.set(0, 1, 0);
                 world.addBody(modelBody);
+                alert('fin');
             });
 
             // Event Listeners for movement
