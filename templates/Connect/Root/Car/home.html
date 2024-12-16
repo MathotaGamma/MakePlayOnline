@@ -162,9 +162,11 @@
             if (model && modelBody) {
                 // Apply controls to move the model
                 const force = 5;
+                
                 if (controls.up) modelBody.velocity.z = -force;
                 if (controls.down) modelBody.velocity.z = force;
-                if (controls.left) modelBody.velocity.y = -force;
+                //if (controls.left) modelBody.velocity.y = -force;
+                if (controls.left) modelBody.torque.set(0, force, 0);
                 if (controls.right) modelBody.velocity.y = force;
 
                 model.position.copy(modelBody.position);
