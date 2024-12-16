@@ -164,8 +164,8 @@
                 const force = 5;
                 if (controls.up) modelBody.velocity.z = -force;
                 if (controls.down) modelBody.velocity.z = force;
-                if (controls.left) modelBody.velocity.x = -force;
-                if (controls.right) modelBody.velocity.x = force;
+                if (controls.left) modelBody.velocity.y = -force;
+                if (controls.right) modelBody.velocity.y = force;
 
                 model.position.copy(modelBody.position);
                 model.quaternion.copy(modelBody.quaternion);
