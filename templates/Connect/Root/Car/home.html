@@ -26,7 +26,7 @@
         import { GLTFLoader } from "GLTFLoader";
         import { OrbitControls } from "OrbitControls";
         import * as CANNON from "Cannon";
-        alert('HELLO!!');
+        alert('HELLO1!!');
         let scene, camera, renderer, world;
         let model, modelBody;
         let floorBody;
@@ -165,8 +165,8 @@
                 
                 if (controls.up) modelBody.velocity.z = -force;
                 if (controls.down) modelBody.velocity.z = force;
-                //if (controls.left) modelBody.velocity.y = -force;
-                if (controls.left) modelBody.torque.set(0, force, 0);
+                if (controls.left) modelBody.velocity.y = -force;
+                //if (controls.left) modelBody.torque.set(0, force, 0);
                 if (controls.right) modelBody.velocity.y = force;
 
                 model.position.copy(modelBody.position);
