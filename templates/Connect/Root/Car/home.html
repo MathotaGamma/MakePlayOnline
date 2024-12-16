@@ -91,7 +91,7 @@
 
                 // Contact material between modelBody and floorBody
                 const contactMaterial = new CANNON.ContactMaterial(
-                        modelBody.material, // Use material properties of the model body
+                        model.material, // Use material properties of the model body
                         floor.material, // Use material properties of the floor body
                         {
                             friction: 0.5,
