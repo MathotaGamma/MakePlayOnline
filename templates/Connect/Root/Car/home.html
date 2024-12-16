@@ -88,17 +88,19 @@
                 modelBody.addShape(shape);
                 modelBody.position.set(0, 1, 0);
                 world.addBody(modelBody);
-            });
 
-            const contactMaterial = new CANNON.ContactMaterial(
-                modelBody,
-                floor,
-                {
-                  friction: 0.5,
-                  contactEquationStiffness: 1000,
-                }
-              );
-            world.addContactMaterial(contactMaterial);
+                // Contact material between modelBody and floorBody
+                const contactMaterial = new CANNON.ContactMaterial(
+                        modelBody.material, // Use material properties of the model body
+                        floor.material, // Use material properties of the floor body
+                        {
+                            friction: 0.5,
+                            restitution: 0.3, // Optional: bounciness
+                            contactEquationStiffness: 1000,
+                        }
+                    );
+                world.addContactMaterial(contactMaterial);
+            });
 
             // Event Listeners for movement
             setupControls();
