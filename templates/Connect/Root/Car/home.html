@@ -1,9 +1,81 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <title>Hello</title>
-  </head>
-  <body>
-    
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js + Cannon.js</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.141.0/build/three.module.js",
+          "GLTFLoader": "https://unpkg.com/three@0.141.0/examples/jsm/loaders/GLTFLoader.js",
+          "Cannon": "https://cdn.jsdelivr.net/npm/cannon-es/dist/cannon-es.js"
+        }
+      }
+    </script>
+    <script type="module">
+        import * as THREE from "three";
+        import { GLTFLoader } from "GLTFLoader";
+        import * as CANNON from "Cannon";
+
+        let scene, camera, renderer, world;
+        let model, modelBody, floorBody;
+        const controls = { left: false, right: false, up: false, down: false }; // ボタンの状態管理
+
+        init();
+        animate();
+
+        function init() {
+            // Three.js の初期設定
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // ライト
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(5, 10, 5);
+            scene.add(light);
+
+            // Cannon.js の初期設定
+            world = new CANNON.World();
+            world.gravity.set(0, -9.82, 0);
+
+            // 地面
+            const floorGeometry = new THREE.PlaneGeometry(50, 50);
+            const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 });
+            const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+            floor.rotation.x = -Math.PI / 2;
+            scene.add(floor);
+
+            const floorShape = new CANNON.Plane();
+            floorBody = new CANNON.Body({ mass: 0, material: new CANNON.Material("floorMaterial") });
+            floorBody.addShape(floorShape);
+            floorBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+            world.addBody(floorBody);
+
+           
+            
+
+            
+        }
+
+        
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 物理演算の更新
+            world.step(1 / 60);
+
+            
+
+            // レンダリング
+            renderer.render(scene, camera);
+        }
+    </script>
+</head>
+<body></body>
 </html>
