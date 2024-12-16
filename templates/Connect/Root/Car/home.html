@@ -29,7 +29,6 @@
             // Three.js の初期設定
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 5, 10);
 
             renderer = new THREE.WebGLRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -45,7 +44,7 @@
             world.gravity.set(0, -9.82, 0);
 
             // 地面
-            const floorGeometry = new THREE.PlaneGeometry(20, 20);
+            const floorGeometry = new THREE.PlaneGeometry(50, 50);
             const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 });
             const floor = new THREE.Mesh(floorGeometry, floorMaterial);
             floor.rotation.x = -Math.PI / 2;
@@ -54,7 +53,7 @@
             const floorShape = new CANNON.Plane();
             floorBody = new CANNON.Body({ mass: 0, material: new CANNON.Material("floorMaterial") });
             floorBody.addShape(floorShape);
-            floorBody.quaternion.setFromEuler(-Math.PI / 2 + Math.PI/7, 0, 0);
+            floorBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
             world.addBody(floorBody);
 
             // GLTF モデルの読み込み
@@ -64,12 +63,24 @@
                 model.scale.set(1, 1, 1);
                 scene.add(model);
 
-                const shape = new CANNON.Box(new CANNON.Vec3(0.5, 0.5, 0.5)); // モデルの形状を物理エンジンで定義
+                // モデルの当たり判定を精密にする
+                const chassisShape = new CANNON.Box(new CANNON.Vec3(0.5, 0.2, 1)); // 車体
+                const wheelShape = new CANNON.Sphere(0.2); // 車輪
+
                 modelBody = new CANNON.Body({
                     mass: 1,
                     material: new CANNON.Material("modelMaterial"),
                 });
-                modelBody.addShape(shape);
+
+                // 車体を中央に追加
+                modelBody.addShape(chassisShape, new CANNON.Vec3(0, 0.2, 0));
+
+                // 車輪を4つ配置
+                modelBody.addShape(wheelShape, new CANNON.Vec3(-0.5, -0.2, 0.7)); // 前左
+                modelBody.addShape(wheelShape, new CANNON.Vec3(0.5, -0.2, 0.7));  // 前右
+                modelBody.addShape(wheelShape, new CANNON.Vec3(-0.5, -0.2, -0.7)); // 後左
+                modelBody.addShape(wheelShape, new CANNON.Vec3(0.5, -0.2, -0.7));  // 後右
+
                 modelBody.position.set(0, 1, 0);
                 world.addBody(modelBody);
 
@@ -78,7 +89,7 @@
                     modelBody.material,
                     floorBody.material,
                     {
-                        friction: 0.05, // 摩擦
+                        friction: 0.3, // 摩擦
                         restitution: 0.1, // 反発係数
                     }
                 );
@@ -133,7 +144,7 @@
             world.step(1 / 60);
 
             // ボタン操作による動き
-            const force = 20;
+            const force = 5;
             if (modelBody) {
                 if (controls.up) modelBody.applyForce(new CANNON.Vec3(0, 0, -force), modelBody.position);
                 if (controls.down) modelBody.applyForce(new CANNON.Vec3(0, 0, force), modelBody.position);
@@ -143,6 +154,13 @@
                 // Three.js モデルを Cannon.js の物理計算に同期
                 model.position.copy(modelBody.position);
                 model.quaternion.copy(modelBody.quaternion);
+
+                // カメラを車の後方に配置し、車の前方を注視
+                const cameraOffset = new THREE.Vector3(0, 2, 5); // 後方のオフセット
+                const carFront = new THREE.Vector3(0, 0, -10).applyQuaternion(model.quaternion); // 前方の注視点
+                const cameraPosition = new THREE.Vector3().copy(model.position).add(cameraOffset);
+                camera.position.copy(cameraPosition);
+                camera.lookAt(model.position.clone().add(carFront));
             }
 
             // レンダリング
