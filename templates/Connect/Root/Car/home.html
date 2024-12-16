@@ -90,6 +90,16 @@
                 world.addBody(modelBody);
             });
 
+            const contactMaterial = new CANNON.ContactMaterial(
+                modelBody,
+                floor,
+                {
+                  friction: 0.5,
+                  contactEquationStiffness: 1000,
+                }
+              );
+            world.addContactMaterial(contactMaterial);
+
             // Event Listeners for movement
             setupControls();
         }
