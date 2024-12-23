@@ -311,6 +311,9 @@
           box_list_k[0].innerText = k_k[2];
           box_list_k.shift();
         }
+        for(let k = 0; k < 4; k++){
+          box_list_k[k].style.fontColor = 'black';
+        }
         ans_list.splice(ans_ind,0,structuredClone(k_ans));
        
         words.shift();
@@ -323,11 +326,14 @@
       function answer(k){
         
         touch_can_tf = false;
+        let box_list_k = [box1,box2,box3,box4];
         if(k == ans_ind){
           text_id.innerText = '正解!';
+          box_list_k[ans_ind].style.fontColor = 'red';
           //alert('正解!');
         } else {
           text_id.innerText = '不正解。正解は「'+ans_list[ans_ind][2]+'」です。';
+          box_list_k[ans_ind].style.fontColor = 'blue';
           //alert('不正解。正解は「'+ans_list[ans_ind][2]+'」です。');
         }
 
