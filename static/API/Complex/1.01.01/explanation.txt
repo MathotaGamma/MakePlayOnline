@@ -1,0 +1,153 @@
+--日本語--
+
+_graphメソッドの使い方
+・例:
+Complex._graph(canvas,function(t){
+    return new Complex(0,t).pro(2*Math.PI).exp.pro(50*t);
+},0,5,0.005,{radius:2});
+・引数:
+Complex._graph(id,func,start,end,step,params);
+・id:
+必須。htmlのcanvasタグのelement
+例:
+html >>
+<html>
+    ~~~
+    <canvas id=“canvas”></canvas>
+    ~~~
+</html>
+javascript >>
+const canvas = document.getElementById(‘canvas’);
+・func:
+必須。Complexクラスの戻り値が必要。引数を変数として用いた関数。変数は実数値である。
+※現在のバージョンでは、値の1が1pxに対応
+例:
+javascript >>
+const func = function(t){
+    return new Complex(0,t).exp.pro(t);
+}
+この場合、t*e^itを描画する。
+・start,end,step
+必須。変数をstartからendまで間隔をstepとして動かす。
+・params
+任意。連想配列型。その他の設定を変更する。変更したい変数のみ記すことが可能。
+width >>
+default:0
+canvasの幅を設定。0未満の値でwindow.innerWidth;の大きさになる。
+単位はpx
+height >>
+default:0
+canvasの高さを設定。0未満の値でwindow.innerHeight;の大きさになる。
+単位はpx
+thick >>
+default:1
+描画する線の太さ
+radius >>
+default:0
+func上を変数が動いた点に描画される円の半径
+line_color,point_color >>
+default:”#000”(黒),”#a00000”(赤)
+線、点の色。”# (rgbのHTMLカラーコード)”
+timeout >>
+default:20000
+計算時間の上限。整数値。単位はms(ミリ秒)。0以下で計算時間の上限なし。
+タイムアウトするとErrorを発生させる(Too longエラー)。
+
+全体のコード例
+<!DOCTYPE HTML>
+<html lang=“en”>
+    <head>
+        <meta charset=“utf-8”>
+        <title>Demo — Complex._graph</title>
+        <script src=“https://makeplayonline.onrender.com/Static/API/Complex/1.01.01/Complex.js”></script>
+    </head>
+    <body>
+        <canvas id=“canvas”></canvas>
+        <script>
+            const canvas = document.getElementById(‘canvas’);
+            function func(t){
+                let circle1 = new Complex(0,2*Math.PI*t).exp.pro(50);
+                let circle2 = new Complex(Math.PI/2,4*Math.PI*t).exp.pro(25);
+                return circle1.add(circle2);
+            }
+            Complex._graph(canvas,func,0,1,0.005,{width:200,height:150,radius:2,point_color:”#7fffd4”,timeout:10000});
+        </script>
+    </body>
+</html>
+
+
+--English--
+How to use the _graph method
+・Example:
+Complex._graph(canvas,function(t){
+    return new Complex(0,t).pro(2*Math.PI).exp.pro(50*t);
+},0,5,0.005,{radius:2});
+・Arguments:
+id,func,start,end,step,params
+->id:
+Required.「element」 of the canvas tag of html
+Example:
+html >>
+<html>
+    ~~~
+    <canvas id=“canvas”></canvas>
+    ~~~
+</html>
+javascript >>
+const canvas = document.getElementById(‘canvas’);
+->func:
+Required.A return value of the Complex class is required. A function that uses an argument as a variable. A variable is a real number.
+*In the current version, the value 1 corresponds to 1px.
+Example:
+javascript >>
+const func = function(t){
+    return new Complex(0,t).exp.pro(t);
+}
+In this case, t*e^it is drawn.
+->start,end,step:
+Required. Move variables from start to end using the interval as step.
+->params:
+Optional. Associative array type. Change other settings. Only the variable to be changed can be written.
+width >>
+default:0
+Sets the width of the canvas, with a value less than 0 being the size of window.innerWidth;.
+Unit is px.
+height >>
+default:0
+Sets the height of the canvas, which must be less than or equal to 0 and the size of window.innerHeight;.
+Unit is px
+thick >>
+default:1
+Thickness of the line to draw.
+radius >>
+default:0
+Radius of the circle to be drawn at the point where the variable moves on the func.
+line_color,point_color >>
+default:”#000”(black),”#a00000”(red)
+Color of line and point. ”# (rgbのHTMLカラーコード)”
+Timeout >>
+Upper limit on computation time. Integer value. The unit is ms (milliseconds). 0 or less means no upper limit on computation time.
+*Raises an Error if it times out (Too long error).
+
+
+Example of minimal code.
+<!DOCTYPE HTML>
+<html lang=“en”>
+    <head>
+        <meta charset=“utf-8”>
+        <title>Demo — Complex._graph</title>
+        <script src=“https://makeplayonline.onrender.com/Static/API/Complex/1.01.01/Complex.js”></script>
+    </head>
+    <body>
+        <canvas id=“canvas”></canvas>
+        <script>
+            const canvas = document.getElementById(‘canvas’);
+            function func(t){
+                let circle1 = new Complex(0,2*Math.PI*t).exp.pro(50);
+                let circle2 = new Complex(Math.PI/2,4*Math.PI*t).exp.pro(25);
+                return circle1.add(circle2);
+            }
+            Complex._graph(canvas,func,0,1,0.005,{width:200,height:150,radius:2,point_color:”#7fffd4”,timeout:10000});
+        </script>
+    </body>
+</html>
