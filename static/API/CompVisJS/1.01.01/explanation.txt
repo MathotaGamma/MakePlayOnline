@@ -1,3 +1,6 @@
+https://makeplayonline.onrender.com/Static/API/CompVisJS/1.01.01/CompVisJS.js
+
+
 --日本語--
 
 _graphメソッドの使い方
