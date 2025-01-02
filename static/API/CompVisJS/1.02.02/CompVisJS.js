@@ -119,11 +119,24 @@ class CompVis {
     return new CompVis(Math.cos(this._imag),Math.sin(this._imag)).pro(Math.exp(this._real));
   }
   
+  static _create_canvas(id,width=0,height=0){
+    if(width > 0){
+      id.width = width;
+    } else {
+      id.width = window.innerWidth;
+    }
+    if(height > 0){
+      id.height = height;
+    } else {
+      id.height = window.innerHeight;
+    }
+    return [id,id.getContext("2d")];
+  }
   //default:width=0,height=0,thick=1,radius=0,line_color="#000",point_color="#a00000",timeout=20000
-  static _graph(id,origin_func,start,end,step,params={}){
-    const return_data = {id:id,origin_func:origin_func,start:start,end:end,step:step,params:params}
-    let width = 0;
-    let height = 0;
+  static _graph(id_ctx,origin_func,start,end,step,params={}){
+    const return_data = {id_ctx:id_ctx,origin_func:origin_func,start:start,end:end,step:step,params:params}
+    let id = id_ctx[0];
+    let ctx = id_ctx[1];
     let thick = 1;
     let radius = 0;
     let line_color = "#000";
@@ -134,12 +147,6 @@ class CompVis {
     for(let k of Object.keys(params)){
       let value_k = params[k];
       switch(k){
-        case 'width':
-          width = value_k;
-          break;
-        case 'height':
-          height = value_k;
-          break;
         case 'thick':
           thick = value_k;
           break;
@@ -158,19 +165,7 @@ class CompVis {
       }
     }
     
-    if(width > 0){
-      id.width = width;
-    } else {
-      id.width = window.innerWidth;
-    }
-    if(height > 0){
-      id.height = height;
-    } else {
-      id.height = window.innerHeight;
-    }
     
-    
-    const ctx = id.getContext("2d");
     ctx.strokeStyle = line_color;
     ctx.fillStyle = point_color;
     ctx.lineWidth = thick;
@@ -235,16 +230,16 @@ throw new Error('CompVisJS-Timeout error->Too long.');
   
   static _re_graph(data_list){
     if(!Array.isArray(data_list)) data_list = [data_list];
+    let id_k = data_list[0].id_ctx[0];
+    let id_ctx = CompVis._create_canvas(id_k,id_k.width,id_k.height);
     for(let data of data_list){
-      let id = data.id;
+      let id = id_ctx[0];
+      let ctx = id_ctx[1];
       let origin_func = data.origin_func;
       let start = data.start;
       let end = data.end;
       let step = data.step;
       let params = data.params;
-      //alert(params)
-      let width = 0;
-      let height = 0;
       let thick = 1;
       let radius = 0;
       let line_color = "#000";
@@ -255,12 +250,6 @@ throw new Error('CompVisJS-Timeout error->Too long.');
       for(let k of Object.keys(params)){
         let value_k = params[k];
         switch(k){
-          case 'width':
-            width = value_k;
-            break;
-          case 'height':
-            height = value_k;
-            break;
           case 'thick':
             thick = value_k;
             break;
@@ -279,19 +268,6 @@ throw new Error('CompVisJS-Timeout error->Too long.');
         }
       }
     
-      if(width > 0){
-        id.width = width;
-      } else {
-        id.width = window.innerWidth;
-      }
-      if(height > 0){
-        id.height = height;
-      } else {
-        id.height = window.innerHeight;
-      }
-    
-    
-      const ctx = id.getContext("2d");
       ctx.strokeStyle = line_color;
       ctx.fillStyle = point_color;
       ctx.lineWidth = thick;
