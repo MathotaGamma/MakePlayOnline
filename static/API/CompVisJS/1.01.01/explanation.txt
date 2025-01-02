@@ -16,11 +16,11 @@ Complex._graph(id,func,start,end,step,params);
 html >>
 <html>
     ~~~
-    <canvas id=“canvas”></canvas>
+    <canvas id="canvas"></canvas>
     ~~~
 </html>
 javascript >>
-const canvas = document.getElementById(‘canvas’);
+const canvas = document.getElementById('canvas');
 ・func:
 必須。Complexクラスの戻り値が必要。引数を変数として用いた関数。変数は実数値である。
 ※現在のバージョンでは、値の1が1pxに対応
@@ -49,8 +49,8 @@ radius >>
 default:0
 func上を変数が動いた点に描画される円の半径
 line_color,point_color >>
-default:”#000”(黒),”#a00000”(赤)
-線、点の色。”# (rgbのHTMLカラーコード)”
+default:"#000"(黒),"#a00000"(赤)
+線、点の色。"# (rgbのHTMLカラーコード)"
 timeout >>
 default:20000
 計算時間の上限。整数値。単位はms(ミリ秒)。0以下で計算時間の上限なし。
@@ -62,18 +62,18 @@ default:20000
     <head>
         <meta charset=“utf-8”>
         <title>Demo — Complex._graph</title>
-        <script src=“https://makeplayonline.onrender.com/Static/API/Complex/1.01.01/Complex.js”></script>
+        <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.01.01/CompVisJS.js"></script>
     </head>
     <body>
-        <canvas id=“canvas”></canvas>
+        <canvas id="canvas"></canvas>
         <script>
-            const canvas = document.getElementById(‘canvas’);
+            const canvas = document.getElementById('canvas');
             function func(t){
                 let circle1 = new Complex(0,2*Math.PI*t).exp.pro(50);
                 let circle2 = new Complex(Math.PI/2,4*Math.PI*t).exp.pro(25);
                 return circle1.add(circle2);
             }
-            Complex._graph(canvas,func,0,1,0.005,{width:200,height:150,radius:2,point_color:”#7fffd4”,timeout:10000});
+            Complex._graph(canvas,func,0,1,0.005,{width:500,height:400,radius:2,point_color:"#00b500",timeout:10000});
         </script>
     </body>
 </html>
@@ -93,7 +93,7 @@ Example:
 html >>
 <html>
     ~~~
-    <canvas id=“canvas”></canvas>
+    <canvas id="canvas"></canvas>
     ~~~
 </html>
 javascript >>
@@ -126,8 +126,8 @@ radius >>
 default:0
 Radius of the circle to be drawn at the point where the variable moves on the func.
 line_color,point_color >>
-default:”#000”(black),”#a00000”(red)
-Color of line and point. ”# (rgbのHTMLカラーコード)”
+default:”#000”(black),"#a00000"(red)
+Color of line and point. "# (rgbのHTMLカラーコード)"
 Timeout >>
 Upper limit on computation time. Integer value. The unit is ms (milliseconds). 0 or less means no upper limit on computation time.
 *Raises an Error if it times out (Too long error).
@@ -135,22 +135,22 @@ Upper limit on computation time. Integer value. The unit is ms (milliseconds). 0
 
 Example of minimal code.
 <!DOCTYPE HTML>
-<html lang=“en”>
+<html lang="en">
     <head>
-        <meta charset=“utf-8”>
+        <meta charset="utf-8">
         <title>Demo — Complex._graph</title>
-        <script src=“https://makeplayonline.onrender.com/Static/API/Complex/1.01.01/Complex.js”></script>
+        <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.01.01/CompVisJS.js"></script>
     </head>
     <body>
-        <canvas id=“canvas”></canvas>
+        <canvas id="canvas"></canvas>
         <script>
-            const canvas = document.getElementById(‘canvas’);
+            const canvas = document.getElementById('canvas');
             function func(t){
                 let circle1 = new Complex(0,2*Math.PI*t).exp.pro(50);
                 let circle2 = new Complex(Math.PI/2,4*Math.PI*t).exp.pro(25);
                 return circle1.add(circle2);
             }
-            Complex._graph(canvas,func,0,1,0.005,{width:200,height:150,radius:2,point_color:”#7fffd4”,timeout:10000});
+            Complex._graph(canvas,func,0,1,0.005,{width:500,height:400,radius:2,point_color:"#00b500",timeout:10000});
         </script>
     </body>
 </html>
