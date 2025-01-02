@@ -85,20 +85,21 @@ setInterval(() => {
 
 全体のコード例
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="ja">
     <head>
         <meta charset="utf-8">
         <title>CompVisJS Demo — CompVis._graph</title>
-        <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.01/CompVisJS.js"></script>
+        <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js"></script>
     </head>
     <body>
         <canvas id="canvas"></canvas>
         <script>
+            let T = 0;
             const canvas = document.getElementById('canvas');
             const id_ctx = CompVis._create_canvas(canvas);
             function func1(t){
-                let circle1 = new CompVis(0,2*Math.PI*T).exp.pro(50);
-                let circle2 = new CompVis(Math.PI/2,4*Math.PI*t).exp.pro(25);
+                let circle1 = new CompVis(0,Math.PI*T/4).exp.pro(150);
+                let circle2 = new CompVis(0,4*Math.PI*t).exp.pro(250*Math.sin(T));
                 return circle1.add(circle2);
             }
             function func2(t){
@@ -118,16 +119,28 @@ setInterval(() => {
 </html>
 
 
+
 --English--
-How to use the _graph method
+
+Usage of the _graph Method
 ・Example:
-CompVis._graph(canvas,function(t){
-    return new CompVis(0,t).pro(2*Math.PI).exp.pro(50*t);
+const canvas = document.getElementById('canvas');
+const id_ctx = CompVis._create_canvas(canvas);
+let T = 0;
+const data = CompVis._graph(id_ctx,function(t){
+    return new CompVis(0,2*Math.PI*t+T).exp.pro(50*t);
 },0,5,0.005,{radius:2});
+
+setInterval(() => {
+    T += 0.1;
+    CompVis._re_graph(data);
+},1000/60);
+
 ・Arguments:
-id,func,start,end,step,params
-->id:
-Required.「element」 of the canvas tag of html
+id_ctx,func,start,end,step,params
+
+・id_ctx:
+Required. The return value when the canvas element from the HTML canvas tag is passed to CompVis._create_canvas.
 Example:
 html >>
 <html>
@@ -136,60 +149,99 @@ html >>
     ~~~
 </html>
 javascript >>
-const canvas = document.getElementById(‘canvas’);
-->func:
-Required.A return value of the CompVis class is required. A function that uses an argument as a variable. A variable is a real number.
-*In the current version, the value 1 corresponds to 1px.
+const canvas = document.getElementById('canvas');
+const id_ctx = CompVis._create_canvas(canvas);
+
+・func:
+Required. Must return a CompVis class object. A function that uses a variable as an argument. The variable is a real number.
+* In the current version, a value of 1 corresponds to 1px.
 Example:
 javascript >>
 const func = function(t){
     return new CompVis(0,t).exp.pro(t);
 }
-In this case, t*e^it is drawn.
-->start,end,step:
-Required. Move variables from start to end using the interval as step.
-->params:
-Optional. Associative array type. Change other settings. Only the variable to be changed can be written.
+In this case, it draws t*e^it.
+
+・start,end,step:
+Required. Move the variable from start to end with a step interval.
+
+・params:
+Optional. An associative array. Only the variables you want to change need to be specified.
 width >>
 default:0
-Sets the width of the canvas, with a value less than 0 being the size of window.innerWidth;.
-Unit is px.
+Sets the width of the canvas. A value below 0 sets it to window.innerWidth.
+Unit: px
+
 height >>
 default:0
-Sets the height of the canvas, which must be less than or equal to 0 and the size of window.innerHeight;.
-Unit is px
+Sets the height of the canvas. A value below 0 sets it to window.innerHeight.
+Unit: px
+
 thick >>
 default:1
-Thickness of the line to draw.
+The thickness of the drawn line.
+
 radius >>
 default:0
-Radius of the circle to be drawn at the point where the variable moves on the func.
+The radius of the circle drawn on the variable moving along the func.
+
 line_color,point_color >>
-default:”#000”(black),"#a00000"(red)
-Color of line and point. "# (rgbのHTMLカラーコード)"
-Timeout >>
-Upper limit on computation time. Integer value. The unit is ms (milliseconds). 0 or less means no upper limit on computation time.
-*Raises an Error if it times out (Too long error).
+default:"#000"(black),"#a00000"(red)
+The colors of the line and point. "# (HTML color code for RGB)"
 
+timeout >>
+default:20000
+The upper limit for computation time. Integer value. Unit: ms (milliseconds). A value below 0 indicates no upper limit.
+If timeout occurs, an error will be thrown (Too long error).
 
-Example of minimal code.
+・Redrawing:
+You can redraw with CompVis._re_graph.
+To redraw, you must save the return value of CompVis._graph in a variable (if multiple graphs are created with _graph, put each return value into an array and pass it as an argument to _re_graph).
+By declaring variables before func and using them in func, you can modify the graph by changing the values of those variables.
+Example:
+javascript >>
+const id_ctx = ~~~
+let T = 0; <-
+const data = CompVis._graph(id_ctx,function(t){ <-
+    return new CompVis(0,2*Math.PI*t+T).exp.pro(50*t); <-
+},0,5,0.005,{radius:2});
+
+setInterval(() => {
+    T += 0.1; <-
+    CompVis._re_graph(data); <-
+},1000/60);
+
+・Complete Code Example
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <title>CompVisJS Demo — CompVis._graph</title>
-        <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.01/CompVisJS.js"></script>
+        <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js"></script>
     </head>
     <body>
         <canvas id="canvas"></canvas>
         <script>
+            let T = 0;
             const canvas = document.getElementById('canvas');
-            function func(t){
-                let circle1 = new CompVis(0,2*Math.PI*t).exp.pro(50);
-                let circle2 = new CompVis(Math.PI/2,4*Math.PI*t).exp.pro(25);
+            const id_ctx = CompVis._create_canvas(canvas);
+            function func1(t){
+                let circle1 = new CompVis(0,Math.PI*T/4).exp.pro(150);
+                let circle2 = new CompVis(0,4*Math.PI*t).exp.pro(250*Math.sin(T));
                 return circle1.add(circle2);
             }
-            CompVis._graph(canvas,func,0,1,0.005,{width:500,height:400,radius:2,point_color:"#00b500",timeout:10000});
+            function func2(t){
+                let circle = new CompVis(0,2*Math.PI*t).exp.pro(100*T);
+                return circle;
+            }
+            const data1 = CompVis._graph(id_ctx,func1,0,1,0.005,{width:500,height:400,radius:2,point_color:"#00f",timeout:10000});
+            const data2 = CompVis._graph(id_ctx,func2,0,1,0.005,{width:500,height:400,line_color:"#00b500",timeout:10000});
+            const data = [data1,data2];
+
+            setInterval(() => {
+                T += 0.1;
+                CompVis._re_graph(data);
+            },1000/60);
         </script>
     </body>
 </html>
