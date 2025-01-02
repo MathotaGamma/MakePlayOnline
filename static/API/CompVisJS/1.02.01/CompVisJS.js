@@ -1,4 +1,4 @@
-//For more information on the _graph method, see <https://makeplayonline.onrender.com/Static/API/CompVisJS/1.01.01/explanation.txt>.
+//For more information on the _graph method, see <https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.01/explanation.txt>.
 
 class CompVis {
   constructor(k_real, k_imag) {
