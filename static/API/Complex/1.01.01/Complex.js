@@ -1,3 +1,4 @@
+//For more information on the _graph method, see 「https://makeplayonline.onrender.com/Static/API/Complex/1.01.01/explanation.txt」.
 class Complex {
   constructor(k_real, k_imag) {
     this._real = k_real;
