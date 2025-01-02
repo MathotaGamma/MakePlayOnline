@@ -1,12 +1,15 @@
-//For more information on the _graph method, see 「https://makeplayonline.onrender.com/Static/API/CompVisJS/1.01.01/explanation.txt」.
+//For more information on the _graph method, see <https://makeplayonline.onrender.com/Static/API/CompVisJS/1.01.01/explanation.txt>.
+
 class Complex {
   constructor(k_real, k_imag) {
     this._real = k_real;
     this._imag = k_imag;
   }
-  static _list = ['real:実部を取得','imag:虚部を取得','value:値を配列で取得[real,imag]','conj:共役な複素数','abs:絶対値','arg:偏角','log:自然対数','log_n:引数を底とした対数','exp:eを底とした累乗','toComp:二次元配列を複素数値に','add:足し算','dif:引き算','pro:掛け算','div:割り算','pow_by:引数乗','pow_of:引数を底とした累乗','rotate:引数[rad]反時計回りに回転させる']
   
-  //引数が実数でないといけない関数に関するエラーを投げるメソッド
+  static _list_ja = ['real:実部を取得','imag:虚部を取得','value:値を配列で取得[real,imag]','conj:共役な複素数','abs:絶対値','arg:偏角','log:自然対数','log_n:引数を底とした対数','exp:eを底とした累乗','toComp:二次元配列を複素数値に','add:足し算','dif:引き算','pro:掛け算','div:割り算','pow_by:引数乗','pow_of:引数を底とした累乗','rotate:引数[rad]反時計回りに回転させる']
+  static _list = ['real:get real part','imag:get imaginary part','value:get value as array[real,imag]','conj:conjugate complex number','abs:absolute value','arg:partial angle','log:natural logarithm','log_n:logarithm with argument as base','exp:power with e as base ','toComp:two-dimensional array to complex numbers','add:addition','dif:subtraction','pro:multiplication','div:division','pow_by:argument power','pow_of:power with argument at bottom','rotate:rotate argument[rad]counterclockwise']
+  
+  //Methods that throw errors about functions whose arguments must be real numbers
   #Error_Argument_real(k){
     if(isNaN(k)){
       throw new Error('Complex-Argument error->The argument of this method must be a real number.')
@@ -126,7 +129,7 @@ class Complex {
     let point_color = "#a00000";
     let timeout = 20000;
     
-    //設定
+    //setting
     for(let k of Object.keys(params)){
       let value_k = params[k];
       switch(k){
@@ -173,7 +176,6 @@ class Complex {
     const center_x = id.width/2;
     const center_y = id.height/2;
     
-    //中心の座標を加えた座標を返す関数
     function func(t){
       return origin_func(t).add(new Complex(center_x,center_y));
     }
@@ -190,16 +192,16 @@ class Complex {
     
     let value = func(t).value;
     
-    ctx.beginPath(); // パスの初期化
+    ctx.beginPath();
     ctx.arc(value[0],value[1],radius,0,2*Math.PI);
-    ctx.closePath(); // パスの初期化
+    ctx.closePath();
     ctx.fill();
     
     if(start+step <= end){
       let start_time = Date.now();
       
       while(t < end){
-        ctx.beginPath(); // パスの初期化
+        ctx.beginPath();
         
         value = func(t).value;
         ctx.moveTo(value[0],value[1]);
