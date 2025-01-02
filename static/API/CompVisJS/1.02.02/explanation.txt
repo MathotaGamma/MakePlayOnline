@@ -5,8 +5,10 @@ https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js
 
 _graphメソッドの使い方
 ・例:
+const canvas = document.getElementById('canvas');
+const id_ctx = CompVis._create_canvas(canvas);
 let T = 0;
-const data = CompVis._graph(canvas,function(t){
+const data = CompVis._graph(id_ctx,function(t){
     return new CompVis(0,2*Math.PI*t+T).exp.pro(50*t);
 },0,5,0.005,{radius:2});
 
@@ -15,9 +17,9 @@ setInterval(() => {
     CompVis._re_graph(data);
 },1000/60);
 ・引数:
-id,func,start,end,step,params
-・id:
-必須。htmlのcanvasタグのelement
+id_ctx,func,start,end,step,params
+・id_ctx:
+必須。htmlのcanvasタグのelementをCompVis._create_canvasの引数に入れたときの戻り値。
 例:
 html >>
 <html>
@@ -27,6 +29,7 @@ html >>
 </html>
 javascript >>
 const canvas = document.getElementById('canvas');
+const id_ctx = CompVis._create_canvas(canvas);
 ・func:
 必須。CompVisクラスの戻り値が必要。引数を変数として用いた関数。変数は実数値である。
 ※現在のバージョンでは、値の1が1pxに対応
@@ -68,8 +71,9 @@ CompVis._re_graphで再描画できる。
 funcより前である変数を宣言して、その変数をfuncで使うことで、その変数の値を変更してグラフを動かすことができるようになる。
 例:
 javascript >>
+const id_ctx = ~~~
 let T = 0; <-
-const data = CompVis._graph(canvas,function(t){ <-
+const data = CompVis._graph(id_ctx,function(t){ <-
     return new CompVis(0,2*Math.PI*t+T).exp.pro(50*t); <-
 },0,5,0.005,{radius:2});
 
@@ -91,6 +95,7 @@ setInterval(() => {
         <canvas id="canvas"></canvas>
         <script>
             const canvas = document.getElementById('canvas');
+            const id_ctx = CompVis._create_canvas(canvas);
             function func1(t){
                 let circle1 = new CompVis(0,2*Math.PI*T).exp.pro(50);
                 let circle2 = new CompVis(Math.PI/2,4*Math.PI*t).exp.pro(25);
@@ -100,8 +105,8 @@ setInterval(() => {
                 let circle = new CompVis(0,2*Math.PI*t).exp.pro(100*T);
                 return circle;
             }
-            const data1 = CompVis._graph(canvas,func1,0,1,0.005,{width:500,height:400,radius:2,point_color:"#00b500",timeout:10000});
-            const data2 = CompVis._graph(canvas,func2,0,1,0.005,{width:500,height:400,line_color:"#00f",timeout:10000});
+            const data1 = CompVis._graph(id_ctx,func1,0,1,0.005,{width:500,height:400,radius:2,point_color:"#00f",timeout:10000});
+            const data2 = CompVis._graph(id_ctx,func2,0,1,0.005,{width:500,height:400,line_color:"#00b500",timeout:10000});
             const data = [data1,data2];
 
             setInterval(() => {
