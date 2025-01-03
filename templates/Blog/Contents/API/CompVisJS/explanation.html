@@ -116,24 +116,20 @@ console.log(C.add(c).str);
     output.style.cssText = "background: #f4f4f4; padding: 10px; border: 1px solid #ddd;";
 
     // CompVisJS.jsを動的に読み込む
-    const script = document.createElement("script");
-    script.src = "https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js";
-    script.onload = () => {
-      console.log("CompVisJS APIがロードされました");
-    };
-    script.onerror = () => {
-      console.error("CompVisJS APIのロードに失敗しました");
-    };
+    
     document.head.appendChild(script);
 
     // Worker用のコード
     const workerCode = `
       self.onmessage = function(event) {
         const { code, apiAvailable } = event.data;
-        if (!apiAvailable) {
-          self.postMessage({ success: false, error: "APIがロードされていません。" });
+
+        const script = document.createElement("script");
+        script.src = "https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js";
+        script.onerror = () => {
+          self.postMessage({ success: false, error: "APIをロードできません。" });
           return;
-        }
+        };
 
         try {
           const result = eval(code); // ユーザーコードを実行
