@@ -64,9 +64,91 @@
       </ul>
 
       <h2>メソッドの詳細</h2>
-      <h3>引数ありのメソッド</h3>
-      <h4>C.round(n)</h4>
+      <ul>
+        <li>
+          <h3>引数ありのメソッド</h3>
+          <ul>
+            <li>
+              <h4>C.round(n)</h4>
+              <p>
+                Cの実部、虚部をそれぞれ特定の桁数で四捨五入する。<br>
+                <var>n</var>&gt;<var>0</var>の場合、小数第n位で四捨五入し、<br>
+                <var>n</var>=<var>0</var>の場合、そのまま四捨五入して整数値にして、<br>
+                <var>n</var>&lt;<var>0</var>の場合、10<var><sup>n</sup></var>の位で四捨五入する。
+              </p>
+            </li>
+            <li>
+              <h4>C.add(c)</h4>
+              <p>
+                Cにcを足す。
+                例:
+                <js-window>
+                  const C = new CompVis(1,2);
+                  const c = new CompVis(-2,1);
+                  console.log(C.add(c));
+                </js-window>
+              </p>
+            </li>
+          </ul>
+        </li>
+      </ul>
       
     </main>
+    <script>
+      class JSwindow extends HTMLElement {
+        constructor() {
+          super();
+          // Shadow DOMを作成
+          const shadow = this.attachShadow({ mode: "open" });
+
+          // テキストエリア
+          const textarea = document.createElement("textarea");
+          textarea.rows = 5;
+          textarea.cols = 40;
+          textarea.textContent = this.textContent.trim();
+
+          // 実行ボタン
+          const button = document.createElement("button");
+          button.textContent = "実行";
+
+          // 結果表示
+          const output = document.createElement("pre");
+          output.style.cssText = "background: #f4f4f4; padding: 10px; border: 1px solid #ddd;";
+
+          // ボタン押下時の処理
+          button.addEventListener("click", () => {
+            // 元のconsole.logをキャプチャ
+            const originalConsoleLog = console.log;
+            let logOutput = "";
+
+            // console.logをオーバーライド
+            console.log = (...args) => {
+              logOutput += args.join(" ") + "\n";
+            };
+
+            try {
+              eval(textarea.value); // コードを実行
+            } catch (error) {
+              logOutput += `エラー: ${error.message}\n`;
+            }
+
+            // 出力を結果表示領域に表示
+            output.textContent = logOutput || "コードが実行されました";
+
+            // console.logを元に戻す
+            console.log = originalConsoleLog;
+          });
+
+          // 要素をShadow DOMに追加
+          shadow.appendChild(textarea);
+          shadow.appendChild(document.createElement("br"));
+          shadow.appendChild(button);
+          shadow.appendChild(output);
+        }
+      }
+
+      // カスタム要素を登録
+      customElements.define("js-window", JSwindow);
+    </script>
   </body>
 </html>
