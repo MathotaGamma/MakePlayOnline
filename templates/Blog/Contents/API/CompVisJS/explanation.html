@@ -136,11 +136,11 @@ console.log(C.add(c));
                 }
               },3000);
               eval(textarea.value); // コードを実行
-              fin_tf = true;
+              
             } catch (error) {
               logOutput += `エラー: ${error.message}\n`;
             }
-
+            fin_tf = true;
             // 出力を結果表示領域に表示
             output.textContent = logOutput || "コードが実行されました";
 
