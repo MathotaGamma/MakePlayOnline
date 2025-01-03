@@ -115,10 +115,26 @@ console.log(C.add(c).str);
     const output = document.createElement("pre");
     output.style.cssText = "background: #f4f4f4; padding: 10px; border: 1px solid #ddd;";
 
+    // CompVisJS.jsを動的に読み込む
+    const script = document.createElement("script");
+    script.src = "https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js";
+    script.onload = () => {
+      console.log("CompVisJS APIがロードされました");
+    };
+    script.onerror = () => {
+      console.error("CompVisJS APIのロードに失敗しました");
+    };
+    document.head.appendChild(script);
+
     // Worker用のコード
     const workerCode = `
       self.onmessage = function(event) {
-        const { code } = event.data;
+        const { code, apiAvailable } = event.data;
+        if (!apiAvailable) {
+          self.postMessage({ success: false, error: "APIがロードされていません。" });
+          return;
+        }
+
         try {
           const result = eval(code); // ユーザーコードを実行
           self.postMessage({ success: true, result: result });
@@ -159,8 +175,11 @@ console.log(C.add(c).str);
         worker.terminate();
       };
 
+      // APIのロード確認
+      const apiAvailable = typeof window.CompVisJS !== "undefined";
+
       // Workerにコードを送信
-      worker.postMessage({ code });
+      worker.postMessage({ code, apiAvailable });
     });
 
     // 要素をShadow DOMに追加
@@ -173,6 +192,7 @@ console.log(C.add(c).str);
 
 // カスタム要素を登録
 customElements.define("js-window", JSwindow);
+
     </script>
   </body>
 </html>
