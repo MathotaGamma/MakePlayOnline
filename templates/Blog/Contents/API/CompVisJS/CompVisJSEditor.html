@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CompVisJS Editor</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    #header button {
+      margin-top: auto;
+      margin-bottom: auto;
+      background-color: white;
+      color: #007BFF;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #header button:hover {
+      background-color: #f0f0f0;
+    }
+    #title {
+      margin: auto;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    #container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 50px);
+    }
+    #editor-container {
+      width: 50%;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      box-sizing: border-box;
+      border-right: 1px solid #ccc;
+    }
+    textarea {
+      flex: 1;
+      width: 100%;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+      /*#canvas {
+        flex: 0 0 auto;
+        height: 300px;
+        width: 400px;
+      }*/
+    #canvas {
+      width: auto;
+      height: auto;
+      flex: 1;
+      border: 1px solid #ccc;
+      background-color: white;
+      margin-bottom: 10px;
+    }
+    #output {
+      height: 150px;
+      overflow-y: auto;
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #hide-panel-button {
+      background-color: #f0ad4e;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <button onclick='window.location.href = "https://makeplayonline.onrender.com/Blog/Contents/API/CompVisJS/explanation"'>説明へ</button>
+    <div id="title">CompVisJS Editor</div>
+    <button id="hide-panel-button">Canvasのみ表示</button>
+  </div>
+  <div id="container">
+    <div id="editor-container">
+      <textarea id="code-editor" placeholder="JavaScriptコードをここに書いてください...">
+console.log('Log:CompVisJS Editor');
+let T = 0;
+const canvas = document.getElementById('canvas');
+const id_ctx = CompVis._create_canvas(canvas);
+function func1(t){
+  let circle1 = new CompVis(0,Math.PI*T/4).exp.pro(150);
+  let circle2 = new CompVis(0,4*Math.PI*t).exp.pro(250*Math.sin(T));
+  return circle1.add(circle2);
+}
+function func2(t){
+  let circle = new CompVis(0,2*Math.PI*t).exp.pro(100*T);
+  return circle;
+}
+const data1 = CompVis._graph(id_ctx,func1,0,1,0.005,{radius:2,point_color:"#00f",timeout:10000});
+const data2 = CompVis._graph(id_ctx,func2,0,1,0.005,{line_color:"#00b500",timeout:10000});
+const data = [data1,data2];
+
+setInterval(() => {
+  T += 0.1;
+  CompVis._re_graph(data);
+},1000/60);</textarea>
+      <button id="run-button">実行&保存</button>
+    </div>
+    <div id="right-panel">
+      <canvas id="canvas"></canvas>
+      <div id="output"></div>
+    </div>
+  </div>
+  <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js"></script>
+  <script>
+    const runButton = document.getElementById('run-button');
+    const codeEditor = document.getElementById('code-editor');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const output = document.getElementById('output');
+    const hidePanelButton = document.getElementById('hide-panel-button');
+    const container = document.getElementById('container');
+    const editorContainer = document.getElementById('editor-container');
+    const rightPanel = document.getElementById('right-panel');
+
+    let computedStyle = window.getComputedStyle(canvas);
+    let pre_px = [parseInt(computedStyle.width.replace('px','')),parseInt(computedStyle.height.replace('px',''))]
+    canvas.width = pre_px[0];
+    canvas.height = pre_px[1];
+    
+    let start_code_value = localStorage.getItem('Blob/API/CompVisJS/code-value');
+    if(start_code_value != null){
+      if(confirm('以前のデータが残っています。\n呼び出しますか？')){
+        codeEditor.value = start_code_value;
+      }
+    }
+
+    let activeIntervals = [];
+    let activeTimeouts = [];
+
+    const originalConsoleLog = console.log;
+    console.log = function (...args) {
+      const message = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : String(arg)).join(' ');
+      const messageElement = document.createElement('div');
+      messageElement.textContent = message;
+      output.appendChild(messageElement);
+      originalConsoleLog.apply(console, args);
+    };
+
+    function clearOutput() {
+      output.innerHTML = '';
+    }
+
+    function clearTimers() {
+      activeIntervals.forEach(id => clearInterval(id));
+      activeTimeouts.forEach(id => clearTimeout(id));
+      activeIntervals = [];
+      activeTimeouts = [];
+    }
+
+    const originalSetInterval = window.setInterval;
+    const originalSetTimeout = window.setTimeout;
+
+    window.setInterval = function (fn, delay) {
+      const id = originalSetInterval(fn, delay);
+      activeIntervals.push(id);
+      return id;
+    };
+
+    window.setTimeout = function (fn, delay) {
+      const id = originalSetTimeout(fn, delay);
+      activeTimeouts.push(id);
+      return id;
+    };
+
+    function escapeSmartQuotes(input) {
+      return input.replace(/[“”‘’]/g, function(match) {
+        if (match === "“" || match === "”") {
+          return '"';
+        } else if (match === "‘" || match === "’") {
+          return "'";
+        }
+        return match;
+      });
+    }
+    
+    codeEditor.addEventListener("input", () => {
+      codeEditor.value = escapeSmartQuotes(codeEditor.value);
+    });
+
+    function runCode() {
+      const userCode = escapeSmartQuotes(codeEditor.value);
+      codeEditor.value = userCode;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      clearOutput();
+      clearTimers();
+
+      try {
+        new Function('ctx', 'console', userCode)(ctx, console);
+      } catch (error) {
+        console.log('コードの実行中にエラーが発生しました:', error.message);
+      }
+      localStorage.setItem('Blob/API/CompVisJS/code-value',userCode)
+    }
+
+    runButton.addEventListener('click', runCode);
+
+    // Canvasのみ表示する機能
+    hidePanelButton.addEventListener('click', () => {
+      if (container.classList.contains('hide-panels')) {
+        container.classList.remove('hide-panels');
+        hidePanelButton.textContent = 'Canvasのみ表示';
+        canvas.width = pre_px[0];
+        canvas.height = pre_px[1];
+      } else {
+        container.classList.add('hide-panels');
+        hidePanelButton.textContent = '元に戻す';
+        computedStyle = window.getComputedStyle(canvas);
+        canvas.width = parseInt(computedStyle.width.replace('px',''))
+        canvas.height = parseInt(computedStyle.height.replace('px',''))
+        //runCode()
+      }
+      /*canvas.width = canvas.style.width;
+      canvas.height = 300;*/
+      
+      
+      
+});
+
+
+    // CSSの変更で非表示にするスタイル
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .hide-panels #editor-container {
+        display: none;
+      }
+      .hide-panels #output {
+        display: none;
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
