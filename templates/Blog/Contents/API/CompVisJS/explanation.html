@@ -127,9 +127,14 @@ console.log(C.add(c).str);
     const workerCode = `
       importScripts('https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js');
 
-      // オーバーライドされたconsole.logを使用
+      // Worker内でconsole.logをオーバーライド
       self.consoleLog = function(message) {
         self.postMessage({ type: 'log', message: message });
+      };
+
+      // console.logの代わりに自分の実装を使用
+      console.log = function(...args) {
+        self.consoleLog(args.join(" "));
       };
 
       self.onmessage = function(event) {
@@ -137,8 +142,8 @@ console.log(C.add(c).str);
 
         try {
           // ユーザーコードを実行（CompVisJSを利用可能）
-          eval(code);
-          self.postMessage({ success: true });
+          const result = eval(code); // ユーザーコードの実行
+          self.postMessage({ success: true, result: result });
         } catch (error) {
           self.postMessage({ success: false, error: error.message });
         }
@@ -169,9 +174,10 @@ console.log(C.add(c).str);
 
         const { success, result, error, type, message } = event.data;
         if (type === 'log') {
+          // Workerからのconsole.logの出力を受け取る
           output.textContent += message + '\\n';
         } else if (success) {
-          output.textContent += `結果: ${result}`;
+          output.textContent = `結果: ${result}`;
         } else {
           output.textContent = `エラー: ${error}`;
         }
