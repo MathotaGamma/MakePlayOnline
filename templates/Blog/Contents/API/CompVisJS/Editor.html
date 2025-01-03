@@ -133,26 +133,38 @@
     <div id="editor-container">
       <textarea id="code-editor" placeholder="JavaScriptコードをここに書いてください...">
 console.log('Log:CompVisJS Editor');
-let T = 0;
-const canvas = document.getElementById('canvas');
-const id_ctx = CompVis._create_canvas(canvas);
-function func1(t){
-  let circle1 = new CompVis(0,Math.PI*T/4).exp.pro(150);
-  let circle2 = new CompVis(0,4*Math.PI*t).exp.pro(250*Math.sin(T));
-  return circle1.add(circle2);
-}
-function func2(t){
-  let circle = new CompVis(0,2*Math.PI*t).exp.pro(100*T);
-  return circle;
-}
-const data1 = CompVis._graph(id_ctx,func1,0,1,0.005,{radius:2,point_color:"#00f",timeout:10000});
-const data2 = CompVis._graph(id_ctx,func2,0,1,0.005,{line_color:"#00b500",timeout:10000});
-const data = [data1,data2];
 
-setInterval(() => {
-  T += 0.1;
-  CompVis._re_graph(data);
-},1000/60);</textarea>
+const canvas = document.getElementById('canvas'); //canvasのelementを取得
+const id_ctx = CompVis._create_canvas(canvas); //canvasからctxを作成
+
+let T = 0; //グラフを動かすための変数
+
+const pos = CompVis._toComp([-50,0]); //中心の座標
+const r = [128,64,32,16,8,4]; //円の半径
+const phi = [0,Math.PI/2,Math.PI/3,Math.PI/4,Math.PI/5,Math.PI/6]; //円の初期位相
+
+const N = r.length; //円の数
+
+let data = []; //再描画用の配列
+
+for(let k = 0; k < N; k++){ //それぞれの円を描画する
+  function func(t){ //それぞれの円の方程式を計算
+    let num_k = new CompVis(0,0);
+    for(let i = 0; i < k; i++){
+      num_k = num_k.add(new CompVis(0,2*Math.PI*i*T/N-phi[i]).exp.pro(r[i]));
+    }
+    num_k = num_k.add(new CompVis(0,2*Math.PI*t/N+phi[k]).exp.pro(r[k]));
+    return num_k.add(pos);
+  }
+  const data_k = CompVis._graph(id_ctx,func,0,2*Math.PI,0.005,{line_color:"#00b500",timeout:10000}); //円を描画
+  data.push(data_k) //再描画用の配列に保存
+}
+
+
+setInterval(() => { //再描画する
+  T += 0.05; //グラフを移動させるための変数の値を変更する。
+  CompVis._re_graph(data); //再描画
+},1000/30); //framerateを設定(ms[ミリ秒])。これは30fpsになる。</textarea>
       <button id="run-button">実行&保存</button>
     </div>
     <div id="right-panel">
