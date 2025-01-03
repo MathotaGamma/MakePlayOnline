@@ -85,7 +85,7 @@
                 <js-window>
 const C = new CompVis(1,2);
 const c = new CompVis(-2,1);
-console.log(C.add(c));
+console.log(C.add(c).str);
                 </js-window>
               </p>
             </li>
@@ -96,68 +96,83 @@ console.log(C.add(c));
     </main>
     <script>
       class JSwindow extends HTMLElement {
-        constructor() {
-          super();
-          // Shadow DOMを作成
-          const shadow = this.attachShadow({ mode: "open" });
+  constructor() {
+    super();
+    // Shadow DOMを作成
+    const shadow = this.attachShadow({ mode: "open" });
 
-          // テキストエリア
-          const textarea = document.createElement("textarea");
-          textarea.rows = 5;
-          textarea.cols = 40;
-          textarea.textContent = this.textContent.trim();
+    // テキストエリア
+    const textarea = document.createElement("textarea");
+    textarea.rows = 5;
+    textarea.cols = 40;
+    textarea.textContent = this.textContent.trim();
 
-          // 実行ボタン
-          const button = document.createElement("button");
-          button.textContent = "実行";
+    // 実行ボタン
+    const button = document.createElement("button");
+    button.textContent = "実行";
 
-          // 結果表示
-          const output = document.createElement("pre");
-          output.style.cssText = "background: #f4f4f4; padding: 10px; border: 1px solid #ddd;";
+    // 結果表示
+    const output = document.createElement("pre");
+    output.style.cssText = "background: #f4f4f4; padding: 10px; border: 1px solid #ddd;";
 
-          // ボタン押下時の処理
-          button.addEventListener("click", () => {
-            // 元のconsole.logをキャプチャ
-            const originalConsoleLog = console.log;
-            let logOutput = "";
-
-            // console.logをオーバーライド
-            console.log = (...args) => {
-              logOutput += args.join(" ") + "\n";
-            };
-
-
-            let fin_tf = false;
-            try {
-              setTimeout(() => {
-                if(!fin_tf){
-                  throw new Error('timeout');
-                  alert('Error:timeout');
-                }
-              },3000);
-              eval(textarea.value); // コードを実行
-              
-            } catch (error) {
-              logOutput += `エラー: ${error.message}\n`;
-            }
-            fin_tf = true;
-            // 出力を結果表示領域に表示
-            output.textContent = logOutput || "コードが実行されました";
-
-            // console.logを元に戻す
-            console.log = originalConsoleLog;
-          });
-
-          // 要素をShadow DOMに追加
-          shadow.appendChild(textarea);
-          shadow.appendChild(document.createElement("br"));
-          shadow.appendChild(button);
-          shadow.appendChild(output);
+    // Worker用のコード
+    const workerCode = `
+      self.onmessage = function(event) {
+        const { code } = event.data;
+        try {
+          const result = eval(code); // ユーザーコードを実行
+          self.postMessage({ success: true, result: result });
+        } catch (error) {
+          self.postMessage({ success: false, error: error.message });
         }
-      }
+      };
+    `;
 
-      // カスタム要素を登録
-      customElements.define("js-window", JSwindow);
+    // WorkerをBlob URLから作成
+    const blob = new Blob([workerCode], { type: "application/javascript" });
+    const workerUrl = URL.createObjectURL(blob);
+
+    // ボタン押下時の処理
+    button.addEventListener("click", () => {
+      const code = textarea.value;
+      const worker = new Worker(workerUrl);
+      let isTimeout = false;
+
+      // タイムアウト設定（3秒後に停止）
+      const timeout = setTimeout(() => {
+        isTimeout = true;
+        worker.terminate();
+        output.textContent = "タイムアウト: コードの実行が長すぎます。";
+      }, 3000);
+
+      // Workerからの結果を処理
+      worker.onmessage = (event) => {
+        clearTimeout(timeout); // タイムアウト解除
+        if (isTimeout) return;
+
+        const { success, result, error } = event.data;
+        if (success) {
+          output.textContent = `結果: ${result}`;
+        } else {
+          output.textContent = `エラー: ${error}`;
+        }
+        worker.terminate();
+      };
+
+      // Workerにコードを送信
+      worker.postMessage({ code });
+    });
+
+    // 要素をShadow DOMに追加
+    shadow.appendChild(textarea);
+    shadow.appendChild(document.createElement("br"));
+    shadow.appendChild(button);
+    shadow.appendChild(output);
+  }
+}
+
+// カスタム要素を登録
+customElements.define("js-window", JSwindow);
     </script>
   </body>
 </html>
