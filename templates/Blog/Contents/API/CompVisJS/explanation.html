@@ -116,12 +116,12 @@ console.log(C.add(c).str);
     output.style.cssText = "background: #f4f4f4; padding: 10px; border: 1px solid #ddd;";
 
     // CompVisJS.jsを動的に読み込む
-    const script = document.createElement("script");
+    /*const script = document.createElement("script");
     script.src = "https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js";
     script.onerror = () => {
       output.textContent = "APIを読み込めませんでした。";
     };
-    document.head.appendChild(script);
+    document.head.appendChild(script);*/
 
     // Worker用のコード
     const workerCode = `
