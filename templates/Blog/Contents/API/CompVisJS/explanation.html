@@ -130,7 +130,10 @@ console.log(C.add(c));
             let fin_tf = false;
             try {
               setTimeout(() => {
-                if(!fin_tf) throw new Error('timeout');
+                if(!fin_tf){
+                  throw new Error('timeout');
+                  alert('Error:timeout');
+                }
               },3000);
               eval(textarea.value); // コードを実行
               fin_tf = true;
