@@ -80,12 +80,12 @@
             <li>
               <h4>C.add(c)</h4>
               <p>
-                Cにcを足す。
-                例:
+                Cにcを足す。<br>
+                例:<br>
                 <js-window>
-                  const C = new CompVis(1,2);
-                  const c = new CompVis(-2,1);
-                  console.log(C.add(c));
+const C = new CompVis(1,2);
+const c = new CompVis(-2,1);
+console.log(C.add(c));
                 </js-window>
               </p>
             </li>
@@ -126,8 +126,14 @@
               logOutput += args.join(" ") + "\n";
             };
 
+
+            let fin_tf = false;
             try {
+              setTimeout(() => {
+                if(!fin_tf) throw new Error('timeout');
+              },50000);
               eval(textarea.value); // コードを実行
+              fin_tf = true;
             } catch (error) {
               logOutput += `エラー: ${error.message}\n`;
             }
