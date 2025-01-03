@@ -127,13 +127,18 @@ console.log(C.add(c).str);
     const workerCode = `
       importScripts('https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js');
 
+      // オーバーライドされたconsole.logを使用
+      self.consoleLog = function(message) {
+        self.postMessage({ type: 'log', message: message });
+      };
+
       self.onmessage = function(event) {
         const { code } = event.data;
 
         try {
           // ユーザーコードを実行（CompVisJSを利用可能）
-          const result = eval(code);
-          self.postMessage({ success: true, result: result });
+          eval(code);
+          self.postMessage({ success: true });
         } catch (error) {
           self.postMessage({ success: false, error: error.message });
         }
@@ -162,9 +167,11 @@ console.log(C.add(c).str);
         clearTimeout(timeout); // タイムアウト解除
         if (isTimeout) return;
 
-        const { success, result, error } = event.data;
-        if (success) {
-          output.textContent = `結果: ${result}`;
+        const { success, result, error, type, message } = event.data;
+        if (type === 'log') {
+          output.textContent += message + '\\n';
+        } else if (success) {
+          output.textContent += `結果: ${result}`;
         } else {
           output.textContent = `エラー: ${error}`;
         }
