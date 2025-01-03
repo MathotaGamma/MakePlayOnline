@@ -308,7 +308,7 @@ customElements.define("js-window", JSwindow);
           output.innerHTML += `${message}<br>`;
         } else if (type === "result") {
           if (success) {
-            output.innerHTML += `結果: ${result}<br>`;
+            if(result != undefined) output.innerHTML += `結果: ${result}<br>`;
           } else {
             output.innerHTML += `エラー: ${error}<br>`;
           }
