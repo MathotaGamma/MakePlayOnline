@@ -121,18 +121,14 @@ console.log(C.add(c).str);
 
     // Worker用のコード
     const workerCode = `
-      self.onmessage = function(event) {
-        const { code, apiAvailable } = event.data;
+      importScripts('https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js');
 
-        const script = document.createElement("script");
-        script.src = "https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js";
-        script.onerror = () => {
-          self.postMessage({ success: false, error: "APIをロードできません。" });
-          return;
-        };
+      self.onmessage = function(event) {
+        const { code } = event.data;
 
         try {
-          const result = eval(code); // ユーザーコードを実行
+          // ユーザーコードを実行（CompVisJSを利用可能）
+          const result = eval(code);
           self.postMessage({ success: true, result: result });
         } catch (error) {
           self.postMessage({ success: false, error: error.message });
