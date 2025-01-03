@@ -108,11 +108,12 @@ console.log(C.dif(c).str);
                 引数が実数の場合はCの実部と虚部両方がx倍される。<br>
                 例:<br>
                 <js-window>
-const C = new Compvis(-1,3);
+const C = new CompVis(-1,3);
 const c = new CompVis(2,1.5);
 const x = 3;
-console.log(C.pro(c).str);
-console.log(C.pro(x).str);
+                  
+console.log(C.pro(c).str); //C*c
+console.log(C.pro(x).str); //C*x
                 </js-window>
               </p>
             </li>
