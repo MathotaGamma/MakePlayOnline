@@ -122,17 +122,13 @@ class CompVis {
   static _create_canvas(id,width=0,height=0){
     if(width > 0){
       id.width = width;
-    } else {
-      id.width = window.innerWidth;
     }
     if(height > 0){
       id.height = height;
-    } else {
-      id.height = window.innerHeight;
     }
     return [id,id.getContext("2d")];
   }
-  //default:width=0,height=0,thick=1,radius=0,line_color="#000",point_color="#a00000",timeout=20000
+  //default:thick=1,radius=0,line_color="#000",point_color="#a00000",timeout=20000
   static _graph(id_ctx,origin_func,start,end,step,params={}){
     const return_data = {id_ctx:id_ctx,origin_func:origin_func,start:start,end:end,step:step,params:params}
     let id = id_ctx[0];
