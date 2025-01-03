@@ -238,6 +238,9 @@ customElements.define("js-window", JSwindow);
 
     // Worker用のコード
     const workerCode = `
+      // CompVisJSのインポート
+      importScripts('https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js');
+
       self.onmessage = function(event) {
         const { code } = event.data;
 
@@ -317,7 +320,6 @@ customElements.define("js-window", JSwindow);
 
 // カスタム要素を登録
 customElements.define("js-window", JSWindow);
-
     </script>
   </body>
 </html>
