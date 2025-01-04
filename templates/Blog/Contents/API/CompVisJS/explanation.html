@@ -221,6 +221,90 @@ console.log(C.str); //"1+2i"
                 </js-window>
               </p>
             </li>
+            <li>
+              <h4>C.real</h4>
+              <p>
+                Cの実部を実数値で返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(1,2);
+
+console.log(C.real); //1
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>C.imag</h4>
+              <p>
+                Cの虚部を実数値で返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(1,2);
+
+console.log(C.imag); //2
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>C.conj</h4>
+              <p>
+                Cの共役な複素数を返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(1,2);
+
+console.log(C.conj.str); //1-2i
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>C.abs</h4>
+              <p>
+                Cの絶対値を返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(1,2);
+
+console.log(C.abs); //√5
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>C.arg</h4>
+              <p>
+                Cの偏角を返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(1,Math.sqrt(3));
+
+console.log(C.arg); //π/3
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>C.log</h4>
+              <p>
+                log<sub>e</sub>(C)を実数値で返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(1/2,Math.sqrt(3)/2);
+
+console.log(C.log.round(5).str) //iπ/3
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>C.exp</h4>
+              <p>
+                e<sup>C</sup>を返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(0,Math.PI);
+
+console.log(C.exp.round(5).str); //e_iπ (=-1)
+                </js-window>
+              </p>
+            </li>
           </ul>
         </li>
       </ul>
