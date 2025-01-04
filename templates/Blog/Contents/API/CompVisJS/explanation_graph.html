@@ -3,6 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>CompVisJS _graph メソッド</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .auto-textarea {
+        margin: auto;
+        width: 80%;
+        resize: none;
+        overflow:hidden;
+      }
+    </style>
   </head>
   <body>
     APIのURLは<b>https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js</b>
@@ -85,7 +99,7 @@
                     </p>
                   </li>
                   <li>
-                    <h5>6params</h5>
+                    <h5>6:params</h5>
                     <p>
                       任意。連想配列型。その他の設定を変更する。変更したい変数のみ記すことも可能。
                     </p>
@@ -133,7 +147,7 @@
               funcより前である変数を宣言して、その変数をfuncで使うことで、その変数の値を変更してグラフを動かすことができるようになる。<br><br>
               書き方の一例(特にsetIntervalは変えてもいける。):<br>
             </p>
-            <textarea readonly>
+            <textarea class="auto-textarea" readonly>
               ...<br>
               let T = 0; &lt;-- グラフを再描画するときに変更する変数。
               ...<br>
@@ -146,7 +160,7 @@
           </li>
           <li>
             <h3>全体のコード例</h3>
-            <textarea readonly>
+            <textarea class="auto-textarea" readonly>
 &lt;!DOCTYPE HTML&gt;
 &lt;html lang=&quot;ja&quot;&gt;
   &lt;head&gt;
@@ -182,5 +196,24 @@
             </textarea>
           </li>
         </ul>
+        <script>
+          document.querySelectorAll(".auto-textarea").forEach((targetArea) => {
+            // 初期値によってtextarea高さをadjust
+            let lineHeight = Number(targetArea.rows);
+            while (targetArea.scrollHeight > targetArea.offsetHeight){
+              lineHeight++;
+              targetArea.rows = lineHeight;
+            }
+ 
+            // 入力値によってtextarea高さをadjust
+            this.addEventListener('input', (e) => {
+              e.srcElement.style.height = 0
+              e.srcElement.style.height = e.srcElement.scrollHeight+"px"
+              if (e.srcElement.offsetHeight < 40) {
+                e.srcElement.style.height = 40 + "px";
+              }
+            })
+          })
+        </script>
     </body>
 </html>
