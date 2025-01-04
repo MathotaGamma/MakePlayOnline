@@ -199,6 +199,27 @@ console.log(C.rotate(x).round(3).str); //C*(cos(x)+i*sin(x))
           <ul>
             <li>
               <h4>C.value</h4>
+              <p>
+                Cを配列[C.real,C.imag]で返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(1,2);
+
+console.log(C.value); //[1,2]
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>C.str</h4>
+              <p>
+                Cを文字列「'C.real'+'C.imag'i」で返す。<br>
+                例:<br>
+                <js-window>
+const C = new CompVis(1,2);
+
+console.log(C.str); //"1+2i"
+                </js-window>
+              </p>
             </li>
           </ul>
         </li>
