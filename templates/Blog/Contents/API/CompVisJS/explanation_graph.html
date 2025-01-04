@@ -148,25 +148,25 @@
               書き方の一例(特にsetIntervalは変えてもいける。):<br>
             </p>
             <textarea class="auto-textarea" readonly>
-              ...<br>
-              let T = 0; &lt;-- グラフを再描画するときに変更する変数。
-              ...<br>
-              const data = CompVis._graph(~~~);<br>
-              setInterval(() =&gt; {<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;T += 0.01;
-              &nbsp;&nbsp;&nbsp;&nbsp;CompVis._re_graph(data); &lt;-- 引数には_graphメソッドの戻り値を入れる。
-              },1000/30);
+...
+let T = 0; //<-- グラフを再描画するときに変更する変数。
+...
+const data = CompVis._graph(~~~);
+setInterval(() => {
+  T += 0.01;
+  CompVis._re_graph(data); //<-- 引数には_graphメソッドの戻り値を入れる。
+},1000/30);
             </textarea>
           </li>
           <li>
             <h3>全体のコード例</h3>
             <textarea class="auto-textarea" readonly>
-&lt;!DOCTYPE HTML&gt;
-&lt;html lang=&quot;ja&quot;&gt;
-  &lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;title&gt;CompVisJS Demo — CompVis._graph&lt;/title&gt;
-    &lt;script src=&quot;https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js&quot;&gt;&lt;/script&gt;
+<!DOCTYPE HTML>;
+<html lang='ja'>;
+  <head>
+    <meta charset='utf-8'>
+    <title>CompVisJS Demo — CompVis._graph</title>
+    <script src='https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js'></script>
   &lt;/head&gt;
   &lt;body&gt;
     &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
