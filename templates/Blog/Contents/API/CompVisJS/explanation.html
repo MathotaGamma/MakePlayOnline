@@ -47,13 +47,13 @@
           </ul>
         </li>
         <li>
-          静的メソッド
+          <a href="#static_method" style="color: inherit;">静的メソッド</a>
           <ul>
             <li>CompVis._list,CompVis._list_ja</li>
-            <li>CompVis._value</li>
-            <li>CompVis._str</li>
+            <li>CompVis._value(c)</li>
+            <li>CompVis._str(c)</li>
             <li>CompVis._round(c,n)</li>
-            <li>CompVis._toComp(l)</li>
+            <li>CompVis._toComp(l),CompVis._toComp(x)</li>
           </ul>
         </li>
         <li>
@@ -289,7 +289,7 @@ console.log(C.arg); //π/3
                 <js-window>
 const C = new CompVis(1/2,Math.sqrt(3)/2);
 
-console.log(C.log.round(5).str) //iπ/3
+console.log(C.log.str) //iπ/3
                 </js-window>
               </p>
             </li>
@@ -302,6 +302,77 @@ console.log(C.log.round(5).str) //iπ/3
 const C = new CompVis(0,Math.PI);
 
 console.log(C.exp.round(5).str); //e_iπ (=-1)
+                </js-window>
+              </p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3 id="static_method">静的メソッド</h3>
+          <ul>
+            <li>
+              <h4>CompVis._list,CompVis._list_ja</h4>
+              <p>
+                使えるメソッドのリストと簡単な説明を返す。<br>
+                ._listは英語版、_list_jaは日本語版<br>
+                例:<br>
+                <js-window>
+console.log(CompVis._list.join(','));
+console.log(CompVis._list_ja.join(','));
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._value(c)</h4>
+              <p>
+                c.valueと同じ結果を得られる。<span style="color: red">なぜ作ったのかは分からない。</span><br>
+                若干式の中だと使いやすいのかも。<br>
+                例:<br>
+                <js-window>
+const c = new CompVis(1,3);
+console.log(CompVis._value(c)); //[1,3]
+console.log(c.value);
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._str(c)</h4>
+              <p>
+                c.strと同じ結果を得られる。<span style="color: red">なぜ作ったのかは分からない。</span><br>
+                複雑な式の出力に<b>多少使えるかも</b>。<br>
+                例:<br>
+                <js-window>
+const c = new CompVis(1,3);
+console.log(CompVis._str(c)); //1+3i
+console.log(c.str);
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._round(c,n)</h4>
+              <p>
+                c.round(n)と同じ。<span style="color: red">何故作ったのだろう。</span><br>
+                正直使うメリットが思いつかない。。<br>
+                例:<br>
+                <js-window>
+const c = new CompVis(1,3).pow_by(1/2); //√(1+3i)
+console.log(CompVis._round(c,3).str);
+console.log(c.round(3).str);
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._toComp(l)またはCompVis._toComp(x)</h4>
+              <p>
+                引数が配列lの場合、l[0]を実部,l[1]を虚部とするCompVisクラスを作成する。<br>
+                引数が実数xの場合は実部x,虚部0のCompVisクラスが作成される。<br>
+                静的メソッドの中で唯一使えそうなメソッドである。<br>
+                例:<br>
+                <js-window>
+const l = [1,3];
+const x = -2;
+console.log(CompVis._toComp(l).str); //1+3i
+console.log(CompVis._toComp(x).str); //-2
                 </js-window>
               </p>
             </li>
