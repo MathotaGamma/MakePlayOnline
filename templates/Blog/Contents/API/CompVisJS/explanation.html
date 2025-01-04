@@ -159,8 +159,8 @@ const C = new CompVis(-1,3);
 const c = new CompVis(3,1.5);
 const x = 2;
                   
-console.log(C.pow_by(c).str); //C^c
-console.log(C.pow_by(x).str); //C^x
+console.log(C.pow_by(c).round(3).str); //C^c
+console.log(C.pow_by(x).round(3).str); //C^x
                 </js-window>
               </p>
             </li>
@@ -226,112 +226,7 @@ console.log(C.str); //"1+2i"
       </ul>
       
     </main>
-    <!--<script>
-      class JSwindow extends HTMLElement {
-  constructor() {
-    super();
-    // Shadow DOMを作成
-    const shadow = this.attachShadow({ mode: "open" });
-
-    // テキストエリア
-    const textarea = document.createElement("textarea");
-    textarea.rows = 5;
-    textarea.cols = 40;
-    textarea.textContent = this.textContent.trim();
-
-    // 実行ボタン
-    const button = document.createElement("button");
-    button.textContent = "実行";
-
-    // 結果表示
-    const output = document.createElement("pre");
-    output.style.cssText = "background: #f4f4f4; padding: 10px; border: 1px solid #ddd;";
-
-    // CompVisJS.jsを動的に読み込む
-    /*const script = document.createElement("script");
-    script.src = "https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js";
-    script.onerror = () => {
-      output.textContent = "APIを読み込めませんでした。";
-    };
-    document.head.appendChild(script);*/
-
-    // Worker用のコード
-    const workerCode = `
-      importScripts('https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js');
-
-      // Worker内でconsole.logをオーバーライド
-      self.consoleLog = function(message) {
-        self.postMessage({ type: 'log', message: message });
-      };
-
-      // console.logの代わりに自分の実装を使用
-      console.log = function(...args) {
-        self.consoleLog(args.join(" "));
-      };
-
-      self.onmessage = function(event) {
-        const { code } = event.data;
-
-        try {
-          // ユーザーコードを実行（CompVisJSを利用可能）
-          const result = eval(code); // ユーザーコードの実行
-          self.postMessage({ success: true, result: result });
-        } catch (error) {
-          self.postMessage({ success: false, error: error.message });
-        }
-      };
-    `;
-
-    // WorkerをBlob URLから作成
-    const blob = new Blob([workerCode], { type: "application/javascript" });
-    const workerUrl = URL.createObjectURL(blob);
-
-    // ボタン押下時の処理
-    button.addEventListener("click", () => {
-      const code = textarea.value;
-      const worker = new Worker(workerUrl);
-      let isTimeout = false;
-
-      // タイムアウト設定（3秒後に停止）
-      const timeout = setTimeout(() => {
-        isTimeout = true;
-        worker.terminate();
-        output.textContent = "タイムアウト: コードの実行が長すぎます。";
-      }, 3000);
-
-      // Workerからの結果を処理
-      worker.onmessage = (event) => {
-        clearTimeout(timeout); // タイムアウト解除
-        if (isTimeout) return;
-
-        const { success, result, error, type, message } = event.data;
-        if (type === 'log') {
-          // Workerからのconsole.logの出力を受け取る
-          output.textContent += message + '\\n';
-        } else if (success) {
-          output.textContent = `結果: ${result}`;
-        } else {
-          output.textContent = `エラー: ${error}`;
-        }
-        worker.terminate();
-      };
-
-      // Workerにコードを送信
-      worker.postMessage({ code });
-    });
-
-    // 要素をShadow DOMに追加
-    shadow.appendChild(textarea);
-    shadow.appendChild(document.createElement("br"));
-    shadow.appendChild(button);
-    shadow.appendChild(output);
-  }
-}
-
-// カスタム要素を登録
-customElements.define("js-window", JSwindow);
-
-    </script>-->
+    
     <script>
       class JSWindow extends HTMLElement {
   constructor() {
