@@ -140,7 +140,7 @@ const id_ctx = CompVis._create_canvas(canvas);
 //グラフを動かすための変数
 let T = 0;
 //原点の座標
-const pos = CompVis._toComp([-50,0]);
+const pos = CompVis._toComp([0,0]);
 //円の半径
 const r = [128,64,32,16,8,4];
 //円の初期位相
@@ -164,7 +164,7 @@ for(let k = 0; k < N; k++){
         
     let num_k = new CompVis(0,0);
     for(let j = 0; j < k; j++){
-      num_k = num_k.add(new CompVis(0,2*Math.PI*j*T/N-phi[j]).exp.pro(r[j]));
+      num_k = num_k.add(new CompVis(0,2*Math.PI*(j+1)*T/N-phi[j]).exp.pro(r[j]));
     }
     num_k = num_k.add(new CompVis(0,2*Math.PI*t/N-phi[k]).exp.pro(r[k]));
     return num_k.add(pos);
