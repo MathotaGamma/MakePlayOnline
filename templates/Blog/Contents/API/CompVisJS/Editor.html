@@ -163,7 +163,7 @@ for(let k = 0; k < N; k++){
     */
         
     let num_k = new CompVis(0,0);
-    for(let j = 0; j < k; i++){
+    for(let j = 0; j < k; j++){
       num_k = num_k.add(new CompVis(0,2*Math.PI*j*T/N-phi[j]).exp.pro(r[j]));
     }
     num_k = num_k.add(new CompVis(0,2*Math.PI*t/N-phi[k]).exp.pro(r[k]));
