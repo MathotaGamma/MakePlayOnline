@@ -9,7 +9,7 @@
     <h1>CompVis Graph</h1>
     <ul>
       <li>
-        <h2>コード例</h2>
+        <h2>構文例</h2>
         const canvas = document.getElementById('canvas');<br>
         const id_ctx = CompVis._create_canvas(canvas,500,400);<br>
         let T = 0;<br>
@@ -131,51 +131,56 @@
               CompVis._re_graphで再描画できる。<br>
               再描画する場合、CompVis._graphの戻り値を変数に保存しておかなければいけない(複数個_graphで作成したものを動かす場合は、それぞれの戻り値を配列に入れて_re_graphの引数に入れる)。<br>
               funcより前である変数を宣言して、その変数をfuncで使うことで、その変数の値を変更してグラフを動かすことができるようになる。<br><br>
-            書き方の一例(特にsetIntervalは変えてもいける。):<br>
-            ...<br>
-            let T = 0; &lt;-- グラフを再描画するときに変更する変数。
-            ...<br>
-            const data = CompVis._graph(~~~);<br>
-            setInterval(() =&gt; {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;T += 0.01;
-            &nbsp;&nbsp;&nbsp;&nbsp;CompVis._re_graph(data); &lt;-- 引数には_graphメソッドの戻り値を入れる。
-            },1000/30);
-        </p>
+              書き方の一例(特にsetIntervalは変えてもいける。):<br>
+            </p>
+            <textarea readonly>
+              ...<br>
+              let T = 0; &lt;-- グラフを再描画するときに変更する変数。
+              ...<br>
+              const data = CompVis._graph(~~~);<br>
+              setInterval(() =&gt; {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;T += 0.01;
+              &nbsp;&nbsp;&nbsp;&nbsp;CompVis._re_graph(data); &lt;-- 引数には_graphメソッドの戻り値を入れる。
+              },1000/30);
+            </textarea>
+          </li>
+          <li>
+            <h3>全体のコード例</h3>
+            <textarea readonly>
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;CompVisJS Demo — CompVis._graph&lt;/title&gt;
+    &lt;script src=&quot;https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;
+    &lt;script&gt;
+      let T = 0;
+      const canvas = document.getElementById(&quot;canvas&quot;);
+      const id_ctx = CompVis._create_canvas(canvas,500,400);
+      function func1(t){
+        let circle1 = new CompVis(0,Math.PI*T/4).exp.pro(150);
+        let circle2 = new CompVis(0,4*Math.PI*t).exp.pro(250*Math.sin(T));
+        return circle1.add(circle2);
+      }
+      function func2(t){
+        let circle = new CompVis(0,2*Math.PI*t).exp.pro(100*T);
+        return circle;
+      }
+      const data1 = CompVis._graph(id_ctx,func1,0,1,0.005,{radius:2,point_color:&quot;#00f&quot;,timeout:10000});
+      const data2 = CompVis._graph(id_ctx,func2,0,1,0.005,{line_color:&quot;#00b500&quot;,timeout:10000});
+      const data = [data1,data2];
+      setInterval(() =&gt; {
+        T += 0.1;
+        CompVis._re_graph(data);<br>
+      },1000/60);
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+            </textarea>
           </li>
         </ul>
-
-        全体のコード例<br>
-        &lt;!DOCTYPE HTML&gt;<br>
-        &lt;html lang=&quot;ja&quot;&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset=&quot;utf-8&quot;&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;CompVisJS Demo — CompVis._graph&lt;/title&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script src=&quot;https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js&quot;&gt;&lt;/script&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let T = 0;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const canvas = document.getElementById(&quot;canvas&quot;);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const id_ctx = CompVis._create_canvas(canvas,500,400);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function func1(t){<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let circle1 = new CompVis(0,Math.PI*T/4).exp.pro(150);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let circle2 = new CompVis(0,4*Math.PI*t).exp.pro(250*Math.sin(T));<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return circle1.add(circle2);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function func2(t){<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let circle = new CompVis(0,2*Math.PI*t).exp.pro(100*T);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return circle;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const data1 = CompVis._graph(id_ctx,func1,0,1,0.005,{radius:2,point_color:&quot;#00f&quot;,timeout:10000});<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const data2 = CompVis._graph(id_ctx,func2,0,1,0.005,{line_color:&quot;#00b500&quot;,timeout:10000});<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const data = [data1,data2];<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setInterval(() =&gt; {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T += 0.1;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CompVis._re_graph(data);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},1000/60);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/script&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;<br>
-        &lt;/html&gt;
     </body>
 </html>
