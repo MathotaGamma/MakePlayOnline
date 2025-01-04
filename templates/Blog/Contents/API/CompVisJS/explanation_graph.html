@@ -6,11 +6,9 @@
 </head>
 <body>
     <p>
-        https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js<br><br>
-
-        _graphメソッドの使い方<br><br>
-
-        ・例:<br>
+        APIのURLは<b>https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js</b>
+        <h1>CompVis Graph</h1>
+        <h2>コード例</h2>
         const canvas = document.getElementById('canvas');<br>
         const id_ctx = CompVis._create_canvas(canvas,500,400);<br>
         let T = 0;<br>
@@ -22,24 +20,40 @@
         &nbsp;&nbsp;&nbsp;&nbsp;T += 0.1;<br>
         &nbsp;&nbsp;&nbsp;&nbsp;CompVis._re_graph(data);<br>
         },1000/60);<br><br><br>
-
-        ・引数:<br>
-        id_ctx,func,start,end,step,params<br><br>
-
-        ・id_ctx:<br>
-        必須。htmlのcanvasタグのelementをCompVis._create_canvasの引数に入れたときの戻り値。<br>
-        例:<br>
-        html &gt;&gt;<br>
-        &lt;html&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;~~~<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;~~~<br>
-        &lt;/html&gt;<br>
-        javascript &gt;&gt;<br>
-        const canvas = document.getElementById('canvas');<br>
-        const id_ctx = CompVis._create_canvas(canvas,500,400);<br><br>
-
-        ・func:<br>
+        <h2>メソッドの説明</h2>
+        <h3 id="_create_canvas">_create_canvasメソッド</h3>
+        <p>
+            _graphメソッドの引数に必要。<br>
+            canvasのelementを引数に入れて戻り値を得る。<br>
+            <br>
+            例:<br>
+            html -><br>
+            &lt;canvas id="canvas"&gt;&lt;/canvas&gt;<br>
+            JavaScript -><br>
+            const element = document.getElementById('canvas');<br>
+            const id_ctx = CompVis._create_canvas(element); <-- <br>
+        </p>
+        <h3>_graphメソッド</h3>
+        <p>
+            初期描画と、再描画する際に必要なデータの配列を戻り値で得る。<br>
+            構文:<br>
+            JavaScript -><br>
+            const CompVis._graph(id_ctx,func,start,end,step,params);
+        </p>
+        <h4>_graphメソッドの引数</h4>
+            <ol>
+                <li>id_ctx</li>
+                <li>func</li>
+                <li>start</li>
+                <li>end</li>
+                <li>step</li>
+                <li>params</li>
+            </ol>
+        <h5>1:id_ctx</h5>
+        <p>
+            必須。<a href="#_create_canvas">_create_canvasで得る。</a>
+        </p>
+        <h5>2:func</h5>
         必須。CompVisクラスの戻り値が必要。引数を変数として用いた関数。変数は実数値である。<br>
         ※現在のバージョンでは、値の1が1pxに対応<br>
         例:<br>
