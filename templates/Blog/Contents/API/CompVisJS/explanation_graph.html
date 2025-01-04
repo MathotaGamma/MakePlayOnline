@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <title>CompVisJS _graph メソッド</title>
-</head>
-<body>
-    <p>
+    <head>
+        <meta charset="utf-8">
+        <title>CompVisJS _graph メソッド</title>
+    </head>
+    <body>
         APIのURLは<b>https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js</b>
         <h1>CompVis Graph</h1>
         <h2>コード例</h2>
@@ -27,17 +26,17 @@
             canvasのelementを引数に入れて戻り値を得る。<br>
             <br>
             例:<br>
-            html -><br>
+            html -&gt;<br>
             &lt;canvas id="canvas"&gt;&lt;/canvas&gt;<br>
-            JavaScript -><br>
+            JavaScript -&gt;<br>
             const element = document.getElementById('canvas');<br>
-            const id_ctx = CompVis._create_canvas(element); <-- <br>
+            const id_ctx = CompVis._create_canvas(element); &lt;-- <br>
         </p>
         <h3>_graphメソッド</h3>
         <p>
             初期描画と、再描画する際に必要なデータの配列を戻り値で得る。<br>
             構文:<br>
-            JavaScript -><br>
+            JavaScript -&gt;<br>
             const CompVis._graph(id_ctx,func,start,end,step,params);
         </p>
         <h4>_graphメソッドの引数</h4>
@@ -54,54 +53,61 @@
             必須。<a href="#_create_canvas">_create_canvasで得る。</a>
         </p>
         <h5>2:func</h5>
-        必須。CompVisクラスの戻り値が必要。引数を変数として用いた関数。変数は実数値である。<br>
-        ※現在のバージョンでは、値の1が1pxに対応<br>
-        例:<br>
-        javascript &gt;&gt;<br>
-        const func = function(t){<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;return new CompVis(0,t).exp.pro(t);<br>
-        }<br>
-        この場合、t*e^itを描画する。<br><br>
+        <p>
+            必須。CompVisクラスの戻り値が必要。引数を変数として用いた関数。変数は実数値である。<br>
+            ※現在のバージョンでは、値の1が1pxに対応<br>
+            例:<br>
+            JavaScript -&gt;<br>
+            const func = function(t){<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;return new CompVis(0,t).exp.pro(t);<br>
+            }<br>
+            この場合、t*e^itを描画する。<br><br>
+        </p>
+        <h5>3:start,4:end,5:step</h5>
+        <p>
+            必須。変数をstartからendまで間隔をstepとして動かす。
+        </p>
+        <h5>params</h5>
+        <p>
+            任意。連想配列型。その他の設定を変更する。変更したい変数のみ記すことも可能。
+        </p>
+        <h6>thick</h6>
+        <p>
+            default:1<br>
+            描画する線の太さ
+        </p>
+        <h6>radius</h6>
+        <p>
+            default:0<br>
+            func上を変数が動いた点に描画される円の半径
+        </p>
+        <h6>line_color,point_color</h6>
+        <p>
+            default:&quot;#000&quot;(黒),&quot;#a00000&quot;(赤)<br>
+            線、点の色。&quot;# (rgbのHTMLカラーコード)&quot;
+        </p>
+        <h6>timeout</h6>
+        <p>
+            default:20000<br>
+            計算時間の上限。整数値。単位はms(ミリ秒)。0以下で計算時間の上限なし。<br>
+            タイムアウトするとErrorを発生させる(Too longエラー)。
+        </p>
 
-        ・start,end,step<br>
-        必須。変数をstartからendまで間隔をstepとして動かす。<br><br>
-
-        ・params<br>
-        任意。連想配列型。その他の設定を変更する。変更したい変数のみ記すことが可能。<br><br>
-
-        thick &gt;&gt;<br>
-        default:1<br>
-        描画する線の太さ<br><br>
-
-        radius &gt;&gt;<br>
-        default:0<br>
-        func上を変数が動いた点に描画される円の半径<br><br>
-
-        line_color,point_color &gt;&gt;<br>
-        default:&quot;#000&quot;(黒),&quot;#a00000&quot;(赤)<br>
-        線、点の色。&quot;# (rgbのHTMLカラーコード)&quot;<br><br>
-
-        timeout &gt;&gt;<br>
-        default:20000<br>
-        計算時間の上限。整数値。単位はms(ミリ秒)。0以下で計算時間の上限なし。<br>
-        タイムアウトするとErrorを発生させる(Too longエラー)。<br><br>
-
-        ・再描画<br>
-        CompVis._re_graphで再描画できる。<br>
-        再描画する場合、CompVis._graphの戻り値を変数に保存しておかなければいけない(複数個_graphで作成したものを動かす場合は、それぞれの戻り値を配列に入れて_re_graphの引数に入れる)。<br>
-        funcより前である変数を宣言して、その変数をfuncで使うことで、その変数の値を変更してグラフを動かすことができるようになる。<br>
-        例:<br>
-        javascript &gt;&gt;<br>
-        const id_ctx = ~~~<br>
-        let T = 0; &lt;-<br>
-        const data = CompVis._graph(id_ctx,function(t){ &lt;-<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;return new CompVis(0,2*Math.PI*t+T).exp.pro(50*t); &lt;-<br>
-        },0,5,0.005,{radius:2});<br><br>
-
-        setInterval(() =&gt; {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;T += 0.1;&lt;-<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;CompVis._re_graph(data); &lt;-<br>
-        },1000/60);<br><br>
+        <h3>_re_graph</h3>
+        <p>
+            CompVis._re_graphで再描画できる。<br>
+            再描画する場合、CompVis._graphの戻り値を変数に保存しておかなければいけない(複数個_graphで作成したものを動かす場合は、それぞれの戻り値を配列に入れて_re_graphの引数に入れる)。<br>
+            funcより前である変数を宣言して、その変数をfuncで使うことで、その変数の値を変更してグラフを動かすことができるようになる。<br><br>
+            書き方の一例(特にsetIntervalは変えてもいける。):<br>
+            ...<br>
+            let T = 0; &lt;-- グラフを再描画するときに変更する変数。
+            ...<br>
+            const data = CompVis._graph(~~~);<br>
+            setInterval(() =&gt; {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;T += 0.01;
+            &nbsp;&nbsp;&nbsp;&nbsp;CompVis._re_graph(data); &lt;-- 引数には_graphメソッドの戻り値を入れる。
+            },1000/30);
+        </p>
 
         全体のコード例<br>
         &lt;!DOCTYPE HTML&gt;<br>
@@ -136,6 +142,5 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&lt;/script&gt;<br>
         &nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;<br>
         &lt;/html&gt;
-    </p>
-</body>
+    </body>
 </html>
