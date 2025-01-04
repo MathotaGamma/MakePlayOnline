@@ -7,8 +7,8 @@ class CompVis {
   }
 
   static _ver = '1.02.02';
-  static _list_ja = ['real:実部を取得','imag:虚部を取得','value:値を配列で取得[real,imag]','conj:共役な複素数','abs:絶対値','arg:偏角','log:自然対数','log_n:引数を底とした対数','exp:eを底とした累乗','toComp:二次元配列を複素数値に','add:足し算','dif:引き算','pro:掛け算','div:割り算','pow_by:引数乗','pow_of:引数を底とした累乗','rotate:引数[rad]反時計回りに回転させる'];
-  static _list = ['real:get real part','imag:get imaginary part','value:get value as array[real,imag]','conj:conjugate complex number','abs:absolute value','arg:partial angle','log:natural logarithm','log_n:logarithm with argument as base','exp:power with e as base ','toComp:two-dimensional array to complex numbers','add:addition','dif:subtraction','pro:multiplication','div:division','pow_by:argument power','pow_of:power with argument at bottom','rotate:rotate argument[rad]counterclockwise'];
+  static _list_ja = ['real:実部を取得','imag:虚部を取得','value:値を配列で取得[real,imag]','conj:共役な複素数','abs:絶対値','arg:偏角','log:自然対数','log_n:引数を底とした対数','exp:eを底とした累乗','toComp:配列を複素数値に','add:足し算','dif:引き算','pro:掛け算','div:割り算','pow_by:引数乗','pow_of:引数を底とした累乗','rotate:引数[rad]反時計回りに回転させる'];
+  static _list = ['real:get real part','imag:get imaginary part','value:get value as array[real,imag]','conj:conjugate complex number','abs:absolute value','arg:partial angle','log:natural logarithm','log_n:logarithm with argument as base','exp:power with e as base ','toComp:array to complex numbers','add:addition','dif:subtraction','pro:multiplication','div:division','pow_by:argument power','pow_of:power with argument at bottom','rotate:rotate argument[rad]counterclockwise'];
   
   //Methods that throw errors about functions whose arguments must be real numbers
   #Error_Argument_real(k){
