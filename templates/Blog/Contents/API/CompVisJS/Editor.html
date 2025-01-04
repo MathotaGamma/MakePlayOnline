@@ -133,38 +133,57 @@
     <div id="editor-container">
       <textarea id="code-editor" placeholder="JavaScriptコードをここに書いてください...">
 console.log('Log:CompVisJS Editor');
-
-const canvas = document.getElementById('canvas'); //canvasのelementを取得
-const id_ctx = CompVis._create_canvas(canvas); //canvasからctxを作成
-
-let T = 0; //グラフを動かすための変数
-
-const pos = CompVis._toComp([-50,0]); //中心の座標
-const r = [128,64,32,16,8,4]; //円の半径
-const phi = [0,Math.PI/2,Math.PI/3,Math.PI/4,Math.PI/5,Math.PI/6]; //円の初期位相
-
-const N = r.length; //円の数
-
-let data = []; //再描画用の配列
-
-for(let k = 0; k < N; k++){ //それぞれの円を描画する
-  function func(t){ //それぞれの円の方程式を計算
+//canvasのelementを取得
+const canvas = document.getElementById('canvas');
+//canvasの準備
+const id_ctx = CompVis._create_canvas(canvas);
+//グラフを動かすための変数
+let T = 0;
+//原点の座標
+const pos = CompVis._toComp([-50,0]);
+//円の半径
+const r = [128,64,32,16,8,4];
+//円の初期位相
+const phi = [0,Math.PI/2,Math.PI/3,Math.PI/4,Math.PI/5,Math.PI/6];
+//円の数
+const N = r.length;
+//再描画用の配列
+let data = [];
+//それぞれの円を描画する
+for(let k = 0; k < N; k++){
+  //それぞれの円の方程式を計算
+  function func(t){
+    //tは媒介変数のようなもの(e^(2πit)で半径1の円が描画される。)
+    /*
+      r[0]*e^(0*2πTi/N-φ[0])+r[1]*e^(1*2πTi/N-φ[1])
+      +...+
+      r[k-1]*e^(0*2πTi/N-φ[k-1])
+        <ここまでで、描画する円の中心の座標を計算している>
+      +r[k]*e^(k*2πti/N-φ[k]) <小文字のtであることに注意>
+    */
+        
     let num_k = new CompVis(0,0);
-    for(let i = 0; i < k; i++){
-      num_k = num_k.add(new CompVis(0,2*Math.PI*i*T/N-phi[i]).exp.pro(r[i]));
+    for(let j = 0; j < k; i++){
+      num_k = num_k.add(new CompVis(0,2*Math.PI*j*T/N-phi[j]).exp.pro(r[j]));
     }
-    num_k = num_k.add(new CompVis(0,2*Math.PI*t/N+phi[k]).exp.pro(r[k]));
+    num_k = num_k.add(new CompVis(0,2*Math.PI*t/N-phi[k]).exp.pro(r[k]));
     return num_k.add(pos);
   }
-  const data_k = CompVis._graph(id_ctx,func,0,2*Math.PI,0.005,{line_color:"#00b500",timeout:10000}); //円を描画
-  data.push(data_k) //再描画用の配列に保存
+
+  //円を描画 
+  const data_k = CompVis._graph(id_ctx,func,0,2*Math.PI,0.005,{line_color:"#00b500",timeout:10000});
+  //再描画用の配列に保存
+  data.push(data_k)
 }
 
-
-setInterval(() => { //再描画する
-  T += 0.05; //グラフを移動させるための変数の値を変更する。
-  CompVis._re_graph(data); //再描画
-},1000/30); //framerateを設定(ms[ミリ秒])。これは30fpsになる。</textarea>
+//再描画する
+setInterval(() => {
+  //グラフを移動させるための変数の値を変更する。
+  T += 0.05;
+  //再描画
+  CompVis._re_graph(data);
+//framerateを設定(ms[ミリ秒])。これは30fpsになる。
+},1000/30);</textarea>
       <button id="run-button">実行&保存</button>
     </div>
     <div id="right-panel">
