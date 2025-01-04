@@ -127,6 +127,7 @@
   <div id="header">
     <button onclick='window.location.href = "./explanation"'>説明へ</button>
     <div id="title">CompVisJS Editor ver:1.02.02</div>
+    <button id="saveImage">画像で保存</button>
     <button id="hide-panel-button">Canvasのみ表示</button>
   </div>
   <div id="container">
@@ -307,6 +308,18 @@ setInterval(() => {
       
       
 });
+
+    // ボタンをクリックして画像を保存
+    document.getElementById('saveImage').addEventListener('click', () => {
+      // Canvas の内容を画像データに変換
+      const imageData = canvas.toDataURL('image/png');
+
+      // 画像をダウンロード
+      const link = document.createElement('a');
+      link.href = imageData;
+      link.download = 'CompVis_img.png'; // ファイル名
+      link.click();
+    });
 
 
     // CSSの変更で非表示にするスタイル
