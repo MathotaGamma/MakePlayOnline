@@ -4,13 +4,20 @@
     <meta charset="utf-8">
     <title>CompVisJS - Explanation</title>
     <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js"></script>
+    <style>
+      a.anchor {
+        color: inherit;
+        text-decoration: none;
+      }
+    </style>
   </head>
   <body>
     <h1>CompVisJS</h1>
     APIのURLは<b>https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js</b>です。
     <main>
       <p>
-        Web版のEditorは<a href="./Editor">こちら</a>
+        Web版のEditorは<a href="./Editor">こちら</a><br>
+        CompVisのGraphの使い方についての詳細は<a href="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/explanation.txt" target="_blank">こちら</a>
       </p>
       <h2>メソッド一覧</h2>
       <p>
@@ -19,7 +26,7 @@
       </p>
       <ul>
         <li>
-          <a href="#yes-arg" style="color: inherit;">引数ありのメソッド</a>
+          <a href="#yes-arg" class="anchor">引数ありのメソッド</a>
           <ul>
             <li>C.round(n)</li>
             <li>C.add(c)</li>
@@ -33,7 +40,7 @@
           </ul>
         </li>
         <li>
-          <a href="#no-arg" style="color: inherit;">引数なしのメソッド</a>
+          <a href="#no-arg" class="anchor">引数なしのメソッド</a>
           <ul>
             <li>C.value</li>
             <li>C.str</li>
@@ -47,7 +54,7 @@
           </ul>
         </li>
         <li>
-          <a href="#static_method" style="color: inherit;">静的メソッド</a>
+          <a href="#static_method" class="anchor">静的メソッド</a>
           <ul>
             <li>CompVis._list,CompVis._list_ja</li>
             <li>CompVis._value(c)</li>
@@ -57,7 +64,7 @@
           </ul>
         </li>
         <li>
-          Graph関連
+          <a href="#graph" class="anchor">Graph関連</a>
           <ul>
             <li>CompVis._create_canvas(element)</li>
             <li>CompVis._graph(id_ctx,func,start,end,step,params)</li>
@@ -374,6 +381,38 @@ const x = -2;
 console.log(CompVis._toComp(l).str); //1+3i
 console.log(CompVis._toComp(x).str); //-2
                 </js-window>
+              </p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h3 id="graph">Graph関連</h3>
+          <span style="color: red;"><b>Graphの詳しい説明は<a href="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/explanation.txt" target="_blank">こちら</a></b></span>
+          <ul>
+            <li>
+              <h3>CompVis._create_canvas(element)</h3>
+              <p>
+                canvasのelementとelement.getContext("2d");の配列を返す。<br>
+                CompVis._graphの引数id_ctxに代入する必要があるため必須。<br>
+                例:<br>
+                <js-window>
+const element = document.getElementById('canvas'); //CompVis Editorではこれで取得する。
+
+const id_ctx = CompVis._create_canvas(element);
+console.log(id_ctx);
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._graph(id_ctx,func,start,end,step,params)</h4>
+              <p>
+                グラフの初期描画を行う。詳しくは<a href="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/explanation.txt" target="_blank">こちら</a>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._re_graph(data)</h4>
+              <p>
+                グラフの再描画を行う。詳しくは<a href="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/explanation.txt" target="_blank">こちら</a>
               </p>
             </li>
           </ul>
