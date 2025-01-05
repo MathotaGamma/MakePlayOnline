@@ -310,14 +310,11 @@ setInterval(() => {
         computedStyle = window.getComputedStyle(canvas);
         canvas.width = parseInt(computedStyle.width.replace('px',''))
         canvas.height = parseInt(computedStyle.height.replace('px',''))
-        //runCode()
+        runCode()
       }
       /*canvas.width = canvas.style.width;
       canvas.height = 300;*/
-      
-      
-      
-});
+    });
 
     // ボタンをクリックして画像を保存
     document.getElementById('saveImage').addEventListener('click', () => {
