@@ -306,13 +306,14 @@ setInterval(() => {
         hidePanelButton.textContent = 'Canvasのみ表示';
         canvas.width = pre_px[0];
         canvas.height = pre_px[1];
+        runCode();
       } else {
         container.classList.add('hide-panels');
         hidePanelButton.textContent = '元に戻す';
         computedStyle = window.getComputedStyle(canvas);
-        canvas.width = parseInt(computedStyle.width.replace('px',''))
-        canvas.height = parseInt(computedStyle.height.replace('px',''))
-        runCode()
+        canvas.width = parseInt(computedStyle.width.replace('px',''));
+        canvas.height = parseInt(computedStyle.height.replace('px',''));
+        runCode();
       }
       /*canvas.width = canvas.style.width;
       canvas.height = 300;*/
