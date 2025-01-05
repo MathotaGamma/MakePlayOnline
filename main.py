@@ -140,6 +140,18 @@ def Lifeshave_play():
 def gltf():
   return url_for('static',filename="LIFESHAVE/humancubist.gltf")
 
+@app.route('/Static/API/<file_name>/latest/<file>.js', methods=['POST','GET'])
+def get_latest_version_file(file_name, file):
+  folders = [name for name in os.listdir('static/API/'+file_name) if os.path.isdir(os.path.join('static/API/'+file_name, name))]
+  latest_ver = max(folders, key=lambda v: list(map(int, v.split('.'))))
+  return send_from_directory('static','API/'+file_name+latest_ver+file+'.js')
+
+@app.route('/Static/API/<file_name>/latest/<file>.js')
+def get_latest_version_file(file_name, file):
+  folders = [name for name in os.listdir('static/API/'+file_name) if os.path.isdir(os.path.join('static/API/'+file_name, name))]
+  latest_ver = max(folders, key=lambda v: list(map(int, v.split('.'))))
+  return send_from_directory('static','API/'+file_name+latest_ver+file+'.js')
+
 @app.route('/Static/<path:Path>',methods=['GET','POST'])
 def Static_file_post(Path):
   return send_from_directory('static',Path)
