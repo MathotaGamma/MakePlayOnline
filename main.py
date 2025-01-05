@@ -157,7 +157,18 @@ def Static_file_post(Path):
 
 @app.route('/Static/<path:Path>')
 def Static_file(Path):
-  return send_from_directory('static',Path)
+  pattern = r"^API/(.+)/latest/(.+)$"
+  path = str(Path);
+  # 正規表現で判定
+  match = re.match(pattern, path)
+  if match:
+    file_name = match.group(1)
+    file = match.group(2)
+    folders = [name for name in os.listdir('static/API/'+file_name) if os.path.isdir(os.path.join('static/API/'+file_name, name))]
+    latest_ver = max(folders, key=lambda v: list(map(int, v.split('.'))))
+    return send_from_directory('static','API/'+file_name+latest_ver+file)
+  else:
+    return send_from_directory('static',Path)
 
 @app.route('/Blog/home')
 def blog_home():
