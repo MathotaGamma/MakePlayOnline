@@ -277,7 +277,7 @@ throw new Error('CompVisJS-Timeout error->Too long.');
       const center_y = id.height/2;
     
       function func(t){
-        return origin_func(t).add(new CompVis(center_x,center_y));
+        return origin_func(t).add(new CompVis(center_x,center_y)).conj;
       }
     
       if(Number.isNaN(start) || Number.isNaN(end) || Number.isNaN(step)){
@@ -343,7 +343,7 @@ throw new Error('CompVisJS-Timeout error->Too long.');
       F.push(new CompVis(0,0));
     
       for(let j = 0; j < N; j++){
-        F[k] = F[k].add(new CompVis(0,1).pro(-2*Math.PI*j*k/N).exp.pro(l[k]));
+        F[k] = F[k].add(new CompVis(0,1).pro(-2*Math.PI*j*k/N).exp.pro(l[j]));
       }
       F[k] = F[k].div(N);
       if(return_type == 'normal') {
