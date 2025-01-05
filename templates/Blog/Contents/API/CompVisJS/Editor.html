@@ -66,7 +66,7 @@
       background: white;
       width: 100%;
       font-family: monospace;
-      font-size: 10px;
+      font-size: 12px;
     }
     textarea {
       flex: 1;
@@ -182,7 +182,7 @@ for(let k = 0; k < N; k++){
     return num_k.add(pos);
   }
 
-  //円を描画 
+  //円を描画
   const data_k = CompVis._graph(id_ctx,func,0,2*Math.PI,0.005,{line_color:"#00b500",timeout:10000});
   //再描画用の配列に保存
   data.push(data_k)
