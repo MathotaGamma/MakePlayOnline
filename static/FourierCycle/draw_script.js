@@ -1,8 +1,8 @@
 alert(new CompVis(2,3).str);
-const id = document.getElementById('canvas');
+const canvas = document.getElementById('canvas');
 
 const w = innerWidth;
 const h = innerHeight;
 
-id.width = w;
-id.height = h;
+canvas.width = w;
+canvas.height = h;
