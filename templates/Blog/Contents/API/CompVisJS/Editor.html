@@ -53,8 +53,13 @@
       flex: 1;
       height: calc(100vh - 50px);
     }
+    #explanation_container {
+      width: 50%;
+      height: 20%;
+    }
     #editor-container {
       width: 50%;
+      height: 80%;
       background-color: #f4f4f4;
       display: flex;
       flex-direction: column;
@@ -131,6 +136,11 @@
     <button id="hide-panel-button">Canvasのみ表示</button>
   </div>
   <div id="container">
+    <div id="explanation_container">
+      ⚠️Graphの操作に必要なcanvasはidが'canvas'で存在しています。<br>
+      &nbsp;&nbsp;document.getElementById('canvas');で取得してください。<br>
+      ⚠️DOM操作はdocument.getElementById('canvas');以外は使用できません。
+    </div>
     <div id="editor-container">
       <textarea id="code-editor" placeholder="JavaScriptコードをここに書いてください...">
 console.log('Log:CompVisJS Editor');
