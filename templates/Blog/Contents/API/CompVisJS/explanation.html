@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>CompVisJS - Explanation</title>
-    <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.02/CompVisJS.js"></script>
+    <script src="https://makeplayonline.onrender.com/Static/API/CompVisJS/1.02.03/CompVisJS.js"></script>
     <style>
       a.anchor {
         color: inherit;
@@ -22,7 +22,8 @@
       <h2>メソッド一覧</h2>
       <p>
         C,cはnew CompVis(~,~);で作成したCompVisクラス変数、<br>
-        xは実数、nは整数、lは実数値を二つ持った配列([x,y])とする。
+        xは実数、nは整数、lは実数値を二つ持った配列([x,y]),l_c・l_xはc・xの一次元配列とする。<br><br>
+        verが書いてあるものは、そのver以降使えるもの。
       </p>
       <ul>
         <li>
@@ -61,6 +62,9 @@
             <li>CompVis._str(c)</li>
             <li>CompVis._round(c,n)</li>
             <li>CompVis._toComp(l),CompVis._toComp(x)</li>
+            <li>CompVis._DFT(l) <- ver:1.02.03</li>
+            <li>CompVis._Real(c),CompVis._Real(l_c) <- ver:1.02.03</li>
+            <li>CompVis._Imag(c),CompVis._Imag(l_c) <- ver:1.02.03</li>
           </ul>
         </li>
         <li>
@@ -380,6 +384,77 @@ const l = [1,3];
 const x = -2;
 console.log(CompVis._toComp(l).str); //1+3i
 console.log(CompVis._toComp(x).str); //-2
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._DFT(l_c,return_type)またはCompVis._DFT(l_x,return_type)</h4>
+              <p>
+                引数を離散フーリエ変換したものを戻り値として与える。<br>
+                return_typeは'normal'と'text_list'の二種類。<br>
+                <ul>
+                  <li>
+                    <h5>normal[default]</h5>
+                    <p>
+                      戻り値を二次元配列[value,abs,arg]で返す。<br>
+                      要素は全て一次元配列で、その長さはl_cまたはl_xと同じ。<br>
+                      <ul>
+                        <li>
+                          value:離散フーリエ変換の結果。
+                        </li>
+                        <li>
+                          abs:結果の、それぞれの絶対値。
+                        </li>
+                        <li>
+                          arg:結果の、それぞれの偏角。
+                        </li>
+                      </ul>
+                    </p>
+                  </li>
+                  <li>
+                    <h5>text_list</h5>
+                    <p>
+                      normalの結果を整形して文字列にした一次元配列を返す。<br>
+                      長さはl_cまたはl_xと同じ。<br>
+                      構造:<br>
+                      ['value:~~,abs:~~,arg:~~',...,'~~~'];
+                    </p>
+                  </li>
+                </ul>
+                例:<br>
+                <js-window>
+const l_c = CompVis._toComp([[1,0],[0,1],[-1,0],[0,-1]]);
+const l_x = CompVis._toComp([1,2,3,4]);
+
+console.log(CompVis._DFT(l_c));
+console.log(CompVis._DFT(l_x,'text_list').join('/n'));
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._Real(c)またはCompVis._Real(l_c)</h4>
+              <p>
+                C.realを配列に対しても使えるようにしたもの。<br>
+                <js-window>
+const c = new CompVis(-3,-2);
+const l_c = CompVis._toComp([[1,2],[3,-4]]);
+
+console.log(c.real);
+console.log(CompVis._Real(l_c));
+                </js-window>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._Imag(c)またはCompVis._Imag(l_c)</h4>
+              <p>
+                C.imagを配列に対しても使えるようにしたもの。<br>
+                例:<br>
+                <js-window>
+const c = new CompVis(-3,-2);
+const l_c = CompVis._toComp([[1,2],[3,-4]]);
+
+console.log(c.imag);
+console.log(CompVis._Imag(l_c));
                 </js-window>
               </p>
             </li>
