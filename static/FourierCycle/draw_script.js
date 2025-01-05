@@ -33,7 +33,7 @@ canvas.addEventListener('touchend',(event) => {
 function point_draw(l){
   for(let k = 0; k < l.length; k++){
     CompVis._graph(id_ctx,function(t){
-      return new CompVis(0,2*Math.PI*t).exp.add(CompVis._toComp(l[k])).pro(10);
+      return new CompVis(0,2*Math.PI*t).exp.add(CompVis._toComp(CompVis._toComp(l[k]))).pro(10);
     },0,1,0.01);
   }
 }
