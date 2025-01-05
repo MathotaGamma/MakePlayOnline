@@ -175,7 +175,7 @@ class CompVis {
     const center_y = id.height/2;
     
     function func(t){
-      return origin_func(t).add(new CompVis(center_x,center_y)).conj;
+      return new CompVis(center_x,center_y).dif(origin_func(t));
     }
     
     if(Number.isNaN(start) || Number.isNaN(end) || Number.isNaN(step)){
@@ -189,6 +189,7 @@ class CompVis {
     let t = start;
     
     let value = func(t).value;
+    
     
     ctx.beginPath();
     ctx.arc(value[0],value[1],radius,0,2*Math.PI);
@@ -277,7 +278,7 @@ throw new Error('CompVisJS-Timeout error->Too long.');
       const center_y = id.height/2;
     
       function func(t){
-        return origin_func(t).add(new CompVis(center_x,center_y)).conj;
+        return new CompVis(center_x,center_y).dif(origin_func(t));
       }
     
       if(Number.isNaN(start) || Number.isNaN(end) || Number.isNaN(step)){
