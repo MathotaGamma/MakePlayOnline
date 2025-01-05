@@ -142,7 +142,7 @@ def gltf():
 
 @app.route('/Static/<path:Path>',methods=['GET','POST'])
 def Static_file_post(Path):
-  pattern = r"^API/.+/latest/.+$"
+  pattern = r"^API/(.+)/latest/(.+)$"
   path = str(Path);
   # 正規表現で判定
   match = re.match(pattern, path)
