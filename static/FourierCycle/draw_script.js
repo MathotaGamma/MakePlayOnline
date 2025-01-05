@@ -3,3 +3,6 @@ const id = document.getElementById('canvas');
 
 const w = innerWidth;
 const h = innerHeight;
+
+id.width = w;
+id.height = h;
