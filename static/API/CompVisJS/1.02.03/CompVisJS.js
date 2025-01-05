@@ -7,7 +7,7 @@ class CompVis {
   }
   
   static ver = '1.02.03';
-  static _list = ['.value','_value','.str','_str','.round','_round','_toComp','.real','.imag','.conj','.abs','.arg','.log','.exp','_create_canvas','_graph','_re_graph','_DFT','_Real','_Imag','.add','.dif','.pro','.div','.log_n','.pow_by'.'.pow_of','.rotate'];
+  static _list = ['.value','_value','.str','_str','.round','_round','_toComp','.real','.imag','.conj','.abs','.arg','.log','.exp','_create_canvas','_graph','_re_graph','_DFT','_Real','_Imag','.add','.dif','.pro','.div','.log_n','.pow_by','.pow_of','.rotate'];
   
   //Methods that throw errors about functions whose arguments must be real numbers
   #Error_Argument_real(k){
