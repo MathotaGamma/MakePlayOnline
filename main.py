@@ -147,7 +147,7 @@ def Static_file_post(Path):
   app.logger.info(path)
   # 正規表現で判定
   match = re.match(pattern, path)
-  app.logger.info(str(match)
+  app.logger.info(str(match))
   if match:
     file_name = match.group(1)
     file = match.group(2)
