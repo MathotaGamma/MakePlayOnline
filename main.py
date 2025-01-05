@@ -140,21 +140,20 @@ def Lifeshave_play():
 def gltf():
   return url_for('static',filename="LIFESHAVE/humancubist.gltf")
 
-@app.route('/Static/API/<file_name>/latest/<file>', methods=['POST','GET'])
-def get_latest_version_file(file_name, file):
-  folders = [name for name in os.listdir('static/API/'+file_name) if os.path.isdir(os.path.join('static/API/'+file_name, name))]
-  latest_ver = max(folders, key=lambda v: list(map(int, v.split('.'))))
-  return send_from_directory('static','API/'+file_name+latest_ver+file+'.js')
-
-@app.route('/Static/API/<file_name>/latest/<file>')
-def get_latest_version_file(file_name, file):
-  folders = [name for name in os.listdir('static/API/'+file_name) if os.path.isdir(os.path.join('static/API/'+file_name, name))]
-  latest_ver = max(folders, key=lambda v: list(map(int, v.split('.'))))
-  return send_from_directory('static','API/'+file_name+latest_ver+file+'.js')
-
 @app.route('/Static/<path:Path>',methods=['GET','POST'])
 def Static_file_post(Path):
-  return send_from_directory('static',Path)
+  pattern = r"^Static/API/.+/latest/.+$"
+    
+  # 正規表現で判定
+  match = re.match(pattern, path)
+  if match:
+    file_name = match.group(1)
+    file = match.group(2)
+    folders = [name for name in os.listdir('static/API/'+file_name) if os.path.isdir(os.path.join('static/API/'+file_name, name))]
+    latest_ver = max(folders, key=lambda v: list(map(int, v.split('.'))))
+    return send_from_directory('static','API/'+file_name+latest_ver+file)
+  else:
+    return send_from_directory('static',Path)
 
 @app.route('/Static/<path:Path>')
 def Static_file(Path):
