@@ -62,79 +62,75 @@
               JavaScript -&gt;<br>
               const CompVis._graph(id_ctx,func,start,end,step,params);
             </p>
+            <h4>_graphメソッドの引数</h4>
+            <ol>
+              <li>id_ctx</li>
+              <li>func</li>
+              <li>start</li>
+              <li>end</li>
+              <li>step</li>
+              <li>params</li>
+            </ol>
             <ul>
               <li>
-                <h4>_graphメソッドの引数</h4>
-                <ol>
-                  <li>id_ctx</li>
-                  <li>func</li>
-                  <li>start</li>
-                  <li>end</li>
-                  <li>step</li>
-                  <li>params</li>
-                </ol>
+                <h5>1 id_ctx</h5>
+                <p>
+                  必須。<a href="#_create_canvas">_create_canvasで得る。</a>
+                </p>
+              </li>
+              <li>
+                <h5>2 func</h5>
+                <p>
+                  必須。CompVisクラスの戻り値が必要。引数を変数として用いた関数。変数は実数値である。<br>
+                  ※現在のバージョンでは、値の1が1pxに対応<br>
+                  例:<br>
+                  JavaScript -&gt;<br>
+                  const func = function(t){<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;return new CompVis(0,t).exp.pro(t);<br>
+                  }<br>
+                  この場合、t*e^itを描画する。<br><br>
+                </p>
+              </li>
+              <li>
+                <h5>3 start,4 end,5 step</h5>
+                <p>
+                  必須。変数をstartからendまで間隔をstepとして動かす。
+                </p>
+              </li>
+              <li>
+                <h5>6 params</h5>
+                <p>
+                  任意。連想配列型。その他の設定を変更する。変更したい変数のみ記すことも可能。
+                </p>
                 <ul>
                   <li>
-                    <h5>1 id_ctx</h5>
+                    <h5>thick</h5>
                     <p>
-                      必須。<a href="#_create_canvas">_create_canvasで得る。</a>
+                      default:1<br>
+                      描画する線の太さ
                     </p>
                   </li>
                   <li>
-                    <h5>2 func</h5>
+                    <h6>radius</h6>
                     <p>
-                      必須。CompVisクラスの戻り値が必要。引数を変数として用いた関数。変数は実数値である。<br>
-                      ※現在のバージョンでは、値の1が1pxに対応<br>
-                      例:<br>
-                      JavaScript -&gt;<br>
-                      const func = function(t){<br>
-                      &nbsp;&nbsp;&nbsp;&nbsp;return new CompVis(0,t).exp.pro(t);<br>
-                      }<br>
-                      この場合、t*e^itを描画する。<br><br>
+                      default:0<br>
+                      func上を変数が動いた点に描画される円の半径
                     </p>
                   </li>
                   <li>
-                    <h5>3 start,4 end,5 step</h5>
+                    <h6>line_color,point_color</h6>
                     <p>
-                      必須。変数をstartからendまで間隔をstepとして動かす。
+                      default:&quot;#000&quot;(黒),&quot;#a00000&quot;(赤)<br>
+                      線、点の色。&quot;# (rgbのHTMLカラーコード)&quot;
                     </p>
                   </li>
                   <li>
-                    <h5>6 params</h5>
+                    <h6>timeout</h6>
                     <p>
-                      任意。連想配列型。その他の設定を変更する。変更したい変数のみ記すことも可能。
+                      default:20000<br>
+                      計算時間の上限。整数値。単位はms(ミリ秒)。0以下で計算時間の上限なし。<br>
+                      タイムアウトするとErrorを発生させる(Too longエラー)。
                     </p>
-                    <ul>
-                      <li>
-                        <h5>thick</h5>
-                        <p>
-                          default:1<br>
-                          描画する線の太さ
-                        </p>
-                      </li>
-                      <li>
-                        <h6>radius</h6>
-                        <p>
-                          default:0<br>
-                          func上を変数が動いた点に描画される円の半径
-                        </p>
-                      </li>
-                      <li>
-                        <h6>line_color,point_color</h6>
-                        <p>
-                          default:&quot;#000&quot;(黒),&quot;#a00000&quot;(赤)<br>
-                          線、点の色。&quot;# (rgbのHTMLカラーコード)&quot;
-                        </p>
-                      </li>
-                      <li>
-                        <h6>timeout</h6>
-                        <p>
-                          default:20000<br>
-                          計算時間の上限。整数値。単位はms(ミリ秒)。0以下で計算時間の上限なし。<br>
-                          タイムアウトするとErrorを発生させる(Too longエラー)。
-                        </p>
-                      </li>
-                    </ul>
                   </li>
                 </ul>
               </li>
