@@ -175,7 +175,7 @@ class CompVis {
     const center_y = id.height/2;
     
     function func(t){
-      return origin_func(t).add(new CompVis(center_x,center_y));
+      return origin_func(t).add(new CompVis(center_x,center_y)).conj;
     }
     
     if(Number.isNaN(start) || Number.isNaN(end) || Number.isNaN(step)){
