@@ -144,17 +144,17 @@ def gltf():
 def Static_file_post(Path):
   pattern = r"^API/(.+)/latest/(.+)$"
   path = str(Path);
-  app.logger.info(path)
+  #app.logger.info(path)
   # 正規表現で判定
   match = re.match(pattern, path)
-  app.logger.info(str(match))
+  #app.logger.info(str(match))
   if match:
     file_name = match.group(1)
     file = match.group(2)
     folders = [name for name in os.listdir('static/API/'+file_name) if os.path.isdir(os.path.join('static/API/'+file_name, name))]
     latest_ver = max(folders, key=lambda v: list(map(int, v.split('.'))))
-    app.logger.info('API/'+file_name+latest_ver+file)
-    return send_from_directory('static','API/'+file_name+latest_ver+file)
+    #app.logger.info('API/'+file_name+latest_ver+file)
+    return send_from_directory('static','API/'+file_name+'/'+latest_ver+'/'+file)
   else:
     return send_from_directory('static',Path)
 
@@ -162,17 +162,17 @@ def Static_file_post(Path):
 def Static_file(Path):
   pattern = r"^API/(.+)/latest/(.+)$"
   path = str(Path);
-  app.logger.info(path)
+  #app.logger.info(path)
   # 正規表現で判定
   match = re.match(pattern, path)
-  app.logger.info(str(match))
+  #app.logger.info(str(match))
   if match:
     file_name = match.group(1)
     file = match.group(2)
     folders = [name for name in os.listdir('static/API/'+file_name) if os.path.isdir(os.path.join('static/API/'+file_name, name))]
     latest_ver = max(folders, key=lambda v: list(map(int, v.split('.'))))
-    app.logger.info('API/'+file_name+latest_ver+file)
-    return send_from_directory('static','API/'+file_name+latest_ver+file)
+    #app.logger.info('API/'+file_name+latest_ver+file)
+    return send_from_directory('static','API/'+file_name+'/'+latest_ver+'/'+file)
   else:
     return send_from_directory('static',Path)
 
