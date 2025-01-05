@@ -337,13 +337,8 @@ throw new Error('CompVisJS-Timeout error->Too long.');
     let N = l.length;
     let abs = [];
     let arg = [];
-    let return_value;
+    let return_value = [];
     let F = [];
-    if(return_type == 'normal'){
-      return_value = {};
-    } else {
-      return_value = [];
-    }
     for(let k = 0; k < N; k++){
       F.push(new CompVis(0,0));
     
@@ -352,7 +347,7 @@ throw new Error('CompVisJS-Timeout error->Too long.');
       }
       F[k] = F[k].div(N);
       if(return_type == 'normal') {
-        return_value[k] = {value:F[k],abs:F[k].abs,arg:F[k].arg};
+        return_value.push({value:F[k],abs:F[k].abs,arg:F[k].arg});
       } else {
         return_value.push(`value:${F[k].str},abs:${F[k].abs},arg:${F[k].arg}`);
       }
