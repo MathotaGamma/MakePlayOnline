@@ -23,7 +23,8 @@
       <p>
         C,cはnew CompVis(~,~);で作成したCompVisクラス変数、<br>
         xは実数、nは整数、lは実数値を二つ持った配列([x,y]),l_c・l_xはc・xの一次元配列とする。<br><br>
-        verが書いてあるものは、そのver以降使えるもの。
+        verが書いてあるものは、そのverで追加、削除、変更のあったもの。<br>
+        追加は「 <- ver:~~」、削除は取り消し線と「 <- ver:~~」、変更は「 - ver:~~ -」または「 - ver:~~ ->」で表す。
       </p>
       <ul>
         <li>
@@ -57,14 +58,14 @@
         <li>
           <a href="#static_method" class="anchor">静的メソッド</a>
           <ul>
-            <li>CompVis._list,CompVis._list_ja</li>
+            <li>CompVis._list - ver:1.02.03 -,<s>CompVis._list_ja</s> <- ver:1.02.03</li>
             <li>CompVis._value(c)</li>
             <li>CompVis._str(c)</li>
             <li>CompVis._round(c,n)</li>
             <li>CompVis._toComp(l),CompVis._toComp(x)</li>
             <li>CompVis._DFT(l) <- ver:1.02.03</li>
-            <li>CompVis._Real(c),CompVis._Real(l_c) <- ver:1.02.03</li>
-            <li>CompVis._Imag(c),CompVis._Imag(l_c) <- ver:1.02.03</li>
+            <li>CompVis._Real(c),CompVis._Real(l_c) <- new ver:1.02.03</li>
+            <li>CompVis._Imag(c),CompVis._Imag(l_c) <- new ver:1.02.03</li>
           </ul>
         </li>
         <li>
@@ -322,14 +323,14 @@ console.log(C.exp.round(5).str); //e_iπ (=-1)
           <h3 id="static_method">静的メソッド</h3>
           <ul>
             <li>
-              <h4>CompVis._list,CompVis._list_ja</h4>
+              <h4>CompVis._list,<s>CompVis._list_ja</s></h4>
               <p>
-                使えるメソッドのリストと簡単な説明を返す。<br>
-                ._listは英語版、_list_jaは日本語版<br>
+                使えるメソッドのリスト<s>と簡単な説明</s>を返す。 &lt;- ver:1.02.03で変更<br>
+                <s>._listは英語版、_list_jaは日本語版</s> --&gt; ._listは日本語。<br>
                 例:<br>
                 <js-window>
 console.log(CompVis._list.join(','));
-console.log(CompVis._list_ja.join(','));
+/*console.log(CompVis._list_ja.join(',')); ver:1.02.03以降使えなくなりました。*/
                 </js-window>
               </p>
             </li>
