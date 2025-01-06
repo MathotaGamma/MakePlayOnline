@@ -6,8 +6,8 @@ class CompVis {
     this._imag = k_imag;
   }
   
-  static ver = '1.02.03';
-  static _list = ['.value','_value','.str','_str','.round','_round','_toComp','.real','.imag','.conj','.abs','.arg','.log','.exp','_create_canvas','_graph','_re_graph','_DFT','_Real','_Imag','.add','.dif','.pro','.div','.log_n','.pow_by','.pow_of','.rotate'];
+  static ver = '1.02.04';
+  static _list = ['.value','_value','.str','_str','.round','_round','_toComp','.real','.imag','.conj','.abs','.arg','.log','.exp','_create_canvas','_graph','_DFT','_Real','_Imag','.add','.dif','.pro','.div','.log_n','.pow_by','.pow_of','.rotate'];
   
   //Methods that throw errors about functions whose arguments must be real numbers
   #Error_Argument_real(k){
@@ -135,216 +135,51 @@ class CompVis {
     return {canvas:canvas,ctx:canvas.getContext("2d"),width:canvas.width,height:canvas.height};
   }
   //default:thick=1,radius=0,line_color="#000",point_color="#a00000",timeout=20000
-  static _graph(canvas_ctx,origin_func,start,end,step,params={}){
-    const return_data = {canvas_ctx:canvas_ctx,origin_func:origin_func,start:start,end:end,step:step,params:params}
-    let canvas = canvas_ctx.canvas;
-    //console.log(canvas)
-    let ctx = canvas_ctx.ctx;
-    let thick = 1;
-    let radius = 0;
-    let center_x = canvas.width/2;
-    let center_y = canvas.height/2;
-    let line_color = "#000";
-    let point_color = "#a00000";
-    let timeout = 20000;
-    
-    //setting
+  static _clear_canvas(canvas_ctx){
+    const ctx = canvas_ctx.ctx;
+    const canvas = canvas_ctx.canvas;
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // キャンバスをクリア
+  }
+  
+  static _graph(canvas_ctx, func, start, end, step, params={}) {
+    let color = 'black';
+    let line_width = 2;
+    let size = 1;
     for(let k of Object.keys(params)){
       let value_k = params[k];
       switch(k){
-        case 'thick':
-          thick = value_k;
+        case 'color':
+          color = value_k;
           break;
-        case 'radius':
-          radius = value_k;
+        case 'line_width':
+          line_width = value_k;
           break;
-        case 'line_color':
-          line_color = value_k;
+        case 'size':
+          size = value_k;
           break;
-        case 'point_color':
-          point_color = value_k;
-          break;
-        case 'timeout':
-          timeout = value_k;
-          break;
-        case 'origin':
-          if(value_k == 'normal'){
-            center_x = 0;
-            center_y = canvas.height;
-          }
       }
-    }
-    
-    
-    ctx.strokeStyle = line_color;
-    ctx.fillStyle = point_color;
-    ctx.lineWidth = thick;
-    
-    
-    function func(t){
-      return new CompVis(center_x,center_y).add(origin_func(t).conj);
-    }
-    
-    if(Number.isNaN(start) || Number.isNaN(end) || Number.isNaN(step)){
-      throw new Error('CompVisJS-Argument error->The arguments start, end and step of the _graph method must be real numbers.');
-    }
-    if(start > end || step <= 0){
-      throw new Error('CompVisJS-Argument error->The argument of the _graph method, end, must be a number greater than start, and step must be greater than or equal to 0.');
-    }
-    
-    
-    let t = start;
-    
-    let value = func(t).value;
-    
-    
+    } 
+    const ctx = canvas_ctx.ctx;
+    const canvas = canvas_ctx.canvas;
     ctx.beginPath();
-    ctx.arc(value[0],value[1],radius,0,2*Math.PI);
-    ctx.closePath();
-    ctx.fill();
-   
-    if(start + step < end){
-      let start_time = Date.now();
+
+    // グラフの描画を開始
+    for (let t = start; t < end; t += step) {
+      if(t+step > end) t = end;
+      const [x, y] = func(t).value;
       
-      while(t < end){
-        ctx.beginPath();
-        
-        value = func(t).value;
-        ctx.moveTo(value[0],value[1]);
-        
-        t += step;
-        if(t > end){
-          t = end;
-        }
-        value = func(t).value;
-        ctx.lineTo(value[0],value[1]);
-        
-        ctx.closePath();
-        ctx.stroke();
-        
-        
-        ctx.beginPath();
-        ctx.arc(value[0],value[1],radius,0,2*Math.PI);
-        ctx.closePath();
-        ctx.fill();
-        
-        if(timeout > 0 && Date.now()-start_time > timeout){
-          
-throw new Error('CompVisJS-Timeout error->Too long.');
-          break;
-        }
+      const canvasX = canvas.width / 2 + x * size; // スケールとオフセット
+      const canvasY = canvas.height / 2 - y * size; // Y 軸の方向を反転
+      if (t === start) {
+        ctx.moveTo(canvasX, canvasY);
+      } else {
+        ctx.lineTo(canvasX, canvasY);
       }
     }
-    
-    return return_data;
-  }
-  
-  static _re_graph(data_list){
-    if(!Array.isArray(data_list)) data_list = [data_list];
-    let canvas_k = data_list[0].canvas_ctx.canvas;
-    let canvas_ctx = CompVis._create_canvas(canvas_k,canvas_k.width,canvas_k.height);
-    for(let data of data_list){
-      let canvas = canvas_ctx.canvas;
-      let ctx = canvas_ctx.ctx;
-      let origin_func = data.origin_func;
-      let start = data.start;
-      let end = data.end;
-      let step = data.step;
-      let params = data.params;
-      let thick = 1;
-      let radius = 0;
-      let center_x = canvas.width/2;
-      let center_y = canvas.height/2;
-      let line_color = "#000";
-      let point_color = "#a00000";
-      let timeout = 20000;
-      
-      //setting
-      for(let k of Object.keys(params)){
-        let value_k = params[k];
-        switch(k){
-          case 'thick':
-            thick = value_k;
-            break;
-          case 'radius':
-            radius = value_k;
-            break;
-          case 'line_color':
-            line_color = value_k;
-            break;
-          case 'point_color':
-            point_color = value_k;
-            break;
-          case 'timeout':
-            timeout = value_k;
-            break;
-          case 'origin':
-            if(value_k == 'normal'){
-              center_x = 0;
-              center_y = canvas.height;
-            }
-        }
-      }
-    
-      ctx.strokeStyle = line_color;
-      ctx.fillStyle = point_color;
-      ctx.lineWidth = thick;
-      
-    
-      function func(t){
-        return new CompVis(center_x,center_y).add(origin_func(t).conj);
-      }
-    
-      if(Number.isNaN(start) || Number.isNaN(end) || Number.isNaN(step)){
-        throw new Error('CompVisJS-Argument error->The arguments start, end and step of the _graph method must be real numbers.');
-      }
-      if(start > end || step <= 0){
-        throw new Error('CompVisJS-Argument error->The argument of the _graph method, end, must be a number greater than start, and step must be greater than or equal to 0.');
-      }
-    
-    
-      let t = start;
-    
-      let value = func(t).value;
-    
-      ctx.beginPath();
-      ctx.arc(value[0],value[1],radius,0,2*Math.PI);
-      ctx.closePath();
-      ctx.fill();
-    
-      if(start + step <= end){
-        let start_time = Date.now();
-      
-        while(t < end){
-          ctx.beginPath();
-        
-          value = func(t).value;
-          ctx.moveTo(value[0],value[1]);
-        
-          t += step;
-          if(t > end){
-            t = end;
-          }
-          value = func(t).value;
-          ctx.lineTo(value[0],value[1]);
-        
-          ctx.closePath();
-          ctx.stroke();
-        
-        
-          ctx.beginPath();
-          ctx.arc(value[0],value[1],radius,0,2*Math.PI);  
-          ctx.closePath();
-          ctx.fill();
-        
-          if(timeout > 0 && Date.now()-start_time > timeout){
-          
-throw new Error('CompVisJS-Timeout error->Too long.');
-            break;
-          }
-        }
-      }
-    }
+
+    ctx.strokeStyle = color; // 線の色
+    ctx.lineWidth = line_width; // 線の太さ
+    ctx.stroke();
   }
   
   static _draw_text(canvas_ctx,text,c,params={}){
