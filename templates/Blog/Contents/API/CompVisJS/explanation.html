@@ -519,7 +519,8 @@ console.log(CompVis._Imag(l_c));
       let element = document.getElementById('API_URL');
       function copy_func(copy_text){
         if (navigator.clipboard) {
-          return navigator.clipboard.writeText(copy_text)
+          alert('クリップボードにコピーしました。');
+          return navigator.clipboard.writeText(copy_text);
         }
       }
       element.addEventListener('click',()=>{
