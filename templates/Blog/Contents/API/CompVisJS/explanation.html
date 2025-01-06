@@ -35,7 +35,7 @@
           <li>l2 : lを要素とする配列</li>
         </ul>
         verが書いてあるものは、そのverで追加、削除、変更のあったもの。<br>
-        追加は「 <- ver:~~」、削除は取り消し線と「 <- ver:~~」、変更は「 - ver:~~ -」または「 - ver:~~ ->」で表す。
+        追加は「 <- new ver:~~」、削除は取り消し線と「 <- ver:~~」、変更は「 - ver:~~ -」または「 - ver:~~ ->」で表す。
       </p>
       <ul>
         <li>
@@ -82,9 +82,10 @@
         <li>
           <a href="#graph" class="anchor">Graph関連</a>
           <ul>
-            <li>CompVis._create_canvas(element)</li>
+            <li>CompVis._create_canvas(element) - ver:1.02.03 -</li>
             <li>CompVis._graph(id_ctx,func,start,end,step,params)</li>
             <li>CompVis._re_graph(data)</li>
+            <li>CompVis._draw_text(id_ctx,text,position,params) <- new ver:1.02.04</li>
           </ul>
         </li>
       </ul>
@@ -493,13 +494,20 @@ console.log(CompVis._Imag(l_c));
             <li>
               <h4>CompVis._graph(id_ctx,func,start,end,step,params)</h4>
               <p>
-                グラフの初期描画を行う。詳しくは<a href="https://makeplayonline.onrender.com/Blog/Contents/API/CompVisJS/explanation_graph" target="_blank">こちら</a>
+                グラフの初期描画を行う。詳しくは<a href="https://makeplayonline.onrender.com/Blog/Contents/API/CompVisJS/explanation_graph" target="_blank">こちら</a><br>
+                <b>変更点:ver:1.02.03以降は、描画の値が共役な複素数になっていたものを修正しました。</b>
               </p>
             </li>
             <li>
               <h4>CompVis._re_graph(data)</h4>
               <p>
                 グラフの再描画を行う。詳しくは<a href="https://makeplayonline.onrender.com/Blog/Contents/API/CompVisJS/explanation_graph" target="_blank">こちら</a>
+              </p>
+            </li>
+            <li>
+              <h4>CompVis._draw_text(id_ctx,text,position,params)</h4>
+              <p>
+                Textの表示を行う。詳しくは<a href="https://makeplayonline.onrender.com/Blog/Contents/API/CompVisJS/explanation_graph" target="_blank">こちら</a>
               </p>
             </li>
           </ul>
