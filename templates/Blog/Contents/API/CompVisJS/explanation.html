@@ -17,7 +17,7 @@
       <button onclick='window.location.href="/"'>Home</button>
       <button onclick='window.location.href="../home"'>API Home</button>
     </div>
-    APIのURLは<a href="https://makeplayonline.onrender.com/Static/API/CompVisJS/latest/CompVisJS.js">https://makeplayonline.onrender.com/Static/API/CompVisJS/latest/CompVisJS.js</a>です。
+    APIのURLは<b><span id="API_URL">https://makeplayonline.onrender.com/Static/API/CompVisJS/latest/CompVisJS.js</span></b>です。
     <main>
       <p>
         Web版のEditorは<a href="./Editor">こちら</a><br>
@@ -515,5 +515,16 @@ console.log(CompVis._Imag(l_c));
       </ul>
     </main>
     <script src="https://makeplayonline.onrender.com/Static/API/JS-Window/1.01.01/JS-Window.js"></script>
+    <script>
+      let element = document.getElementById('API_URL');
+      function copy_func(copy_text){
+        if (navigator.clipboard) {
+          return navigator.clipboard.writeText(copy_text)
+        }
+      }
+      element.addEventListener('click',()=>{
+        copy_func(element.innerText);
+      });
+    </script>
   </body>
 </html>
