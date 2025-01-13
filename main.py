@@ -215,10 +215,16 @@ def sign_post():
   #users = Post.query.all()
   id_max = 0
   for k in response.json():
-    id_max = max(id_max,int(k['id']))
+		if k['category'] == 'login':
+			id_max += 1;
 
   app.logger.info(str(id_max))
-  data2 = {"token":ADMIN_TOKEN,"data_name":'login:'+request.form['name'],"data":"pass:"+str(request.form['pass'])}
+  data2 = {
+    "token":ADMIN_TOKEN,
+		"category":'login',
+    "data_name":request.form['name'],
+    "data":{'pass':request.form['pass'],'id':id_max}
+  }
   response = requests.post("https://stain.onrender.com/add",data=data2)
 
   app.logger.info(str(response.status_code))
