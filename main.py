@@ -207,14 +207,9 @@ def Connect_homepage():
 def sign_post():
   # フォームデータからユーザー情報を取得
 
-	data = {
-    "token": ADMIN_TOKEN
-  }
+	data = {"token": ADMIN_TOKEN}
+  response = requests.post("https://stain.onrender.com/get",data=data)
 
-  response = requests.post(
-    "https://stain.onrender.com/get",
-    data=data
-  )
   app.logger.info(response.text)
   # 新しいUserオブジェクトを作成
   #users = Post.query.all()
@@ -223,26 +218,17 @@ def sign_post():
     id_max = max(id_max,int(k['id']))
 
   app.logger.info(str(id_max))
-
-  data2 = {
-    "token":ADMIN_TOKEN,
-    "data_name":'login:'+request.form['name'],
-    "data":"pass:"+str(request.form['pass'])
-  }
-
-  response = requests.post(
-    "https://stain.onrender.com/add",
-    data=data2
-  )
+  data2 = {"token":ADMIN_TOKEN,"data_name":'login:'+request.form['name'],"data":"pass:"+str(request.form['pass'])}
+  response = requests.post("https://stain.onrender.com/add",data=data2)
 
   app.logger.info(str(response.status_code))
 
   if response.status_code == 200:
     now_str = datetime.datetime.now(pytz.timezone('Asia/Tokyo')).strftime('%Y-%m/%d-%H:%M:%S')
     return render_template('/Connect/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1), created_date=str(created_date))
-	else:
-		raise Exception
-		return 'Login error'
+  else:
+    raise Exception
+    return 'Login error'
 
 """@app.route('/Connect/sign', methods=['POST'])
 def sign_post():
