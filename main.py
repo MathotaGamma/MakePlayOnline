@@ -225,7 +225,7 @@ def sign_post():
     "data_name":request.form['name'],
     "data":{'pass':request.form['pass'],'id':id_max}
   }
-  response = requests.post("https://stain.onrender.com/add",data=data2)
+  response = requests.post("https://stain.onrender.com/add",json=data2)
 
   app.logger.info(str(response.status_code))
 
