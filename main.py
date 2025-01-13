@@ -207,7 +207,7 @@ def Connect_homepage():
 def sign_post():
   # フォームデータからユーザー情報を取得
 
-	data = {"token": ADMIN_TOKEN}
+  data = {"token": ADMIN_TOKEN}
   response = requests.post("https://stain.onrender.com/get",data=data)
 
   app.logger.info(response.text)
