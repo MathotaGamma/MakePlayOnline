@@ -11,12 +11,14 @@ import pathlib
 import textwrap
 import google.generativeai as genai
 import logging
+import requests
 
 """from google.colab import userdata
 from IPython.display import display
 from IPython.display import Markdown"""
 
 
+ADMIN_TOKEN = os.environ.get('ADMIN_TOKEN');
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -205,6 +207,47 @@ def Connect_homepage():
 def sign_post():
   # フォームデータからユーザー情報を取得
 
+	data = {
+    "token": ADMIN_TOKEN
+  }
+
+  response = requests.post(
+    "https://stain.onrender.com/get",
+    data=data
+  )
+  app.logger.info(response.text)
+  # 新しいUserオブジェクトを作成
+  #users = Post.query.all()
+  id_max = 0
+  for k in response.json():
+    id_max = max(id_max,int(k['id']))
+
+  app.logger.info(str(id_max))
+
+  data2 = {
+    "token":ADMIN_TOKEN,
+    "data_name":'login:'+request.form['name'],
+    "data":"pass:"+str(request.form['pass'])
+  }
+
+  response = requests.post(
+    "https://stain.onrender.com/add",
+    data=data2
+  )
+
+  app.logger.info(str(response.status_code))
+
+  if response.status_code == 200:
+    now_str = datetime.datetime.now(pytz.timezone('Asia/Tokyo')).strftime('%Y-%m/%d-%H:%M:%S')
+    return render_template('/Connect/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1), created_date=str(created_date))
+	else:
+		raise Exception
+		return 'Login error'
+
+"""@app.route('/Connect/sign', methods=['POST'])
+def sign_post():
+  # フォームデータからユーザー情報を取得
+
   # 新しいUserオブジェクトを作成
   users = Post.query.all()
   id_max = 0
@@ -223,6 +266,7 @@ def sign_post():
 
   #return render_template('/Connect/home.html')
   return render_template('/Connect/login.html',name=request.form['name'], password=str(request.form['pass']), id=str(id_max+1), created_date=str(created_date))
+"""
 
 @app.route('/Connect/sign')
 def sign():
